@@ -1,0 +1,24 @@
+div{
+   background: #ffffff10;
+  backdrop-filter: blur(10px);
+  padding: 40px;
+  border-radius: 20px;
+  width: 300px;
+  transition: transform 0.3s ease;
+  border: 1px solid #ffffff20; 
+}
+
+.submit{
+  background: #007bff;
+  color: white;
+  border: none;
+  padding: 12px 12px;
+  border-radius: 8px;
+  cursor: pointer;
+  margin-top: 20px;
+  font-weight: bold;
+}
+
+label{
+    color:whitesmoke;
+}
