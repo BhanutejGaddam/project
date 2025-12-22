@@ -1,0 +1,71 @@
+
+/* Shell layout: left fixed-width aside + content area */
+.layout {
+  display: grid;
+  grid-template-columns: 260px 1fr;
+  min-height: 100dvh;
+}
+
+.sidebar {
+  position: sticky;
+  top: 0;
+  height: 100dvh;
+  background: #1e293b; /* required */
+  color: #777;         /* required: all text in sidebar */
+  border-right: 1px solid rgba(255, 255, 255, 0.08);
+  display: flex;
+  flex-direction: column;
+  padding: 12px;
+}
+
+.brand {
+  font-weight: 600;
+  margin-bottom: 12px;
+  color: #777; /* ensure brand uses the same text color */
+}
+
+.nav-list {
+  display: flex;
+  flex-direction: column;
+  gap: 6px;
+}
+
+.nav-list a {
+  display: block;
+  padding: 10px 12px;
+  border-radius: 8px;
+  text-decoration: none;
+  color: #777; /* required */
+  outline: none;
+
+  /* Hover/Focus keeps text color as #777; highlights with subtle bg */
+  &:hover {
+    background: rgba(255, 255, 255, 0.06);
+  }
+  &:focus-visible {
+    box-shadow: 0 0 0 2px #93c5fd; /* visible focus ring */
+  }
+
+  /* Active state indicator without changing text color */
+  &.active {
+    background: rgba(255, 255, 255, 0.10);
+    border-left: 3px solid #64748b; /* subtle accent */
+  }
+}
+
+main {
+  padding: 16px;
+  overflow: auto;
+  background: #0f172a;
+}
+
+/* Optional responsive: stack layout and keep sidebar sticky on top */
+@media (max-width: 768px) {
+  .layout {
+    grid-template-columns: 1fr;
+  }
+  .sidebar {
+    height: auto;
+    position: relative;
+  }
+}

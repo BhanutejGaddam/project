@@ -1,0 +1,20 @@
+<div class="layout">
+  <aside
+    class="sidebar"
+    role="navigation"
+    aria-label="Admin navigation"
+  >
+    <div class="brand">Dealer Portal</div>
+
+    <nav class="nav-list">
+      <a routerLink="dealers" routerLinkActive="active">My Dealers</a>
+      <a routerLink="dealer-sales" routerLinkActive="active">Dealer Sales</a>
+      <a routerLink="dealer-inventory" routerLinkActive="active">Service Compliance</a>
+    </nav>
+
+  </aside>
+
+  <main id="main-content" role="main" tabindex="-1">
+    <router-outlet></router-outlet>
+  </main>
+</div>
