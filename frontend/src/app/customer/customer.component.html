@@ -1,0 +1,20 @@
+<div class="layout">
+  <aside
+    class="sidebar"
+    role="navigation"
+    aria-label="Customer navigation"
+  >
+    <div class="brand">Customer Portal</div>
+
+    <nav class="nav-list">
+      <a routerLink="book-service" routerLinkActive="active">Book Service</a>
+      <a routerLink="track-service" routerLinkActive="active">Track Service</a>
+      <a routerLink="purchase-history" routerLinkActive="active">Purchase History</a>
+    </nav>
+
+  </aside>
+
+  <main id="main-content" role="main" tabindex="-1">
+    <router-outlet></router-outlet>
+  </main>
+</div>
