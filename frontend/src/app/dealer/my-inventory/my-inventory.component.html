@@ -1,1 +1,36 @@
-<p>my-inventory works!</p>
+<!-- src/app/components/vehicle-inventory/vehicle-inventory.component.html -->
+<div class="inventory-container">
+  <h2>🚗 Vehicle Inventory Management</h2>
+
+  <table>
+    <thead>
+      <tr>
+        <th>Vehicle ID</th>
+        <th>Model</th>
+        <th>Price</th>
+        <th>Status</th>
+        <th>Dealer ID</th>
+        <th>Actions</th>
+      </tr>
+    </thead>
+    <tbody>
+      <tr *ngFor="let vehicle of vehicles">
+        <td>{{ vehicle.vehicleID }}</td>
+        <td>{{ vehicle.model }}</td>
+        <td>{{ vehicle.price | currency : "USD" }}</td>
+        <td
+          [ngClass]="{
+            available: vehicle.availabilityStatus === 'Available',
+            sold: vehicle.availabilityStatus === 'Sold'
+          }"
+        >
+          {{ vehicle.availabilityStatus }}
+        </td>
+        <td>{{ vehicle.dealerID }}</td>
+        <td>
+          <button (click)="deleteVehicle(vehicle.vehicleID)">Delete</button>
+        </td>
+      </tr>
+    </tbody>
+  </table>
+</div>
