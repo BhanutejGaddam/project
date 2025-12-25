@@ -1,1 +1,135 @@
-<p>book-service works!</p>
+<div class="book-service">
+  <h2>BOOK A SERVICE</h2>
+
+<form class="service-form" (ngSubmit)="onSubmit()" #serviceForm="ngForm">
+    <!-- 🔑 Personal Information -->
+    <h3>🔑 Personal Information</h3>
+    <div class="form-group">
+      <label for="ownerName">Full Name</label>
+      <input id="ownerName" type="text" placeholder="Enter full name" />
+    </div>
+    <div class="form-group">
+      <label for="phone">Phone Number</label>
+      <input id="phone" type="tel" placeholder="Enter phone number" />
+    </div>
+    <div class="form-group">
+      <label for="email">Email Address</label>
+      <input id="email" type="email" placeholder="Enter email address" />
+    </div>
+    <div class="form-group">
+      <label for="address">Residential Address</label>
+      <textarea id="address" placeholder="Enter address"></textarea>
+    </div>
+
+    <!-- 🚗 Vehicle Information -->
+    <h3>🚗 Vehicle Information</h3>
+    <div class="form-group">
+      <label for="makeModelYear">Make, Model & Year</label>
+      <input id="makeModelYear" type="text" placeholder="e.g., Toyota Corolla 2020" />
+    </div>
+    <div class="form-group">
+      <label for="vin">VIN / Chassis Number</label>
+      <input id="vin" type="text" placeholder="Enter VIN or chassis number" />
+    </div>
+    <div class="form-group">
+      <label for="registration">Registration Number</label>
+      <input id="registration" type="text" placeholder="Enter license plate number" />
+    </div>
+    <div class="form-group">
+      <label for="mileage">Current Mileage</label>
+      <input id="mileage" type="number" placeholder="Enter odometer reading" />
+    </div>
+    <div class="form-group">
+      <label for="fuelType">Fuel Type</label>
+      <select id="fuelType">
+        <option value="petrol">Petrol</option>
+        <option value="diesel">Diesel</option>
+        <option value="hybrid">Hybrid</option>
+        <option value="electric">Electric</option>
+      </select>
+    </div>
+
+    <!-- 🛠️ Service Details -->
+    <h3>🛠️ Service Details</h3>
+    <div class="form-group">
+      <label for="serviceType">Type of Service</label>
+      <select id="serviceType">
+        <option value="routine">Routine Maintenance</option>
+        <option value="repair">Specific Repair</option>
+        <option value="annual">Annual Service</option>
+      </select>
+    </div>
+    <div class="form-group">
+      <label for="issues">Description of Issues</label>
+      <textarea id="issues" placeholder="Describe problems noticed"></textarea>
+    </div>
+    <div class="form-group">
+      <label for="package">Preferred Service Package</label>
+      <select id="package">
+        <option value="basic">Basic</option>
+        <option value="comprehensive">Comprehensive</option>
+        <option value="manufacturer">Manufacturer-Recommended</option>
+      </select>
+    </div>
+    <div class="form-group">
+      <label for="history">Previous Service History</label>
+      <textarea id="history" placeholder="Enter previous service details"></textarea>
+    </div>
+
+    
+    <!-- 📅 Logistics -->
+    <h3>📅 Logistics</h3>
+    <div class="form-group">
+      <label for="serviceDate">Appointment Date & Time</label>
+      <input id="serviceDate" type="datetime-local" [(ngModel)]="booking.serviceDate" name="serviceDate" required />
+    </div>
+    <div class="form-group">
+      <label for="pickupDrop">Pickup/Drop-off Preference</label>
+      <select id="pickupDrop">
+        <option value="none">None</option>
+        <option value="pickup">Pickup</option>
+        <option value="dropoff">Drop-off</option>
+        <option value="both">Both</option>
+      </select>
+    </div>
+    <div class="form-group">
+      <label for="emergencyContact">Emergency Contact (Optional)</label>
+      <input id="emergencyContact" type="tel" placeholder="Enter emergency contact number" />
+    </div>
+
+    <!-- Existing Warranty Section -->
+    <div class="form-group">
+      <label>Want to avail Warranty?</label>
+      <div class="radio-group">
+        <label>
+          <input type="radio" name="warranty" value="yes" onclick="document.getElementById('warranty-services').style.display='block'">
+          Yes
+        </label>
+        <label>
+          <input type="radio" name="warranty" value="no" onclick="document.getElementById('warranty-services').style.display='none'">
+          No
+        </label>
+      </div>
+
+      <div id="warranty-services" class="checkbox-list" style="display:none;">
+        <p>Select services covered under warranty:</p>
+        <label><input type="checkbox"> Engine Check</label>
+        <label><input type="checkbox"> Brake Inspection</label>
+        <label><input type="checkbox"> Oil Change</label>
+        <label><input type="checkbox"> Transmission Service</label>
+        <label><input type="checkbox"> Battery Replacement</label>
+        <label><input type="checkbox"> Tire Rotation</label>
+        <label><input type="checkbox"> Suspension Check</label>
+        <label><input type="checkbox"> Electrical System</label>
+        <label><input type="checkbox"> Cooling System</label>
+        <label><input type="checkbox"> Exhaust System</label>
+      </div>
+    </div>
+
+    <button type="submit" class="btn">Book Service</button>
+  </form>
+   <!-- Message display -->
+  <div class="message" *ngIf="message">
+    {{ message }}
+  </div>
+</div>

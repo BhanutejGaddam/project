@@ -1,0 +1,178 @@
+/* General Page Styling */
+body {
+  font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif;
+  background-color: #f4f6f9;
+  margin: 0;
+  padding: 40px;
+  color: #333;
+}
+
+/* Book Service Container */
+.book-service {
+  background: #fff;
+  border-radius: 8px;
+  padding: 30px;
+  max-width: 800px;
+  margin: auto;
+  box-shadow: 0 4px 12px rgba(0,0,0,0.1);
+}
+
+/* Headings */
+.book-service h2 {
+  text-align: center;
+  font-size: 2em;
+  color: #2c3e50;
+  margin-bottom: 20px;
+}
+
+.book-service h3 {
+  margin-top: 25px;
+  font-size: 1.2em;
+  color: #2c3e50;
+  border-left: 4px solid #0078d7;
+  padding-left: 8px;
+}
+
+/* Form Groups */
+.form-group {
+  margin-bottom: 20px;
+}
+
+.form-group label {
+  display: block;
+  font-weight: 600;
+  margin-bottom: 6px;
+  color: #444;
+}
+
+.form-group input,
+.form-group textarea,
+.form-group select {
+  width: 100%;
+  padding: 10px 12px;
+  border: 1px solid #ccc;
+  border-radius: 6px;
+  font-size: 1em;
+  transition: border-color 0.2s ease, box-shadow 0.2s ease;
+}
+
+/* Input focus effect */
+.form-group input:focus,
+.form-group textarea:focus,
+.form-group select:focus {
+  border-color: #0078d7;
+  box-shadow: 0 0 6px rgba(0,120,215,0.2);
+  outline: none;
+}
+
+/* Radio & Checkbox Styling */
+.radio-group label,
+.checkbox-list label {
+  display: inline-block;
+  margin-right: 15px;
+  cursor: pointer;
+  font-weight: 500;
+}
+
+.radio-group input,
+.checkbox-list input {
+  margin-right: 5px;
+}
+
+/* Submit Button */
+.btn {
+  display: block;
+  width: 100%;
+  padding: 14px;
+  font-size: 1.1em;
+  font-weight: 600;
+  border: none;
+  border-radius: 6px;
+  background-color: #0078d7;
+  color: #fff;
+  cursor: pointer;
+  transition: background-color 0.3s ease, transform 0.2s ease;
+}
+
+.btn:hover {
+  background-color: #005a9e;
+  transform: translateY(-2px);
+}
+
+/* Warranty Services Section */
+#warranty-services {
+  margin-top: 10px;
+  padding: 12px;
+  border: 1px solid #e0e0e0;
+  border-radius: 6px;
+  background-color: #fafafa;
+}
+/* Warranty Section Styling */
+.form-group {
+  margin-bottom: 20px;
+}
+
+.form-group > label {
+  font-weight: 600;
+  font-size: 1rem;
+  color: #2c3e50;
+  display: block;
+  margin-bottom: 8px;
+}
+
+/* Radio group styling */
+.radio-group {
+  display: flex;
+  gap: 10px; /* reduced gap */
+  margin-bottom: 10px;
+}
+
+.radio-group label {
+  display: flex;
+  align-items: center;
+  font-weight: 500;
+  color: #444;
+  cursor: pointer;
+  transition: color 0.2s ease;
+}
+
+.radio-group input[type="radio"] {
+  margin-right: 6px;
+  accent-color: #0078d7;
+}
+
+.radio-group label:hover {
+  color: #0078d7;
+}
+
+/* Checkbox list styling */
+.checkbox-list {
+  border: 1px solid #e0e0e0;
+  border-radius: 6px;
+  padding: 12px;
+  background-color: #fafafa;
+}
+
+.checkbox-list p {
+  font-weight: 600;
+  margin-bottom: 10px;
+  color: #2c3e50;
+}
+
+.checkbox-list label {
+  display: block;
+  margin-bottom: 6px; /* reduced spacing */
+  font-weight: 500;
+  color: #555;
+  cursor: pointer;
+  transition: color 0.2s ease;
+}
+
+.checkbox-list input[type="checkbox"] {
+  margin-right: 6px;
+  accent-color: #0078d7;
+}
+
+.checkbox-list label:hover {
+  color: #0078d7;
+}
