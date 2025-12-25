@@ -49,6 +49,10 @@ export const routes: Routes = [
         path:'**',
         component: HomeComponent
     },
-    // { path: 'admin/dealer-inventory', component: DealerInventoryComponent } 
-];
+
     
+
+   
+  // Fallback route
+  
+];
