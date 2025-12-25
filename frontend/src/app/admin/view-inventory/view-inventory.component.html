@@ -1,0 +1,108 @@
+
+<div class="view-inventory-page">
+  <style>
+    :root {
+      --bg-dark: #0b1b32;
+      --card-dark: #13233d;
+      --primary: #0d6efd;
+      --muted: #9aa9c0;
+      --border: #1f334f;
+      --info: #0dcaf0;
+      --success: #198754;
+    }
+    .view-inventory-page { min-height: 100vh; background: var(--bg-dark); color: #e9ecef; padding: 24px; box-sizing: border-box; }
+    .header { display:flex; align-items:center; gap:12px; margin-bottom: 16px; }
+    .header h2 { margin:0; color: var(--primary); font-weight:800; }
+    .card { background: var(--card-dark); border:1px solid var(--border); border-radius:12px; box-shadow:0 6px 16px rgba(0,0,0,.25); padding:16px; margin-bottom:16px; }
+    .subtitle { margin:0 0 10px; color:#a3d1ff; font-weight:700; }
+    .table-wrap { width:100%; overflow-x:auto; border-radius:10px; border:1px solid var(--border); }
+    table { width:100%; border-collapse:collapse; background:#0f2039; min-width:640px; }
+    thead th { background:#1b2a44; color:#fff; padding:10px; text-align:center; font-weight:700; border-bottom:1px solid var(--border); }
+    tbody td { padding:10px; text-align:center; border-top:1px solid var(--border); color:#e9ecef; }
+    tbody tr:nth-child(odd) { background:#12243f; }
+    tbody tr:hover { background:#153154; }
+    tfoot td { padding:10px; border-top:1px solid var(--border); background:#132a4d; color:#e9ecef; }
+    .summary-row { display:flex; gap:10px; justify-content:center; align-items:center; }
+    .badge { display:inline-block; padding:.35em .65em; border-radius:999px; font-size:.85em; font-weight:700; }
+    .badge-info { background: var(--info); color:#032830; }
+    .badge-success { background: var(--success); color:#fff; }
+    .badge-primary { background: var(--primary); color:#fff; }
+    .muted { color: var(--muted); }
+    .back { display:inline-flex; align-items:center; gap:8px; color:#e9ecef; text-decoration:none; }
+    .back:hover { text-decoration: underline; }
+  </style>
+
+  <!-- Header -->
+  <div class="header">
+    <h2>View Inventory</h2>
+    <span class="muted" *ngIf="dealerName">&mdash; {{ dealerName }} (ID: {{ dealerID }})</span>
+    <span class="ms-auto"></span>
+  </div>
+
+  <!-- Vehicles table -->
+  <div class="card">
+    <h5 class="subtitle">Vehicles</h5>
+    <div class="table-wrap">
+      <table>
+        <thead>
+          <tr>
+            <th>Vehicle Model No.</th>
+            <th>Vehicle Model Name</th>
+            <th>No. of Vehicles</th>
+          </tr>
+        </thead>
+        <tbody>
+          <tr *ngFor="let v of vehicles">
+            <td>{{ v.modelNo }}</td>
+            <td>{{ v.modelName }}</td>
+            <td><span class="badge badge-success">{{ v.units }}</span></td>
+          </tr>
+          <tr *ngIf="!vehicles.length">
+            <td colspan="3" class="muted" style="text-align:center;">No vehicle records</td>
+          </tr>
+        </tbody>
+        <tfoot>
+          <tr>
+            <td colspan="2" style="text-align:end; font-weight:700;">Totals:</td>
+            <td style="text-align:center;">
+              <div class="summary-row">
+                <span class="badge badge-info">Total Units: {{ totalUnits }}</span>
+                <span class="badge badge-primary">Total Value: {{ totalValueINR | currency:'INR':'symbol':'1.0-0' }}</span>
+              </div>
+            </td>
+          </tr>
+        </tfoot>
+      </table>
+    </div>
+  </div>
+
+  <!-- Spare parts table -->
+  <div class="card">
+    <h5 class="subtitle">Spare Parts</h5>
+    <div class="table-wrap">
+      <table>
+        <thead>
+          <tr>
+            <th>Spare Part ID</th>
+            <th>Spare Part</th>
+            <th>Per-Part Cost (INR)</th>
+          </tr>
+        </thead>
+        <tbody>
+          <tr *ngFor="let p of parts">
+            <td>{{ p.partID }}</td>
+            <td>{{ p.partName }}</td>
+            <td>{{ p.costINR | currency:'INR':'symbol':'1.0-0' }}</td>
+          </tr>
+          <tr *ngIf="!parts.length">
+            <td colspan="3" class="muted" style="text-align:center;">No spare parts listed</td>
+          </tr>
+        </tbody>
+      </table>
+    </div>
+  </div>
+
+  <!-- Optional: back link -->
+  <a class="back" routerLink="/admin/dealer">&larr; Back to My Dealers</a>
+</div>
+``

@@ -1,8 +1,46 @@
 /* You can add global styles to this file, and also import other style files */
-html, body {
+/* html, body {
   margin: 0;
   padding: 0;
   width: 100%;
   overflow-x: hidden;
   background-color: #0f172a;
+} */
+
+/* Global dark theme base */
+:root {
+  --bg-dark: #0b1b32;      /* page background */
+  --card-dark: #13233d;    /* card background */
+  --text-primary: #0d6efd; /* bootstrap primary blue */
 }
+
+body {
+  background-color: var(--bg-dark);
+}
+
+.app-page {
+  min-height: 100vh;
+  color: #e9ecef;
+  padding: 20px 0;
+}
+
+.card.bg-dark-custom {
+  background-color: var(--card-dark);
+  border: 1px solid #1f334f;
+}
+
+.table thead th {
+  background-color: #212529 !important;
+  color: #fff !important;
+}
+
+.badge-soft-success {
+  background-color: #d1e7dd;
+  color: #0f5132;
+}
+
+.badge-soft-info {
+  background-color: #cff4fc;
+  color: #055160;
+}
+

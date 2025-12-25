@@ -1,1 +1,97 @@
-<p>dealers works!</p>
+
+<!-- src/app/dealer/my-dealers/my-dealers.component.html -->
+<div class="my-dealers-page">
+  
+<!-- src/app/dealer/dealer.component.html -->
+<div class="dealer-page">
+  <style>
+    
+  </style>
+
+  <!-- Header -->
+  <div class="header">
+    <div class="icon">🏪</div>
+    <h2>My Dealers</h2>
+  </div>
+
+  <!-- Toolbar -->
+  <div class="toolbar">
+    <button class="btn btn-outline" type="button" (click)="openAddDealerForm()">➕ Add Dealer</button>
+  </div>
+
+  <!-- Feedback -->
+  <div *ngIf="feedback" class="alert">{{ feedback }}</div>
+
+  <!-- Add Dealer Form (inline card) -->
+  <div *ngIf="showAddForm" class="card">
+    <h5>Add New Dealer</h5>
+
+    <form (ngSubmit)="saveDealer()" novalidate>
+      <div class="form-grid">
+        <div class="form-group">
+          <label class="form-label">Dealer Name</label>
+          <input class="form-control" [(ngModel)]="form.dealerName" name="dealerName" placeholder="e.g., Dealer Five" required />
+        </div>
+
+        <div class="form-group">
+          <label class="form-label">Address</label>
+          <input class="form-control" [(ngModel)]="form.address" name="address" placeholder="e.g., Kalyani Nagar, Pune 411006" required />
+        </div>
+        
+
+        <div class="form-group">
+          <label class="form-label">Managed By</label>
+          <input class="form-control" [(ngModel)]="form.managedBy" name="managedBy" placeholder="e.g., Anita Deshmukh" required />
+        </div>
+      </div>
+
+      <div class="actions">
+        <button type="button" class="btn btn-outline" (click)="cancelAddDealer()">Cancel</button>
+        <button type="submit" class="btn btn-primary">Save Dealer</button>
+      </div>
+    </form>
+  </div>
+
+
+  <!-- Dealer cards -->
+  <div class="grid">
+    <div class="dealer-card" *ngFor="let d of dealers">
+      <div class="title-row">
+        <span class="dealer-name">{{ d.dealerName }}</span>
+        <span class="badge">ID: {{ d.dealerID }}</span>
+      </div>
+
+      <div class="field">
+        <div class="label">Address</div>
+        <div class="value">{{ d.address }}</div>
+      </div>
+      
+      <div class="field">
+        <div class="label">Contact</div>
+        <div class="value">{{ d.Contact }}</div>
+      </div>
+
+      <div class="field">
+        <div class="label">Managed by</div>
+        <div class="value">{{ d.managedBy }}</div>
+      </div>
+
+      <div class="divider"></div>
+      <div class="dealer-actions">
+       
+<button class="btn" type="button"
+        [routerLink]="['/admin', 'viewinventory']"
+        [queryParams]="{ id: d.dealerID }">
+  View Inventory
+</button>
+
+        <!-- <button class="btn btn-primary" type="button" (click)="contactDealer(d)">Contact</button> -->
+      </div>
+    </div>
+  </div>
+</div>
+
+
+<br><br>
+ 
+</div>

@@ -1,36 +1,89 @@
-<!-- src/app/components/vehicle-inventory/vehicle-inventory.component.html -->
-<div class="inventory-container">
-  <h2>🚗 Vehicle Inventory Management</h2>
 
-  <table>
-    <thead>
-      <tr>
-        <th>Vehicle ID</th>
-        <th>Model</th>
-        <th>Price</th>
-        <th>Status</th>
-        <th>Dealer ID</th>
-        <th>Actions</th>
-      </tr>
-    </thead>
-    <tbody>
-      <tr *ngFor="let vehicle of vehicles">
-        <td>{{ vehicle.vehicleID }}</td>
-        <td>{{ vehicle.model }}</td>
-        <td>{{ vehicle.price | currency : "USD" }}</td>
-        <td
-          [ngClass]="{
-            available: vehicle.availabilityStatus === 'Available',
-            sold: vehicle.availabilityStatus === 'Sold'
-          }"
-        >
-          {{ vehicle.availabilityStatus }}
-        </td>
-        <td>{{ vehicle.dealerID }}</td>
-        <td>
-          <button (click)="deleteVehicle(vehicle.vehicleID)">Delete</button>
-        </td>
-      </tr>
-    </tbody>
-  </table>
+<!-- src/app/dealer/my-inventory/my-inventory.component.html -->
+<div class="inventory-page">
+
+  <!-- Page header -->
+  <div class="page-header">
+    <div class="icon-circle">🚗</div>
+    <h2>Vehicle Inventory Management</h2>
+  </div>
+  <div class="sub-header">My Inventory</div>
+
+  <!-- Inventory card -->
+  <div class="card">
+    <div class="card-body">
+
+      <div class="table-wrap">
+        <table>
+          <thead>
+            <tr>
+              <th>Model ID</th>
+              <th>Model</th>
+              <th>Price (INR)</th>
+              <th>No. of Vehicles Available</th>
+              <th>Status</th>
+              <!-- <th>Dealer ID</th> -->
+            </tr>
+          </thead>
+
+          <tbody>
+            <!-- Dummy rows -->
+            <tr>
+              <td>1001</td>
+              <td class="model">Sedan X</td>
+              <td class="price">₹ 15,00,000</td>
+              <td><span class="badge badge-success">15</span></td>
+              <td><span class="badge badge-info">Available</span></td>
+             
+            </tr>
+            <tr>
+              <td>1002</td>
+              <td class="model">SUV Y</td>
+              <td class="price">₹ 12,00,000</td>
+              <td><span class="badge badge-success">12</span></td>
+              <td><span class="badge badge-warning">Reserved</span></td>
+             
+            </tr>
+            <tr>
+              <td>1003</td>
+              <td class="model">Hatchback Z</td>
+              <td class="price">₹ 8,50,000</td>
+              <td><span class="badge badge-success">18</span></td>
+              <td><span class="badge badge-info">Available</span></td>
+              
+            </tr>
+            <tr>
+              <td>1004</td>
+              <td class="model">Coupe A</td>
+              <td class="price">₹ 13,00,000</td>
+              <td><span class="badge badge-success">3</span></td>
+              <td><span class="badge badge-danger">Sold</span></td>
+            
+            </tr>
+            <tr>
+              <td>1005</td>
+              <td class="model">Truck B</td>
+              <td class="price">₹ 20,50,000</td>
+              <td><span class="badge badge-success">4</span></td>
+              <td><span class="badge badge-warning">Reserved</span></td>
+             
+            </tr>
+          </tbody>
+
+          <tfoot>
+            <tr>
+              <td colspan="4" class="text-end fw-semibold">Summary:</td>
+              <td colspan="2">
+                <div class="summary-row">
+                  <span class="badge badge-info">Total Units: 52</span>
+                  <span class="badge badge-primary">Total Value: ₹ 69,00,000</span>
+                </div>
+              </td>
+            </tr>
+          </tfoot>
+        </table>
+      </div>
+
+    </div>
+  </div>
 </div>
