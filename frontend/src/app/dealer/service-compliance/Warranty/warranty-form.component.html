@@ -1,0 +1,34 @@
+<h2>{{ isEdit ? 'Edit Warranty' : 'New Warranty' }}</h2>
+
+<form [formGroup]="form" (ngSubmit)="save()" class="form">
+  <div class="grid">
+    <label>Vehicle ID
+      <input type="number" formControlName="vehicleId">
+    </label>
+    <label>Dealer ID
+      <input type="number" formControlName="dealerId">
+    </label>
+    <label>Issued Date
+      <input type="date" formControlName="issuedDate">
+    </label>
+    <label>Expiry Date
+      <input type="date" formControlName="expiryDate">
+    </label>
+    <label>Status
+      <select formControlName="status">
+        <option value="ACTIVE">ACTIVE</option>
+        <option value="EXPIRED">EXPIRED</option>
+        <option value="VOID">VOID</option>
+      </select>
+    </label>
+  </div>
+
+  <label>Coverage Details
+    <textarea rows="4" formControlName="coverageDetails"></textarea>
+  </label>
+
+  <div class="actions">
+    <button class="btn" type="submit" [disabled]="form.invalid">Save</button>
+    <button class="btn outline" type="button" (click)="cancel()">Cancel</button>
+  </div>
+</form>

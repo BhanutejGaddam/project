@@ -1,0 +1,41 @@
+<h2>{{ isEdit ? 'Edit Compliance' : 'New Compliance' }}</h2>
+
+<form [formGroup]="form" (ngSubmit)="save()" class="form">
+  <div class="grid">
+    <label>Vehicle ID
+      <input type="string" formControlName="vehicleId">
+    </label>
+    <!-- <label>Regulation Type
+      <input type="text" formControlName="regulationType" placeholder= "Pollution Check/	Fitness/	R.C">
+    </label> -->
+    <label>Check Date
+      <input type="date" formControlName="checkDate">
+    </label>
+    <label>Expiry Date
+      <input type="date" formControlName="expiryDate">
+    </label>
+    <label>PollutionCheck
+      <select formControlName="PollutionCheck">
+        <option value="COMPLIANT">COMPLIANT</option>
+        <option value="NON_COMPLIANT">NON_COMPLIANT</option>
+      </select>
+    </label>
+    <label>Fitness
+      <select formControlName="Fitness">
+        <option value="COMPLIANT">COMPLIANT</option>
+        <option value="NON_COMPLIANT">NON_COMPLIANT</option>
+      </select>
+    </label>
+    <label>RC
+      <select formControlName="RC">
+        <option value="COMPLIANT">COMPLIANT</option>
+        <option value="NON_COMPLIANT">NON_COMPLIANT</option>
+      </select>
+    </label>
+  </div>
+
+  <div class="actions">
+    <button class="btn" type="submit" [disabled]="form.invalid">Save</button>
+    <button class="btn outline" type="button" (click)="cancel()">Cancel</button>
+  </div>
+</form>
