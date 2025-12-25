@@ -1,0 +1,44 @@
+<header class="page-header">
+  <h2>Compliance</h2>
+  <!-- <a class="btn" routerLink="../compliance/new">+ New Record</a> -->
+</header>
+
+<div class="filters">
+  <label>Filter by Vehicle ID
+    <input type="number" [(ngModel)]="vehicleId" (input)="onVehicleChange()">
+  </label>
+</div>
+
+<table class="table" *ngIf="records$ | async as records; else empty">
+  <thead>
+    <tr>
+      <th>S.No.</th>
+      <th>Vehicle ID</th>
+      <th>Pollution Check</th>
+      <th>Fitness</th>
+      <th>R.C</th>
+      <th>Checked</th>
+      <th>Expiry</th>
+      <th>Actions</th>
+    </tr>
+  </thead>
+  <tbody>
+    <tr *ngFor="let r of records">
+      <td>{{ r.complianceId }}</td>
+      <td>{{ r.vehicleId }}</td>
+      <td>{{ r.PollutionCheck }}</td>
+      <td>{{ r.fitness }}</td>
+       <td>{{ r.RC}}</td>
+      <td>{{ r.checkDate | date }}</td>
+      <td>{{ r.expiryDate | date }}</td>
+      <td>
+        <a routerLink="../compliance/{{ r.complianceId }}">Edit</a>
+        <button class="link danger" (click)="remove(r.complianceId!)">Delete</button>
+      </td>
+    </tr>
+  </tbody>
+</table>
+
+<ng-template #empty>
+  <p>No compliance records.</p>
+</ng-template>
