@@ -1,1 +1,65 @@
-<p>my-sales works!</p>
+<div style="background: #0f172a; min-height: 100vh; padding: 30px; color: white; font-family: sans-serif;">
+  
+  <header style="display: flex; justify-content: space-between; align-items: center; margin-bottom: 30px;">
+    <div>
+      <h1 style="margin: 0; font-size: 24px;">Dealer Executive Insights</h1>
+      <p style="color: #94a3b8; font-size: 14px;">Real-time inventory and revenue monitoring [cite: 5]</p>
+    </div>
+    <button (click)="onGenerateReport()" style="background: #2563eb; color: white; border: none; padding: 12px 24px; border-radius: 6px; cursor: pointer; font-weight: bold;">
+      Generate Full Audit Report [cite: 56]
+    </button>
+  </header>
+
+  <h3 style="color: #3b82f6; font-size: 14px; text-transform: uppercase;">Vehicle Inventory & Sales [cite: 22]</h3>
+  <div style="display: grid; grid-template-columns: repeat(4, 1fr); gap: 20px; margin-bottom: 30px;">
+    <div style="background: #1e293b; padding: 20px; border-radius: 12px;">
+      <small style="color: #94a3b8;">VEHICLES SOLD</small>
+      <h2 style="margin: 8px 0; font-size: 28px;">{{ report?.metrics?.vehiclesSold }}</h2>
+    </div>
+    <div style="background: #1e293b; padding: 20px; border-radius: 12px;">
+      <small style="color: #94a3b8;">STOCK REMAINING</small>
+      <h2 style="margin: 8px 0; font-size: 28px; color: #f59e0b;">{{ report?.metrics?.vehiclesRemaining }}</h2>
+    </div>
+    <div style="background: #1e293b; padding: 20px; border-radius: 12px;">
+      <small style="color: #94a3b8;">SALES REVENUE</small>
+      <h2 style="margin: 8px 0; font-size: 28px; color: #10b981;">{{ report?.metrics?.salesRevenue | currency:'INR':'symbol':'1.0-0' }}</h2>
+    </div>
+    <div style="background: #1e293b; padding: 20px; border-radius: 12px;">
+      <small style="color: #94a3b8;">SALES PROFIT</small>
+      <h2 style="margin: 8px 0; font-size: 28px;">{{ report?.metrics?.salesProfit | currency:'INR':'symbol':'1.0-0' }}</h2>
+    </div>
+  </div>
+
+  <h3 style="color: #8b5cf6; font-size: 14px; text-transform: uppercase;">Service Workshop Analytics [cite: 45]</h3>
+  <div style="display: grid; grid-template-columns: repeat(3, 1fr); gap: 20px; margin-bottom: 30px;">
+    <div style="background: #1e293b; padding: 20px; border-radius: 12px;">
+      <small style="color: #94a3b8;">SERVICE REQUESTS PROCESSED</small>
+      <h2 style="margin: 8px 0; font-size: 28px;">{{ report?.metrics?.serviceRequestsProcessed | number }}</h2>
+      <small style="color: #94a3b8;">Capacity: 5 / day </small>
+    </div>
+    <div style="background: #1e293b; padding: 20px; border-radius: 12px;">
+      <small style="color: #94a3b8;">SERVICE REVENUE</small>
+      <h2 style="margin: 8px 0; font-size: 28px; color: #10b981;">{{ report?.metrics?.serviceRevenue | currency:'INR':'symbol':'1.0-0' }}</h2>
+    </div>
+    <div style="background: #1e293b; padding: 20px; border-radius: 12px;">
+      <small style="color: #94a3b8;">SERVICE PROFIT</small>
+      <h2 style="margin: 8px 0; font-size: 28px;">{{ report?.metrics?.serviceProfit | currency:'INR':'symbol':'1.0-0' }}</h2>
+    </div>
+  </div>
+
+  <div style="display: grid; grid-template-columns: 2fr 1fr; gap: 24px;">
+    <div style="background: #1e293b; padding: 25px; border-radius: 12px;">
+      <h3 style="margin-top: 0;">Monthly Performance Comparison</h3>
+      <app-revenue-chart></app-revenue-chart>
+    </div>
+    
+    <div style="background: #312e81; padding: 25px; border-radius: 12px; display: flex; flex-direction: column; justify-content: center;">
+      <small style="color: #c7d2fe;">NET DEALER PROFIT </small>
+      <h2 style="font-size: 42px; margin: 15px 0;">{{ report?.metrics?.netDealerProfit | currency:'INR':'symbol':'1.0-0' }}</h2>
+      <p style="font-size: 14px; color: #c7d2fe;">Consolidated total of Sales and Service margins.</p>
+      <hr style="border: none; border-top: 1px solid #4338ca; margin: 20px 0;">
+      <p style="font-size: 12px; font-family: monospace;">Audit ID: {{ report?.reportID }} [cite: 61]</p>
+      <p style="font-size: 12px; font-family: monospace;">Sync: {{ report?.generatedDate | date:'medium' }} [cite: 63]</p>
+    </div>
+  </div>
+</div>

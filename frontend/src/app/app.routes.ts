@@ -47,4 +47,11 @@ export const routes: Routes = [
         path:'**',
         component: HomeComponent
     },
+   
+  // Fallback route
+  {
+    path: '**',
+    component: HomeComponent
+  }
 ];
+

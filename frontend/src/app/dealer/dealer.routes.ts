@@ -25,5 +25,39 @@ export const dealerRoutes:Routes=[
     {
         path:'my-sales',
         component:MySalesComponent
-    }
-]
+    },
+    {
+        path:'dealer-sales',
+        component:MySalesComponent
+    },
+  
+
+  {
+    path: '',
+    redirectTo: 'admin/dealer-sales',
+    pathMatch: 'full'
+  },
+  {
+    path: 'admin',
+    children: [
+      {
+        // Clicking 'dealer-sales' in the UI will navigate here
+        path: 'dealer-sales',
+        loadComponent: () => 
+          import('./my-sales/my-sales.component') // Points to the MySalesComponent
+            .then(m => m.MySalesComponent)
+      }
+    ]
+  },
+  {
+    path: 'dealer',
+    children: [
+      {
+        path: 'my-sales',
+        loadComponent: () => 
+          import('./my-sales/my-sales.component')
+            .then(m => m.MySalesComponent)
+      }
+    ]
+  }
+];
