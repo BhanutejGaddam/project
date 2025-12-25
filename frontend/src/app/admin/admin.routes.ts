@@ -1,30 +1,31 @@
-import { Routes } from "@angular/router";
-import { DealerComponent } from "./dealers/dealers.component";
-import { DealerSalesComponent } from "./dealer-sales/dealer-sales.component";
-import { DealerInventoryComponent } from "./dealer-inventory/dealer-inventory.component";
-import { ViewInventoryComponent } from "./view-inventory/view-inventory.component";
 
-export const adminRoutes:Routes=[
-    {
-        path:'',
-        redirectTo:'dealer-inventory',
-        pathMatch:'full'
-    },
-    {
-        path:'dealers',
-        component:DealerComponent
-    },
-    {
-        path:'dealer',
-        component:DealerComponent
-    },
-    { path: 'viewinventory', component: ViewInventoryComponent },
-    {
-        path:'dealer-sales',
-        component:DealerSalesComponent
-    },
-    {
-        path:'dealer-inventory',
-        component:DealerInventoryComponent
-    }
-]
+import { Routes } from '@angular/router';
+import { DealerComponent } from './dealers/dealers.component';
+import { AdminDealerSalesComponent } from './dealer-sales/dealer-sales.component';
+import { DealerInventoryComponent } from './dealer-inventory/dealer-inventory.component';
+import { MySalesComponent } from '../dealer/my-sales/my-sales.component';
+
+export const adminRoutes: Routes = [
+  {
+    path: '',
+    redirectTo: 'dealers',
+    pathMatch: 'full'
+  },
+  {
+    path: 'dealers',
+    component: DealerComponent
+  },
+  {
+    path: 'dealer-sales',
+    component: AdminDealerSalesComponent
+  },
+  {
+    path: 'dealer-inventory',
+    component: DealerInventoryComponent
+  },
+  {
+    path: 'dealer-sales-details',
+    component: MySalesComponent
+  }
+];
+

@@ -1,0 +1,25 @@
+.dashboard-container { background-color: #0b1120; color: white; padding: 2rem; font-family: sans-serif; }
+.header { display: flex; justify-content: space-between; align-items: flex-start; margin-bottom: 2rem; }
+.header h1 { margin: 0; font-size: 1.8rem; }
+.header p { color: #94a3b8; font-size: 0.9rem; }
+.audit-btn { background: #2563eb; color: white; border: none; padding: 0.7rem 1.2rem; border-radius: 6px; cursor: pointer; font-weight: bold; }
+
+.section-title { color: #6366f1; font-size: 0.8rem; margin: 1.5rem 0; letter-spacing: 1px; }
+
+.metrics-grid { display: grid; grid-template-columns: repeat(4, 1fr); gap: 1rem; }
+.service-grid { grid-template-columns: repeat(3, 1fr); }
+
+.card { background: #1e293b; padding: 1.5rem; border-radius: 10px; }
+.card label { color: #94a3b8; font-size: 0.75rem; font-weight: bold; display: block; margin-bottom: 0.5rem; }
+.card .value { font-size: 2rem; font-weight: bold; }
+.value.success { color: #10b981; }
+.value.warning { color: #f59e0b; }
+.card small { color: #64748b; font-size: 0.7rem; }
+
+.bottom-row { display: grid; grid-template-columns: 2fr 1fr; gap: 1rem; margin-top: 2rem; }
+.chart-container { background: #1e293b; padding: 1.5rem; border-radius: 10px; }
+.chart-wrapper { height: 250px; }
+
+.profit-summary-card { background: #312e81; padding: 2rem; border-radius: 10px; display: flex; flex-direction: column; justify-content: center; }
+.grand-total { font-size: 3.5rem; font-weight: bold; margin: 1rem 0; }
+.profit-summary-card p { color: #a5b4fc; font-size: 0.8rem; }
