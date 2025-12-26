@@ -4,6 +4,7 @@ import { DealerComponent } from './dealers/dealers.component';
 import { AdminDealerSalesComponent } from './dealer-sales/dealer-sales.component';
 import { DealerInventoryComponent } from './dealer-inventory/dealer-inventory.component';
 import { MySalesComponent } from '../dealer/my-sales/my-sales.component';
+import { ViewInventoryComponent } from './view-inventory/view-inventory.component';
 
 export const adminRoutes: Routes = [
   {
@@ -19,6 +20,7 @@ export const adminRoutes: Routes = [
     path: 'dealer-sales',
     component: AdminDealerSalesComponent
   },
+  { path: 'viewinventory', component: ViewInventoryComponent },
   {
     path: 'dealer-inventory',
     component: DealerInventoryComponent
