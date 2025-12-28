@@ -1,1 +1,52 @@
-<p>customers works!</p>
+<h2>Customers details</h2>
+<br>
+<form [formGroup]="form">
+  <label for="customer_name">Search by customer name:</label>
+  <input type="text" id="customer_name" formControlName="search" placeholder="Type a name..." />
+</form>
+<br><br>
+<div>
+  <table>
+    <thead>
+      <tr>
+        <th>SL.NO</th>
+        <th>Customer Name</th>
+        <th>Vehicle Number</th>
+        <th>Vehicle Purchase Date</th>
+        <th>Loyalty Points</th>
+        <th>Offers Eligible</th>
+        <th>Actions</th>
+      </tr>
+    </thead>
+
+    <tbody>
+      @if ((entered_text().trim().length) > 0) {
+        @for (customer of search_result(); track customer.customer_id) {
+          <tr>
+            <td>{{ customer.sl_no }}</td>
+            <td>{{ customer.customer_name }}</td>
+            <td>{{ customer.vehicle_id }}</td>
+            <td>{{ customer.purchase_date }}</td>
+            <td>{{ customer.loyalty_points }}</td>
+            <td>{{ customer.offers_eligible }}</td>
+            <td><button class="btn" type="button" [routerLink]="['/dealer', 'customers', 'servicehistory', customer.vehicle_id]">View Service History</button></td>
+          </tr>
+        } @empty {
+          <tr><td colspan="7" style="text-align:center">No customers found</td></tr>
+        }
+      } @else {
+        @for (customer of customers_sig(); track customer.customer_id) {
+          <tr>
+            <td>{{ customer.sl_no }}</td>
+            <td>{{ customer.customer_name }}</td>
+            <td>{{ customer.vehicle_id }}</td>
+            <td>{{ customer.purchase_date }}</td>
+            <td>{{ customer.loyalty_points }}</td>
+            <td>{{ customer.offers_eligible }}</td>
+            <td><button class="btn" type="button" [routerLink]="['/dealer', 'customers', 'servicehistory', customer.vehicle_id]">View Service History</button></td>
+          </tr>
+        }
+      }
+    </tbody>
+  </table>
+</div>

@@ -27,7 +27,7 @@ export class ComplianceFormComponent implements OnInit {
 
   ngOnInit(): void {
     this.form = this.fb.group({
-      vehicleId: [0, [Validators.required, Validators.min(1)]],
+      vehicleId: ['', [Validators.required, Validators.minLength(5)]],
       regulationType: ['', [Validators.required, Validators.minLength(3)]],
       checkDate: ['', Validators.required],
       expiryDate: ['', Validators.required],
@@ -38,7 +38,7 @@ export class ComplianceFormComponent implements OnInit {
     if (idParam) {
       this.isEdit = true;
       this.id = Number(idParam);
-      this.service.getById(this.id).pipe(first()).subscribe(r => {
+      this.service.getById(idParam).pipe(first()).subscribe(r => {
         if (r) this.form.patchValue(r);
       });
     }

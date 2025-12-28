@@ -76,8 +76,8 @@ export class ComplianceService {
     return this.store$.asObservable();
   }
 
-  getById(id: number): Observable<ComplianceRecord | undefined> {
-    return this.store$.pipe(map(list => list.find(r => r.complianceId === id)));
+  getById(id: string): Observable<ComplianceRecord | undefined> {
+    return this.store$.pipe(map(list => list.find(r => r.vehicleId === id)));
   }
 
   listByVehicle(vehicleId: string): Observable<ComplianceRecord[]> {

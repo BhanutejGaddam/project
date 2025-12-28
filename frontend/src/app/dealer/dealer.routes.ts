@@ -7,6 +7,7 @@ import { WarrantyListComponent } from "./service-compliance/Warranty/warranty-li
 import { WarrantyFormComponent } from "./service-compliance/Warranty/warranty-form.component";
 import { ComplianceListComponent } from "./service-compliance/compliance/compliance-list.component";
 import { ComplianceFormComponent } from "./service-compliance/compliance/compliance-form.component";
+import { ServiveHistoryComponent } from "./servive-history/servive-history.component";
 
 export const dealerRoutes: Routes = [
   {
@@ -18,10 +19,15 @@ export const dealerRoutes: Routes = [
     path: 'my-inventory',
     component: MyInventoryComponent
   },
-  {
+  
+{
     path: 'customers',
-    component: CustomersComponent
+    children: [
+      { path: '', component: CustomersComponent }, 
+      { path: 'servicehistory/:id', component: ServiveHistoryComponent } 
+    ]
   },
+
   {
     path: 'service-compliance',
     component: ServiceComplianceComponent,
@@ -38,5 +44,6 @@ export const dealerRoutes: Routes = [
   {
     path: 'my-sales',
     component: MySalesComponent
-  }
+  },
+  
 ];

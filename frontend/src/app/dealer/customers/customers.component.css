@@ -1,0 +1,63 @@
+h2{
+    color: whitesmoke;
+}
+
+label{
+    color: whitesmoke;
+}
+
+
+/* Make borders render cleanly as single lines */
+table {
+  width: 100%;
+  border-collapse: collapse; /* crucial for inner lines */
+  background: #0f1b2a;       /* your dark background (adjust as needed) */
+  color: #fff;
+}
+
+/* Outer table border */
+table {
+  border: 2px solid #e6e6e6; /* outer frame */
+}
+
+/* Header cells */
+thead th {
+  border: 1px solid #e6e6e6; /* inner grid lines in header */
+  padding: 8px 12px;
+  text-align: left;
+  background: #1c2b3a;       /* a slightly lighter shade for header */
+  font-weight: 700;
+}
+
+/* Body cells */
+tbody td {
+  border: 1px solid #e6e6e6; /* inner grid lines for every cell */
+  padding: 8px 12px;
+}
+
+/* Optional: zebra rows for readability */
+tbody tr:nth-child(odd) {
+  background: #132338;
+}
+
+/* Optional: hover highlight */
+tbody tr:hover {
+  background: #183049;
+}
+
+/* Make the table horizontally scrollable if it ever overflows */
+.table-wrapper {
+  overflow-x: auto;
+}
+
+button{
+  background-color: rgb(50, 50, 243);
+  color: white;
+  border: none;
+}
+
+button:hover{
+  background-color: black;
+  color: white;
+  border: none;
+}
