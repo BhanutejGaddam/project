@@ -20,7 +20,10 @@ export const adminRoutes: Routes = [
     path: 'dealer-sales',
     component: AdminDealerSalesComponent
   },
-  { path: 'viewinventory', component: ViewInventoryComponent },
+  { 
+    path: 'viewinventory', 
+    component: ViewInventoryComponent 
+  },
   {
     path: 'dealer-inventory',
     component: DealerInventoryComponent
