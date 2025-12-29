@@ -28,6 +28,9 @@ export interface BookingData {
   // Warranty Section
   warranty: 'yes' | 'no';
   warrantyServices: string[];
+
+  serviceStatus:'BOOKED'| 'VEHICLE_RECEIVED'| 'SERVICE_IN_PROGRESS'| 'COMPLETED';
+
 }
 
 // Hardcoded data for five customers
@@ -50,7 +53,8 @@ export const bookingDataList: BookingData[] = [
     pickupDrop: 'pickup',
     emergencyContact: '9123456789',
     warranty: 'no',
-    warrantyServices: []
+    warrantyServices: [],
+    serviceStatus:'VEHICLE_RECEIVED'
   },
   {
     ownerName: 'Sneha Patil',
@@ -66,11 +70,12 @@ export const bookingDataList: BookingData[] = [
     issues: 'General annual service',
     package: 'manufacturer',
     history: 'Annual service done in Jan 2024',
-    serviceDate: '2025-01-15T14:30',
+    serviceDate: '2026-01-15T14:30',
     pickupDrop: 'dropoff',
     emergencyContact: '9876501234',
     warranty: 'yes',
-    warrantyServices: ['Engine Check', 'Brake Inspection']
+    warrantyServices: ['Engine Check', 'Brake Inspection'],
+    serviceStatus:'BOOKED'
   },
   {
     ownerName: 'Amit Verma',
@@ -86,11 +91,12 @@ export const bookingDataList: BookingData[] = [
     issues: 'Strange noise from suspension',
     package: 'comprehensive',
     history: 'Major repair in Dec 2023',
-    serviceDate: '2025-01-20T09:00',
+    serviceDate: '2026-01-20T09:00',
     pickupDrop: 'none',
     emergencyContact: '9988123456',
     warranty: 'no',
-    warrantyServices: []
+    warrantyServices: [],
+    serviceStatus:'BOOKED'
   },
   {
     ownerName: 'Priya Nair',
@@ -106,11 +112,12 @@ export const bookingDataList: BookingData[] = [
     issues: 'Battery replacement',
     package: 'basic',
     history: 'Routine service in Aug 2024',
-    serviceDate: '2025-01-25T11:00',
+    serviceDate: '2026-01-25T11:00',
     pickupDrop: 'both',
     emergencyContact: '9112233445',
     warranty: 'yes',
-    warrantyServices: ['Battery Replacement', 'Electrical System']
+    warrantyServices: ['Battery Replacement', 'Electrical System'],
+    serviceStatus:'BOOKED'
   },
   {
     ownerName: 'Arjun Mehta',
@@ -126,10 +133,11 @@ export const bookingDataList: BookingData[] = [
     issues: 'General EV checkup',
     package: 'manufacturer',
     history: 'First service in Feb 2024',
-    serviceDate: '2025-02-01T15:00',
+    serviceDate: '2026-02-01T15:00',
     pickupDrop: 'pickup',
     emergencyContact: '9001122334',
     warranty: 'yes',
-    warrantyServices: ['Electrical System', 'Cooling System']
+    warrantyServices: ['Electrical System', 'Cooling System'],
+    serviceStatus:'BOOKED'
   }
 ];
