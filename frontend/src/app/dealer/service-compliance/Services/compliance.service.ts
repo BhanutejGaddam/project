@@ -14,11 +14,10 @@ export class ComplianceService {
       RC: 'COMPLIANT',
       checkDate: '2024-02-10',
       expiryDate: '2025-02-10',
-      
     },
     {
       complianceId: 2,
-      vehicleId: 'MH12TL3560',
+      vehicleId: 'MH12TL3566',
       PollutionCheck: 'NON_COMPLIANT',
       fitness: 'COMPLIANT',
       RC: 'COMPLIANT',
@@ -26,26 +25,8 @@ export class ComplianceService {
       expiryDate: '2025-04-20',
     },
     {
-      complianceId: 2,
-      vehicleId: 'MH12TL3400',
-      PollutionCheck: 'COMPLIANT',
-      fitness: 'COMPLIANT',
-      RC: 'COMPLIANT',
-      checkDate: '2024-02-10',
-      expiryDate: '2025-02-10',
-    },
-    {
-      complianceId: 2,
-      vehicleId: 'MH12TL3400',
-      PollutionCheck: 'COMPLIANT',
-      fitness: 'COMPLIANT',
-      RC: 'COMPLIANT',
-      checkDate: '2024-02-10',
-      expiryDate: '2025-02-10',
-    },
-    {
       complianceId: 3,
-      vehicleId: 'MH12TL3400',
+      vehicleId: 'MH12TL3301',
       PollutionCheck: 'COMPLIANT',
       fitness: 'COMPLIANT',
       RC: 'COMPLIANT',
@@ -54,7 +35,7 @@ export class ComplianceService {
     },
     {
       complianceId: 4,
-      vehicleId: 'MH12TL3400',
+      vehicleId: 'MH12TL3204',
       PollutionCheck: 'COMPLIANT',
       fitness: 'COMPLIANT',
       RC: 'COMPLIANT',
@@ -63,7 +44,25 @@ export class ComplianceService {
     },
     {
       complianceId: 5,
-      vehicleId: 'MH12TL3400',
+      vehicleId: 'MH12TL3150',
+      PollutionCheck: 'COMPLIANT',
+      fitness: 'COMPLIANT',
+      RC: 'COMPLIANT',
+      checkDate: '2024-02-10',
+      expiryDate: '2025-02-10',
+    },
+    {
+      complianceId: 6,
+      vehicleId: 'MH12TL3320',
+      PollutionCheck: 'COMPLIANT',
+      fitness: 'COMPLIANT',
+      RC: 'COMPLIANT',
+      checkDate: '2024-02-10',
+      expiryDate: '2025-02-10',
+    },
+    {
+      complianceId: 7,
+      vehicleId: 'MH12TL3110',
       PollutionCheck: 'NON_COMPLIANT',
       fitness: 'COMPLIANT',
       RC: 'NON_COMPLIANT',
@@ -76,12 +75,12 @@ export class ComplianceService {
     return this.store$.asObservable();
   }
 
-  getById(id: string): Observable<ComplianceRecord | undefined> {
-    return this.store$.pipe(map(list => list.find(r => r.vehicleId === id)));
+  getById(id: number): Observable<ComplianceRecord | undefined> {
+    return this.store$.pipe(map(list => list.find(r => r.complianceId === id)));
   }
 
   listByVehicle(vehicleId: string): Observable<ComplianceRecord[]> {
-    return this.store$.pipe(map(list => list.filter(r => r.vehicleId === vehicleId)));
+    return this.store$.pipe(map(records => records.filter(r => r.vehicleId === vehicleId)));
   }
 
   create(record: ComplianceRecord): void {

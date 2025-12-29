@@ -3,5 +3,6 @@
 label { display:flex; flex-direction:column; gap:.25rem; color: white;}
 input, select { padding:.5rem; border:1px solid #ccc; border-radius:6px; }
 .actions { display:flex; gap:.5rem; }
-.btn { padding:.5rem 1rem; border:1px solid #555; border-radius:6px; }
+.btn { padding:.5rem 1rem; border:1px solid lightgreen;color:red; border-radius:6px; }
 .btn.outline { background:#fff; }
+h2 {color: white;}
