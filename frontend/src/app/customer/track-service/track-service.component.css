@@ -1,0 +1,205 @@
+
+/* ====== GLOBAL THEME (component scope) ====== */
+:host {
+  /* In case parent has overly dark theme, enforce readable foreground */
+  color: #fff;
+}
+
+:root {
+  --fg: #ffffff;             /* white text */
+  --muted: #d1d5db;          /* light grey for meta */
+  --brand: #3b82f6;          /* blue (current) */
+  --ok: #22c55e;             /* green (completed) */
+  --line: #ffffffcc;         /* dotted line color (semi‑opaque white) */
+}
+
+/* ====== CONTAINER ====== */
+.service-tracking {
+  max-width: 980px;
+  margin: 32px auto;
+  padding: 20px;
+  color: var(--fg);
+}
+
+.service-tracking h2 {
+  margin: 0 0 18px 0;
+  font-size: 1.5rem;
+  font-weight: 800;
+  color: var(--fg);
+}
+
+/* ====== TIMELINE GRID ====== */
+.timeline {
+  list-style: none;
+  margin: 0;
+  padding: 0;
+  display: grid;
+  grid-template-columns: repeat(4, minmax(160px, 1fr)); /* wider columns for visibility */
+  gap: 36px;                                            /* larger gap improves readability */
+  position: relative;
+}
+
+/* ====== DOTTED CONNECTOR LINE (HORIZONTAL) ====== */
+.timeline::before {
+  content: "";
+  position: absolute;
+  top: 18px;     /* aligns with the dot center */
+  left: 0;
+  right: 0;
+  height: 0;
+  border-top: 3px dotted var(--line); /* <-- THICK dotted line for visibility */
+  z-index: 0;                         /* sits behind the items */
+  opacity: 1;                         /* ensure fully visible */
+}
+
+/* ====== ITEM ====== */
+.timeline-item {
+  position: relative;
+  z-index: 1; /* above the dotted line */
+  display: grid;
+  grid-template-columns: 24px 1fr;
+  align-items: start;
+  column-gap: 12px;
+}
+
+/* ====== DOTS ====== */
+.dot {
+  position: relative;
+  width: 18px;
+  height: 18px;
+  border-radius: 50%;
+  display: inline-grid;
+  place-items: center;
+  background: transparent;
+  border: 2px solid #ffffff; /* base visible outline */
+}
+
+/* Completed: solid green + tick */
+.timeline-item[data-status="completed"] .dot {
+  background: var(--ok);
+  border-color: var(--ok);
+  box-shadow: 0 0 0 6px rgba(34, 197, 94, 0.25); /* glow to pop */
+}
+.dot-check {
+  color: #06121f; /* dark tick for contrast on green; change to white if you prefer */
+  font-weight: 900;
+  font-size: 12px;
+  line-height: 1;
+}
+
+/* Current: blue + pulse */
+.timeline-item[data-status="current"] .dot {
+  background: var(--brand);
+  border-color: var(--brand);
+  animation: pulse 1.8s infinite;
+  box-shadow: 0 0 0 6px rgba(59, 130, 246, 0.28);
+}
+.dot-current {
+  width: 6px; height: 6px; border-radius: 50%;
+  background: #fff;
+}
+
+/* Pending: hollow white outline (already set via .dot) */
+.timeline-item[data-status="pending"] .dot {
+  background: transparent;
+  border-color: #ffffff99;
+}
+
+/* ====== TEXT ====== */
+.content { margin-top: -2px; }
+
+.title {
+  font-weight: 800;
+  letter-spacing: 0.2px;
+  margin-bottom: 4px;
+  color: var(--fg); /* white */
+}
+
+/* Current title highlighted */
+.timeline-item[data-status="current"] .title {
+  color: var(--brand);
+}
+
+/* Completed slightly dim to de-emphasize past */
+.timeline-item[data-status="completed"] .title {
+  color: #e5e7eb;
+}
+
+/* Pending greyed */
+.timeline-item[data-status="pending"] .title {
+  color: var(--muted);
+}
+
+.meta {
+  color: var(--muted);
+  font-size: 0.95rem;
+}
+
+.desc {
+  margin-top: 6px;
+  font-size: 0.98rem;
+  color: #f1f5f9; /* near white */
+}
+
+/* ====== RESPONSIVE (vertical dotted line) ====== */
+@media (max-width: 768px) {
+  .timeline {
+    grid-template-columns: 1fr;
+    gap: 20px;
+  }
+
+  .timeline::before {
+    /* switch to vertical dotted connector */
+    left: 12px;
+    top: 0;
+    bottom: 0;
+    right: auto;
+    height: auto;
+    border-top: none;
+    border-left: 3px dotted var(--line);
+  }
+
+  .timeline-item {
+    grid-template-columns: 24px 1fr;
+  }
+}
+
+/* ====== PULSE ====== */
+@keyframes pulse {
+  0%   { box-shadow: 0 0 0 0 rgba(59,130,246,0.45); }
+  70%  { box-shadow: 0 0 0 12px rgba(59,130,246,0.0); }
+  100% { box-shadow: 0 0 0 0 rgba(59,130,246,0.0); }
+}
+
+/* ====== CONTEXT / NOT FOUND ====== */
+.context {
+  margin-top: 18px;
+  padding-top: 12px;
+  border-top: 1px dashed #ffffff55;
+}
+
+.context-row {
+  display: flex;
+  gap: 8px;
+  font-size: 0.98rem;
+  margin: 4px 0;
+}
+
+.context-row .label { color: var(--muted); }
+.context-row .value { color: var(--fg); }
+
+.status-pill {
+  display: inline-block;
+  padding: 2px 8px;
+  border-radius: 999px;
+  background: rgba(59,130,246,0.2);
+  color: var(--brand);
+  font-weight: 800;
+}
+
+.not-found {
+  border: 1px dashed #ffffff55;
+  padding: 12px;
+  border-radius: 8px;
+  color: var(--muted);
+}

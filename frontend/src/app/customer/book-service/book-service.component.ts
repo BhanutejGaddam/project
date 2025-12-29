@@ -29,7 +29,8 @@ export class BookServiceComponent {
     pickupDrop: 'none',
     emergencyContact: '',
     warranty: 'no',
-    warrantyServices: []
+    warrantyServices: [],
+    serviceStatus:'BOOKED'
   };
 
   message: string = '';

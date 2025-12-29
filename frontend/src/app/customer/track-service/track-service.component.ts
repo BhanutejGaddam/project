@@ -1,11 +1,89 @@
-import { Component } from '@angular/core';
+
+// src/app/customer/track-service/service-timeline.component.ts
+import { CommonModule } from '@angular/common';
+import { Component, computed, signal } from '@angular/core';
+import { BookingData, bookingDataList } from '../../bookingData';
+
+type ServiceStatus = BookingData['serviceStatus'];
 
 @Component({
-  selector: 'app-track-service',
-  imports: [],
+  selector: 'app-service-timeline',
+  standalone: true,
+  imports: [CommonModule],
   templateUrl: './track-service.component.html',
-  styleUrl: './track-service.component.css'
+  styleUrls: ['./track-service.component.css'],
 })
 export class TrackServiceComponent {
+  /** Holds the matched booking for rahul.sharma@example.com */
+  bookingSig = signal<BookingData | null>(null);
 
+  /** Ordered steps */
+  readonly steps = [
+    'BOOKED',
+    'VEHICLE_RECEIVED',
+    'SERVICE_IN_PROGRESS',
+    'COMPLETED',
+  ] as const;
+
+  /** 🔎 Find Rahul's booking from bookingDataList and set signal */
+  fetchRahul(): void {
+    const targetEmail = 'rahul.sharma@example.com';
+    const match =
+      bookingDataList.find(
+        (b) => b.email.trim().toLowerCase() === targetEmail
+      ) ?? null;
+    this.bookingSig.set(match);
+  }
+
+  /** Lookup on init */
+  ngOnInit() {
+    this.fetchRahul();
+  }
+
+  /** Current status; default to BOOKED if not found */
+  statusSig = computed<ServiceStatus>(
+    () => this.bookingSig()?.serviceStatus ?? 'BOOKED'
+  );
+
+  /** Data for the timeline; used by @for with track s.key */
+  stageData = computed(() => {
+    const b = this.bookingSig();
+    const format = (iso?: string | null) =>
+      iso
+        ? new Date(iso).toLocaleString(undefined, {
+            dateStyle: 'medium',
+            timeStyle: 'short',
+          })
+        : null;
+
+    const bookedMeta = b ? format(b.serviceDate) : null;
+    const completedMeta =
+      b && b.serviceStatus !== 'COMPLETED' && b.serviceDate
+        ? `ETA: ${format(b.serviceDate)}`
+        : b && b.serviceStatus === 'COMPLETED'
+        ? 'Done'
+        : null;
+
+    return [
+      { key: 'BOOKED' as const, title: 'Booked', meta: bookedMeta },
+      { key: 'VEHICLE_RECEIVED' as const, title: 'Vehicle Received', meta: null },
+      { key: 'SERVICE_IN_PROGRESS' as const, title: 'Service In‑Progress', meta: null },
+      { key: 'COMPLETED' as const, title: 'Completed', meta: completedMeta },
+    ];
+  });
+
+  /** completed | current | pending */
+  stepState(index: number): 'completed' | 'current' | 'pending' {
+    const idx = this.steps.indexOf(this.statusSig());
+    if (index < idx) return 'completed';
+    if (index === idx) return 'current';
+    return 'pending';
+  }
+
+  /** 0–100% for the slim bar */
+  progressPercent(): number {
+    const idx = this.steps.indexOf(this.statusSig());
+    const completedCount = Math.max(0, idx);
+    return Math.round((completedCount / (this.steps.length - 1)) * 100);
+  }
 }
