@@ -3,7 +3,7 @@
  
 <!-- src/app/dealer/dealer.component.html -->
 <div class="dealer-page">
-
+ 
  
   <!-- Header -->
   <div class="header">
@@ -11,9 +11,9 @@
     <h2>My Dealers</h2>
   </div>
  
-
  
-
+ 
+ 
  
  
   <!-- Dealer cards -->
@@ -41,20 +41,20 @@
  
       <div class="divider"></div>
       <div class="dealer-actions">
-
-
-
+ 
+ 
+ 
         <button class="btn btn-secondary" type="button"
                 [routerLink]="['/admin', 'dealer-sales-details']"
                 [queryParams]="{ dealerId: d.dealerID }">
           View Sales Details
         </button>
-
+ 
         <!-- <button class="btn btn-primary" type="button" (click)="contactDealer(d)">Contact</button> -->
       </div>
     </div>
   </div>
-
+ 
   <!-- Contact Modal -->
   <div *ngIf="showContact" class="modal" (click)="closeContact($event)">
     <div class="modal-content" #contactModal (click)="$event.stopPropagation()">
@@ -76,20 +76,19 @@
           <label for="message">Message</label>
           <textarea id="message" formControlName="message" class="form-control" placeholder="Message" required></textarea>
         </div>
-
+ 
         <div class="actions">
           <button type="submit" class="btn btn-primary" [disabled]="submitting">Send</button>
           <button type="button" class="btn btn-outline" (click)="closeContact()">Close</button>
         </div>
       </form>
-
+ 
       <div *ngIf="submitSuccess" class="success">Message sent successfully</div>
     </div>
   </div>
 </div>
-
-
-<br><br>
-
-</div>
  
+ 
+<br><br>
+ 
+</div>
