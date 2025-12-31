@@ -1,4 +1,3 @@
-
 import { Component, ElementRef, ViewChild } from '@angular/core';
 import { CommonModule } from '@angular/common';
 import { FormsModule, ReactiveFormsModule, FormBuilder, FormGroup, Validators } from '@angular/forms';
@@ -10,7 +9,7 @@ type Dealer = {
   address: string;
   Contact: any;
   managedBy: string;
-};
+};       
 
 type DealerForm = {
   dealerName: string;
@@ -30,28 +29,28 @@ export class DealerComponent {
   dealers: Dealer[] = [
     {
       dealerID: 101,
-      dealerName: 'Dealer One',
+      dealerName: 'Vijayalaxmi Automotive sales & services',
       address: 'Plot 12, Magarpatta City, Hadapsar, Pune, MH 411028',
       Contact: 'vinayak.p@dealer.com , 9876543210',
       managedBy: 'Vinayak Patangankar'
     },
     {
       dealerID: 102,
-      dealerName: 'Dealer Two',
+      dealerName: 'Rajararejshwari automotives',
       address: 'Shop 8, FC Road, Shivajinagar, Pune, MH 411005',
       Contact: 'pooja.k@dealer.com , 9876543211',
       managedBy: 'Pooja Kumari'
     },
     {
       dealerID: 103,
-      dealerName: 'Dealer Three',
+      dealerName: 'Surya automotives',
       address: 'Sr. No. 15, Baner, Pune, MH 411045',
       Contact: 'anita.d@dealer.com, 9876543212',
       managedBy: 'Anita Deshmukh'
     },
     {
       dealerID: 104,
-      dealerName: 'Dealer Four',
+      dealerName: 'Rahul motors',
       address: 'Phase 1, Hinjewadi IT Park, Pune, MH 411057',
       Contact: 'rahul.n@dealer.com, 9876543213',
       managedBy: 'Rahul Nerkar'
