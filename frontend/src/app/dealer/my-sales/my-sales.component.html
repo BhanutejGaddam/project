@@ -1,5 +1,5 @@
 <div style="background: #0f172a; min-height: 100vh; padding: 30px; color: white; font-family: sans-serif;">
-  
+
   <header style="display: flex; justify-content: space-between; align-items: center; margin-bottom: 30px;">
     <div>
       <h1 style="margin: 0; font-size: 24px;">Dealer Executive Insights</h1>
@@ -10,6 +10,7 @@
     </button>
   </header>
 
+  <div class="print-area">
   <h3 class="sales-heading">Vehicle Inventory & Sales [cite: 22]</h3>
   <div style="display: grid; grid-template-columns: repeat(4, 1fr); gap: 20px; margin-bottom: 30px;">
     <div style="background: #1e293b; padding: 20px; border-radius: 12px;">
@@ -61,5 +62,6 @@
       <p style="font-size: 12px; font-family: monospace;">Audit ID: {{ report?.reportID }} [cite: 61]</p>
       <p style="font-size: 12px; font-family: monospace;">Sync: {{ report?.generatedDate | date:'medium' }} [cite: 63]</p>
     </div>
+  </div>
   </div>
 </div>
