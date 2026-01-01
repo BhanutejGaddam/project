@@ -1,29 +1,162 @@
-.dashboard-container { background-color: #0b1120; color: white; padding: 2rem; font-family: sans-serif; }
-.header { display: flex; justify-content: space-between; align-items: flex-start; margin-bottom: 2rem; }
-.header h1 { margin: 0; font-size: 1.8rem; }
-.header p { color: #94a3b8; font-size: 0.9rem; }
-.audit-btn { background: #2563eb; color: white; border: none; padding: 0.7rem 1.2rem; border-radius: 6px; cursor: pointer; font-weight: bold; }
 
-.section-title { color: #6366f1; font-size: 0.8rem; margin: 1.5rem 0; letter-spacing: 1px; }
+/* Page shell */
+.dashboard-container {
+  background: #0f172a;         /* same as inline */
+  min-height: 100vh;           /* same as inline */
+  padding: 30px;               /* same as inline */
+  color: white;
+  font-family: sans-serif;
+}
 
-.metrics-grid { display: grid; grid-template-columns: repeat(4, 1fr); gap: 1rem; }
-.service-grid { grid-template-columns: repeat(3, 1fr); }
+/* Header */
+.header {
+  display: flex;
+  justify-content: space-between;
+  align-items: center;         /* same as inline */
+  margin-bottom: 30px;         /* same as inline */
+}
 
-.card { background: #1e293b; padding: 1.5rem; border-radius: 10px; }
-.card label { color: #94a3b8; font-size: 0.75rem; font-weight: bold; display: block; margin-bottom: 0.5rem; }
-.card .value { font-size: 2rem; font-weight: bold; }
-.value.success { color: #10b981; }
-.value.warning { color: #f59e0b; }
-.card small { color: #64748b; font-size: 0.7rem; }
+.title {
+  margin: 0;                   /* same as inline */
+  font-size: 24px;             /* same as inline */
+}
 
-.bottom-row { display: grid; grid-template-columns: 2fr 1fr; gap: 1rem; margin-top: 2rem; }
-.chart-container { background: #1e293b; padding: 1.5rem; border-radius: 10px; }
-.chart-wrapper { height: 250px; }
+.subtitle {
+  color: #94a3b8;              /* same as inline */
+  font-size: 14px;             /* same as inline */
+}
 
-.profit-summary-card { background: #312e81; padding: 2rem; border-radius: 10px; display: flex; flex-direction: column; justify-content: center; }
-.grand-total { font-size: 3.5rem; font-weight: bold; margin: 1rem 0; }
-.profit-summary-card p { color: #a5b4fc; font-size: 0.8rem; }
+.audit-btn {
+  background: #2563eb;         /* same as inline */
+  color: white;
+  border: none;
+  padding: 12px 24px;          /* same as inline */
+  border-radius: 6px;          /* same as inline */
+  cursor: pointer;
+  font-weight: bold;
+}
 
+/* Section heading */
 .sales-heading {
-    color: #3b82f6; font-size: 14px; text-transform: uppercase;
+  color: #3b82f6;              /* from your CSS */
+  font-size: 14px;             /* from your CSS */
+  text-transform: uppercase;   /* from your CSS */
+  margin: 0 0 12px 0;          /* visual balance */
+}
+
+/* Grids */
+.metrics-grid {
+  display: grid;
+  gap: 20px;                   /* same as inline */
+  margin-bottom: 30px;         /* same as inline */
+}
+
+.metrics-grid--4col {
+  grid-template-columns: repeat(4, 1fr); /* same as inline */
+}
+
+.metrics-grid--3col {
+  grid-template-columns: repeat(3, 1fr); /* same as inline */
+}
+
+/* Cards */
+.card {
+  background: #1e293b;         /* same as inline */
+  padding: 20px;               /* same as inline */
+  border-radius: 12px;         /* same as inline */
+}
+
+.label {
+  color: #94a3b8;              /* same as inline */
+  font-size: 0.75rem;
+  font-weight: bold;
+  display: block;
+  margin-bottom: 0.5rem;
+}
+
+.value {
+  margin: 8px 0;               /* same as inline */
+  font-size: 28px;             /* same as inline */
+  font-weight: bold;
+}
+
+.value--success { color: #10b981; }   /* same as inline */
+.value--warning { color: #f59e0b; }   /* same as inline */
+
+.note {
+  color: #94a3b8;              /* same as inline for small text */
+  font-size: 0.7rem;
+}
+
+/* Bottom row (chart + profit) */
+.bottom-row {
+  display: grid;
+  grid-template-columns: 2fr 1fr; /* same as inline */
+  gap: 24px;                      /* same as inline */
+}
+
+/* Chart section styles exactly as in inline block */
+.chart-container {
+  background: #1e293b;         /* same as inline */
+  padding: 25px;               /* same as inline */
+  border-radius: 12px;         /* same as inline */
+}
+
+.chart-title {
+  margin-top: 0;               /* same as inline */
+  margin-bottom: 12px;         /* to match visual spacing under title */
+  font-weight: 700;
+}
+
+/* This height is crucial for Chart.js look parity */
+.chart-wrapper {
+  height: 350px;               /* SAME HEIGHT you originally used */
+}
+
+/* Profit card */
+.profit-summary-card {
+  background: #312e81;         /* same as inline */
+  padding: 25px;               /* same as inline */
+  border-radius: 12px;         /* same as inline */
+  display: flex;               /* same as inline */
+  flex-direction: column;      /* same as inline */
+  justify-content: center;     /* same as inline */
+}
+
+.profit-label {
+  color: #c7d2fe;              /* same as inline */
+  font-size: 0.8rem;
+  letter-spacing: 0.03em;
+}
+
+.grand-total {
+  font-size: 42px;             /* same as inline */
+  margin: 15px 0;              /* same as inline */
+  font-weight: bold;
+}
+
+.profit-note {
+  font-size: 14px;             /* same as inline */
+  color: #c7d2fe;              /* same as inline */
+  margin: 6px 0 0;
+}
+
+.divider {
+  border: none;                /* same as inline */
+  border-top: 1px solid #4338ca; /* same as inline */
+  margin: 20px 0;              /* same as inline */
+}
+
+.meta {
+  font-size: 12px;             /* same as inline */
+  font-family: monospace;      /* same as inline */
+  color: #cbd5e1;              /* subtle contrast on dark bg */
+  margin: 2px 0;
+}
+
+/* Ensure canvas fills chart wrapper for identical Chart.js rendering */
+.chart-wrapper canvas {
+  display: block;
+  width: 100%;
+  height: 100%;
 }
