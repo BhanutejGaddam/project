@@ -1,7 +1,8 @@
-import { Component, AfterViewInit, ElementRef, ViewChild } from '@angular/core';
+import { Component, AfterViewInit, ElementRef, ViewChild, Input } from '@angular/core';
 import { CommonModule } from '@angular/common';
 import { AnalyticsService } from '../services/analytics.service';
-import { Chart, registerables } from 'chart.js';
+import { Chart, ChartConfiguration, registerables } from 'chart.js';
+import { RevenueTrend } from '../models/sales-report.model';
 
 Chart.register(...registerables);
 
@@ -13,22 +14,30 @@ Chart.register(...registerables);
 })
 export class RevenueChartComponent implements AfterViewInit {
   @ViewChild('lineChart') lineChartCanvas!: ElementRef;
+  @Input() dealerId?: number;
 
   constructor(private analyticsService: AnalyticsService) {}
 
   ngAfterViewInit() {
-    this.analyticsService.getRevenueTrends().subscribe(data => {
-      new Chart(this.lineChartCanvas.nativeElement, {
+    
+this.analyticsService.getRevenueTrends(this.dealerId).subscribe({
+      next: (trend: RevenueTrend) => {
+        const labels = trend.dealerSales.map((d) => d.month);
+        const salesRevenue = trend.dealerSales.map((d) => d.salesRevenue);
+        const serviceRevenue = trend.dealerSales.map((d) => d.serviceRevenue);
+          new Chart(this.lineChartCanvas.nativeElement, {
         type: 'line',
         data: {
-          labels: data.map(d => d.month),
+          labels: labels,
           datasets: [
-            { label: 'Vehicle Sales ($)', data: data.map(d => d.salesRevenue), borderColor: '#2563eb', tension: 0.4 },
-            { label: 'Service Revenue ($)', data: data.map(d => d.serviceRevenue), borderColor: '#10b981', tension: 0.4 }
+            { label: 'Vehicle Sales ($)', data: salesRevenue, borderColor: '#2563eb', tension: 0.4 },
+            { label: 'Service Revenue ($)', data: serviceRevenue, borderColor: '#10b981', tension: 0.4 }
           ]
         },
         options: { responsive: true, maintainAspectRatio: false }
       });
-    });
+      }
+  });
+
   }
 }

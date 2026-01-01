@@ -23,3 +23,7 @@
 .profit-summary-card { background: #312e81; padding: 2rem; border-radius: 10px; display: flex; flex-direction: column; justify-content: center; }
 .grand-total { font-size: 3.5rem; font-weight: bold; margin: 1rem 0; }
 .profit-summary-card p { color: #a5b4fc; font-size: 0.8rem; }
+
+.sales-heading {
+    color: #3b82f6; font-size: 14px; text-transform: uppercase;
+}

@@ -10,7 +10,7 @@
     </button>
   </header>
 
-  <h3 style="color: #3b82f6; font-size: 14px; text-transform: uppercase;">Vehicle Inventory & Sales [cite: 22]</h3>
+  <h3 class="sales-heading">Vehicle Inventory & Sales [cite: 22]</h3>
   <div style="display: grid; grid-template-columns: repeat(4, 1fr); gap: 20px; margin-bottom: 30px;">
     <div style="background: #1e293b; padding: 20px; border-radius: 12px;">
       <small style="color: #94a3b8;">VEHICLES SOLD</small>
@@ -30,7 +30,7 @@
     </div>
   </div>
 
-  <h3 style="color: #8b5cf6; font-size: 14px; text-transform: uppercase;">Service Workshop Analytics [cite: 45]</h3>
+  <h3 class="sales-heading">Service Workshop Analytics [cite: 45]</h3>
   <div style="display: grid; grid-template-columns: repeat(3, 1fr); gap: 20px; margin-bottom: 30px;">
     <div style="background: #1e293b; padding: 20px; border-radius: 12px;">
       <small style="color: #94a3b8;">SERVICE REQUESTS PROCESSED</small>
@@ -50,7 +50,7 @@
   <div style="display: grid; grid-template-columns: 2fr 1fr; gap: 24px;">
     <div style="background: #1e293b; padding: 25px; border-radius: 12px;">
       <h3 style="margin-top: 0;">Monthly Performance Comparison</h3>
-      <app-revenue-chart></app-revenue-chart>
+      <app-revenue-chart [dealerId]="dealerId"></app-revenue-chart>
     </div>
     
     <div style="background: #312e81; padding: 25px; border-radius: 12px; display: flex; flex-direction: column; justify-content: center;">

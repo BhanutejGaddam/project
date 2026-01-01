@@ -1,5 +1,5 @@
 import { Injectable } from '@angular/core';
-import { Observable, of } from 'rxjs';
+import { map, Observable, of } from 'rxjs';
 import { SalesReport, RevenueTrend } from '../models/sales-report.model';
 import { MOCK_SALES_REPORT, MOCK_REVENUE_TRENDS } from '../models/mock-analytics-data';
 
@@ -14,8 +14,19 @@ export class AnalyticsService {
   }
 
   // Logic for tracking revenue trends and profitability
-  getRevenueTrends(): Observable<RevenueTrend[]> {
-    return of(MOCK_REVENUE_TRENDS);
+  getRevenueTrends(dealerId?: number): Observable<RevenueTrend> {
+
+    
+return of(MOCK_REVENUE_TRENDS).pipe(
+      map((all) => {
+        const found = all.find((rt) => rt.dealerId === dealerId);
+        if (!found) {
+          throw new Error(`No data found for dealerId ${dealerId}`);
+        }
+        return found;
+      })
+    );
+
   }
 
   private getDealerSpecificReport(dealerId: number): SalesReport {

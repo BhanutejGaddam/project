@@ -10,6 +10,7 @@ import { RevenueChartComponent } from './revenue-chart/revenue-chart.component';
   standalone: true,
   imports: [CommonModule, RevenueChartComponent],
   templateUrl: './my-sales.component.html',
+  styleUrl: './my-sales.component.css'
 })
 export class MySalesComponent implements OnInit {
   report?: SalesReport;
