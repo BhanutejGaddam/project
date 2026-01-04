@@ -69,7 +69,6 @@
       font-family: system-ui, -apple-system, Segoe UI, Roboto, "Helvetica Neue", Arial, "Noto Sans";
     }
 
-    /* Header */
     .header {
       display: flex; align-items: center; gap: 12px; margin-bottom: 16px;
     }
@@ -79,7 +78,6 @@
       background: rgba(13,110,253,.15); color: var(--primary); font-size: 18px;
     }
 
-    /* Toolbar */
     .toolbar { margin-bottom: 12px; display: flex; gap: 10px; }
     .btn {
       border: 1px solid rgba(255,255,255,.3); background: transparent; color: #fff;
@@ -90,7 +88,6 @@
     .btn-primary { background: var(--primary); border-color: var(--primary); }
     .btn-outline { border-color: rgba(255,255,255,.35); }
 
-    /* Feedback */
     .alert {
       background: rgba(25,135,84,.15);
       border: 1px solid rgba(25,135,84,.35);
@@ -98,7 +95,6 @@
       padding: 8px 12px; border-radius: 8px; margin-bottom: 12px;
     }
 
-    /* Form card */
     .card {
       background: var(--card-dark);
       border: 1px solid var(--border);
@@ -119,7 +115,6 @@
 
     .actions { display: flex; gap: 8px; justify-content: flex-end; margin-top: 12px; }
 
-    /* Dealer card grid */
     .grid {
       display: grid; grid-template-columns: repeat(auto-fill, minmax(280px, 1fr)); gap: 16px;
     }

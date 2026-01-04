@@ -79,7 +79,6 @@
       --table-hover: #153154;
     }
 
-    /* Page layout */
     .admin-inventory-page {
       min-height: 100vh;
       background: var(--bg-dark);
@@ -89,7 +88,6 @@
       font-family: system-ui, -apple-system, Segoe UI, Roboto, "Helvetica Neue", Arial, "Noto Sans", "Apple Color Emoji", "Segoe UI Emoji";
     }
 
-    /* Header */
     .page-header {
       display: flex;
       align-items: center;
@@ -110,7 +108,6 @@
       font-size: 1.25rem;
     }
 
-    /* Toolbar */
     .toolbar {
       display: flex;
       gap: 10px;
@@ -144,14 +141,12 @@
       color: #e9ecef;
     }
 
-    /* Grid */
     .grid {
       display: grid;
       grid-template-columns: 1fr;
       gap: 18px;
     }
 
-    /* Card */
     .card {
       background: var(--card-dark);
       border: 1px solid var(--border);
@@ -170,7 +165,6 @@
       padding: 16px;
     }
 
-    /* Dealer header bits */
     .dealer-name {
       font-weight: 800;
       color: #cfe2ff;
@@ -186,7 +180,6 @@
       align-items: center;
     }
 
-    /* Badges */
     .badge {
       display: inline-block;
       padding: 0.35em 0.65em;
@@ -202,7 +195,6 @@
     .badge-warning { background: var(--warning); color: #14202b; }
     .badge-muted { background: #213856; color: var(--text-muted); }
 
-    /* Table */
     .table-wrap {
       width: 100%;
       overflow-x: auto;
@@ -211,14 +203,13 @@
     }
     
 .rounded-table {
-  border-radius: 12px;       /* try 16px or 20px if you want more curve */
+  border-radius: 12px;      
   overflow: hidden;
-  border: 1px solid #1f334f; /* matches your dark theme border */
+  border: 1px solid #1f334f; 
 }
 
-/* Optional: unify inner borders so they feel smoother with rounded edge */
 .table td, .table th {
-  border-color: #314766;     /* softer inner grid lines */
+  border-color: #314766;    
 }
 
     table {
@@ -226,7 +217,7 @@
       border-collapse: collapse;
       background: #0f2039;
       border-radius: 12px;
-      min-width: 720px; /* allow horizontal scroll on small screens */
+      min-width: 720px;
     }
     thead th {
       background: var(--table-dark);
@@ -258,14 +249,12 @@
       align-items: center;
     }
 
-    /* Utilities */
     .text-end { text-align: end; }
     .fw-semibold { font-weight: 600; }
     .fw-bold { font-weight: 700; }
     .model { font-weight: 700; color: black; }
     .price { font-weight: 700; color: #ffd26f; }
 
-    /* Overall summary card */
     .summary-card .card-body {
       display: flex;
       flex-wrap: wrap;

@@ -6,7 +6,7 @@ import { RouterModule } from '@angular/router';
 type Vehicle = {
   vehicleID: number;
   model: string;
-  price: number;                 // INR
+  price: number;                
   noOfVehiclesAvailable: number;
 };
 
@@ -60,7 +60,6 @@ export class DealerInventoryComponent {
     }
   ];
 
-  // --- Helpers to compute totals (units & INR) ---
   getDealerTotalUnits(dealer: Dealer): number {
     return (dealer?.vehicles ?? [])
       .reduce((sum, v) => sum + (v?.noOfVehiclesAvailable ?? 0), 0);
@@ -83,10 +82,8 @@ export class DealerInventoryComponent {
       .reduce((sum, v) => sum + ((v?.price ?? 0) * (v?.noOfVehiclesAvailable ?? 0)), 0);
   }
 
-  // --- Optional toolbar actions ---
   refresh(): void {
-    // if you later fetch from a service, plug it here
-    this.dealers = [...this.dealers]; // force change detection
+    this.dealers = [...this.dealers]; 
   }
 
   addDealer(): void {

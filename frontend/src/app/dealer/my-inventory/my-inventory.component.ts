@@ -1,4 +1,4 @@
-// src/app/components/vehicle-inventory/vehicle-inventory.component.ts
+
 import { Component } from '@angular/core';
 import { VehicleService } from './vehicle.service';
 import { Vehicle } from './vehicle.model';
@@ -37,9 +37,6 @@ export class MyInventoryComponent {
     this.vehicleService.deleteVehicle(id);
   }
 
-  /**
-   * Total count of vehicles for a single dealer
-   */
   getDealerTotal(dealer: {
     vehicles?: { noOfVehiclesAvailable?: number }[];
   }): number {
@@ -49,10 +46,6 @@ export class MyInventoryComponent {
     );
   }
 
-  /**
-   * Total inventory value (INR) for a single dealer:
-   * sum of price * noOfVehiclesAvailable
-   */
   getDealerValueINR(dealer: {
     vehicles?: { price?: number; noOfVehiclesAvailable?: number }[];
   }): number {
@@ -62,9 +55,6 @@ export class MyInventoryComponent {
     );
   }
 
-  /**
-   * Overall count across all dealers
-   */
   getOverallTotal(): number {
     return (this.dealers ?? [])
       .flatMap((d: { vehicles: any }) => d?.vehicles ?? [])
@@ -75,9 +65,6 @@ export class MyInventoryComponent {
       );
   }
 
-  /**
-   * Overall inventory value (INR) across all dealers
-   */
   getOverallValueINR(): number {
     return (this.dealers ?? [])
       .flatMap((d: { vehicles: any }) => d?.vehicles ?? [])

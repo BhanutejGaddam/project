@@ -103,7 +103,6 @@
   color: var(--text-high);
 }
 
-/* ---- Table Container ---- */
 .table-wrap {
   width: 100%;
   overflow-x: auto;
@@ -112,29 +111,26 @@
   box-shadow: 0 5px 16px var(--shadow);
 }
 
-/* ---- Table ---- */
 table {
   width: 100%;
   border-collapse: collapse;
-  background: var(--bg-table);    /* WHITE */
-  min-width: 760px;               /* horizontal scroll for narrow screens */
+  background: var(--bg-table);   
+  min-width: 760px;              
 }
 
-/* Header cells */
 thead th {
-  background: #f1f3f5;            /* light header */
+  background: #f1f3f5;          
   color: var(--text-high);
   padding: 12px;
   text-align: center;
   font-weight: 800;
   letter-spacing: .25px;
   border-bottom: 1px solid var(--border);
-  position: sticky;               /* keep header visible on scroll */
+  position: sticky;             
   top: 0;
   z-index: 1;
 }
 
-/* Body cells */
 tbody td {
   padding: 12px;
   text-align: center;
@@ -142,16 +138,14 @@ tbody td {
   color: var(--text-mid);
 }
 
-/* Zebra + hover (light) */
 tbody tr:nth-child(odd) {
-  background: #fcfdff;            /* very subtle zebra */
+  background: #fcfdff;           
 }
 tbody tr:hover {
-  background: #f8fbff;            /* gentle hover */
+  background: #f8fbff;           
   transition: background var(--fade);
 }
 
-/* Footer cells */
 tfoot td {
   padding: 12px;
   border-top: 1px solid var(--border);
@@ -160,7 +154,6 @@ tfoot td {
   font-weight: 700;
 }
 
-/* ---- Utility text styles ---- */
 .model,
 .price {
   font-weight: 700;
@@ -169,7 +162,6 @@ tfoot td {
 .text-end { text-align: end; }
 .fw-semibold { font-weight: 600; }
 
-/* ---- Badges (counts, summary, etc.) ---- */
 .badge {
   display: inline-flex;
   align-items: center;
@@ -183,14 +175,12 @@ tfoot td {
   box-shadow: inset 0 0 0 1px rgba(185, 39, 39, 0.06);
 }
 
-/* Semantic badges on light bg (ensure readable text) */
 .badge-success { background: #e6f4ea; color: #145c32; border: 1px solid #cce9d6; }
 .badge-info    { background: #e9f8fd; color: #0a4a5c; border: 1px solid #c9eef8; }
 .badge-primary { background: #e7efff; color: #0a2a66; border: 1px solid #cbd9ff; }
 .badge-warning { background: #fff6db; color: #b7a06b; border: 1px solid #ffe7a6; }
 .badge-muted   { background: #f1f3f5; color: var(--text-muted); border: 1px solid #e5e7ea; }
 
-/* ---- Status Chips (Available / Reserved / Sold) ---- */
 .status-chip {
   display: inline-flex;
   align-items: center;
@@ -202,7 +192,6 @@ tfoot td {
   box-shadow: inset 0 0 0 1px rgba(0,0,0,.06);
 }
 
-/* Available: soft green chip with dark text */
 .available.status-chip,
 .available {
   background: #e6f4ea;
@@ -210,7 +199,6 @@ tfoot td {
   border: 1px solid #cce9d6;
 }
 
-/* Reserved: soft amber chip with dark text */
 .reserved.status-chip,
 .reserved {
   background: #fff6db;
@@ -218,15 +206,13 @@ tfoot td {
   border: 1px solid #ffe7a6;
 }
 
-/* Sold: BLUE chip with BLACK text (your requirement) */
 .sold.status-chip,
 .sold {
-  background: rgb(222, 33, 33);   /* solid blue */
-  color: rgb(163, 18, 18);           /* <-- black text */
+  background: rgb(222, 33, 33);   
+  color: rgb(163, 18, 18);          
   border: 1px solid #0a58ca;
 }
 
-/* ---- Icon circle (accent) ---- */
 .icon-circle {
   width: 28px;
   height: 28px;
@@ -239,7 +225,6 @@ tfoot td {
   font-size: 16px;
 }
 
-/* ---- Buttons in table rows ---- */
 button {
   background-color: var(--danger);
   color: #fff;
@@ -258,7 +243,6 @@ button:active {
   opacity: .95;
 }
 
-/* ---- Summary row ---- */
 .summary-row {
   display: flex;
   gap: 10px;
@@ -267,10 +251,8 @@ button:active {
   padding: 10px 0;
 }
 
-/* ---- Minimal Bootstrap alignment helpers ---- */
 .table th, .table td { vertical-align: middle; }
 
-/* ---- Small screens ---- */
 @media (max-width: 768px) {
   .page-header h2 { font-size: 1.25rem; color:#198754; }
   .sub-header { font-size: .95rem; }

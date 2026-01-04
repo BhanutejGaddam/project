@@ -21,15 +21,13 @@ type SparePart = {
   standalone: true,
   imports: [CommonModule,RouterLink],
   templateUrl: './view-inventory.component.html',
-  styleUrls: ['./view-inventory.component.css'] // optional; we’ll use inline style too
+  styleUrls: ['./view-inventory.component.css']
 })
 export class ViewInventoryComponent {
 
-  // The dealer to show (from query param ?id=101)
   dealerID: number | null = null;
   dealerName = '';
 
-  // --- Demo data maps (keyed by dealerID) ---
   private vehiclesByDealer: Record<number, VehicleStock[]> = {
     101: [
       { modelNo: 1001, modelName: 'Sedan X',     unitPriceINR: 1500000, units: 15 },
@@ -69,7 +67,6 @@ export class ViewInventoryComponent {
     ],
   };
 
-  // You can replace this with a real lookup service later
   private dealerNames: Record<number, string> = {
     101: 'Dealer One',
     102: 'Dealer Two',
@@ -78,7 +75,7 @@ export class ViewInventoryComponent {
   };
 
   constructor(private route: ActivatedRoute) {
-    // Read dealerID from query params: /admin/viewinventory?id=101
+
     this.route.queryParamMap.subscribe(params => {
       const id = params.get('id');
       this.dealerID = id ? +id : null;
@@ -86,7 +83,6 @@ export class ViewInventoryComponent {
     });
   }
 
-  // Data getters used by template
   get vehicles(): VehicleStock[] {
     return this.dealerID ? (this.vehiclesByDealer[this.dealerID] ?? []) : [];
   }
@@ -94,7 +90,6 @@ export class ViewInventoryComponent {
     return this.dealerID ? (this.sparePartsByDealer[this.dealerID] ?? []) : [];
   }
 
-  // Totals for vehicles table
   get totalUnits(): number {
     return this.vehicles.reduce((sum, r) => sum + (r?.units ?? 0), 0);
   }
