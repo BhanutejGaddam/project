@@ -6,12 +6,12 @@
       <p class="subtitle">Real-time inventory and revenue monitoring [cite: 5]</p>
     </div>
     <button (click)="onGenerateReport()" class="audit-btn">
-      Generate Full Audit Report [cite: 56]
+      Generate Full Audit Report 
     </button>
   </header>
 
   <div class="print-area">
-    <h3 class="sales-heading">Vehicle Inventory &amp; Sales [cite: 22]</h3>
+    <h3 class="sales-heading">Vehicle Inventory &amp; Sales </h3>
 
     <div class="metrics-grid metrics-grid--4col">
       <div class="card">
@@ -41,13 +41,17 @@
       </div>
     </div>
 
-    <h3 class="sales-heading">Service Workshop Analytics [cite: 45]</h3>
+    <h3 class="sales-heading">Service Workshop Analytics </h3>
 
     <div class="metrics-grid metrics-grid--3col">
       <div class="card">
         <small class="label">SERVICE REQUESTS PROCESSED</small>
         <h2 class="value">{{ report?.metrics?.serviceRequestsProcessed | number }}</h2>
-        <small class="note">Capacity: 5 / day</small>
+        
+        <small class="note">
+            Capacity: {{ report?.metrics?.serviceCapacity }} / day
+             </small>
+
       </div>
 
       <div class="card">
@@ -80,8 +84,8 @@
         </h2>
         <p class="profit-note">Consolidated total of Sales and Service margins.</p>
         <hr class="divider" />
-        <p class="meta">Audit ID: {{ report?.reportID }} [cite: 61]</p>
-        <p class="meta">Sync: {{ report?.generatedDate | date:'medium' }} [cite: 63]</p>
+        <p class="meta">Audit ID: {{ report?.reportID }} </p>
+        <p class="meta">Sync: {{ report?.generatedDate | date:'medium' }} </p>
       </div>
     </div>
   </div>

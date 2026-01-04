@@ -14,20 +14,23 @@ export class AnalyticsService {
   }
 
   // Logic for tracking revenue trends and profitability
-  getRevenueTrends(dealerId?: number): Observable<RevenueTrend> {
-
-    
-return of(MOCK_REVENUE_TRENDS).pipe(
-      map((all) => {
-        const found = all.find((rt) => rt.dealerId === dealerId);
-        if (!found) {
-          throw new Error(`No data found for dealerId ${dealerId}`);
+  
+getRevenueTrends(dealerId?: number): Observable<RevenueTrend> {
+    return of(MOCK_REVENUE_TRENDS).pipe(
+      map(all => {
+        // Try specific dealer when an ID is passed
+        if (dealerId != null) {
+          const found = all.find(rt => rt.dealerId === dealerId);
+          if (found) return found;
         }
-        return found;
+           return all[0];
       })
     );
-
   }
+
+
+
+
 
   private getDealerSpecificReport(dealerId: number): SalesReport {
     // Simple calculation based on dealer ID
@@ -35,8 +38,8 @@ return of(MOCK_REVENUE_TRENDS).pipe(
     const variation = 0.8 + Math.random() * 0.4; // Random between 0.8-1.2
 
     // Simple capacity based on dealer ID
-    const capacities = [3, 5, 7, 4, 6, 8];
-    const capacity = capacities[dealerId % capacities.length] || 5;
+    const capacities = [9, 5, 7, 4, 6, 8];
+    const capacity = capacities[dealerId % capacities.length] || 3;
 
     return {
       reportID: `DLR-AUTO-2025-REPT-${dealerId.toString().padStart(3, '0')}`,

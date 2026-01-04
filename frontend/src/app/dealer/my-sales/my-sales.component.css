@@ -1,9 +1,9 @@
 
 /* Page shell */
 .dashboard-container {
-  background: #0f172a;         /* same as inline */
-  min-height: 100vh;           /* same as inline */
-  padding: 30px;               /* same as inline */
+  background: #0f172a;         
+  min-height: 100vh;           
+  padding: 30px;               
   color: white;
   font-family: sans-serif;
 }
@@ -12,145 +12,147 @@
 .header {
   display: flex;
   justify-content: space-between;
-  align-items: center;         /* same as inline */
-  margin-bottom: 30px;         /* same as inline */
+  align-items: center;         
+  margin-bottom: 30px;         
 }
 
 .title {
-  margin: 0;                   /* same as inline */
-  font-size: 24px;             /* same as inline */
+  margin: 0;                   
+  font-size: 28px;             
 }
 
 .subtitle {
-  color: #94a3b8;              /* same as inline */
-  font-size: 14px;             /* same as inline */
+  color: #94a3b8;              
+  font-size: 20px;             
 }
 
 .audit-btn {
-  background: #2563eb;         /* same as inline */
+  background: #2563eb;         
   color: white;
   border: none;
-  padding: 12px 24px;          /* same as inline */
-  border-radius: 6px;          /* same as inline */
+  padding: 12px 24px;          
+  border-radius: 6px;          
   cursor: pointer;
   font-weight: bold;
+  font-size: 18px;
 }
 
 /* Section heading */
 .sales-heading {
-  color: #3b82f6;              /* from your CSS */
-  font-size: 14px;             /* from your CSS */
-  text-transform: uppercase;   /* from your CSS */
-  margin: 0 0 12px 0;          /* visual balance */
+  color: #3b82f6;              
+  font-size: 18px;             
+  text-transform: uppercase;   
+  margin: 0 0 12px 0;          
 }
 
 /* Grids */
 .metrics-grid {
   display: grid;
-  gap: 20px;                   /* same as inline */
-  margin-bottom: 30px;         /* same as inline */
+  gap: 20px;                   
+  margin-bottom: 30px;         
 }
 
 .metrics-grid--4col {
-  grid-template-columns: repeat(4, 1fr); /* same as inline */
+  grid-template-columns: repeat(4, 1fr); 
 }
 
 .metrics-grid--3col {
-  grid-template-columns: repeat(3, 1fr); /* same as inline */
+  grid-template-columns: repeat(3, 1fr);
 }
 
 /* Cards */
 .card {
-  background: #1e293b;         /* same as inline */
-  padding: 20px;               /* same as inline */
-  border-radius: 12px;         /* same as inline */
+  background: #1e293b;        
+  padding: 20px;               
+  border-radius: 12px;    
+  font-size: 14 px;     
 }
 
 .label {
-  color: #94a3b8;              /* same as inline */
-  font-size: 0.75rem;
+  color: #94a3b8;              
+  font-size: 20 px;
   font-weight: bold;
   display: block;
   margin-bottom: 0.5rem;
 }
 
 .value {
-  margin: 8px 0;               /* same as inline */
-  font-size: 28px;             /* same as inline */
+  margin: 8px 0;              
+  font-size: 28px;             
   font-weight: bold;
 }
 
-.value--success { color: #10b981; }   /* same as inline */
-.value--warning { color: #f59e0b; }   /* same as inline */
+.value--success { color: #10b981; }   
+.value--warning { color: #f59e0b; }   
 
 .note {
-  color: #94a3b8;              /* same as inline for small text */
-  font-size: 0.7rem;
+  color: #94a3b8;              
+  font-size: 12 px;
 }
 
 /* Bottom row (chart + profit) */
 .bottom-row {
   display: grid;
-  grid-template-columns: 2fr 1fr; /* same as inline */
-  gap: 24px;                      /* same as inline */
+  grid-template-columns: 2fr 1fr; 
+  gap: 24px;                      
 }
 
 /* Chart section styles exactly as in inline block */
 .chart-container {
-  background: #1e293b;         /* same as inline */
-  padding: 25px;               /* same as inline */
-  border-radius: 12px;         /* same as inline */
+  background: #1e293b;         
+  padding: 25px;              
+  border-radius: 12px;         
 }
 
 .chart-title {
-  margin-top: 0;               /* same as inline */
-  margin-bottom: 12px;         /* to match visual spacing under title */
+  margin-top: 0;               
+  margin-bottom: 12px;        
   font-weight: 700;
 }
 
 /* This height is crucial for Chart.js look parity */
 .chart-wrapper {
-  height: 350px;               /* SAME HEIGHT you originally used */
+  height: 350px;               
 }
 
-/* Profit card */
+
 .profit-summary-card {
-  background: #312e81;         /* same as inline */
-  padding: 25px;               /* same as inline */
-  border-radius: 12px;         /* same as inline */
-  display: flex;               /* same as inline */
-  flex-direction: column;      /* same as inline */
-  justify-content: center;     /* same as inline */
+  background: #312e81;         
+  padding: 25px;              
+  border-radius: 12px;         
+  display: flex;               
+  flex-direction: column;      
+  justify-content: center;     
 }
 
 .profit-label {
-  color: #c7d2fe;              /* same as inline */
-  font-size: 0.8rem;
+  color: #c7d2fe;              
+  font-size: 1rem;
   letter-spacing: 0.03em;
 }
 
 .grand-total {
-  font-size: 42px;             /* same as inline */
-  margin: 15px 0;              /* same as inline */
+  font-size: 42px;             
+  margin: 15px 0;            
   font-weight: bold;
 }
 
 .profit-note {
-  font-size: 14px;             /* same as inline */
-  color: #c7d2fe;              /* same as inline */
+  font-size: 14px;             
+  color: #c7d2fe;              
   margin: 6px 0 0;
 }
 
 .divider {
-  border: none;                /* same as inline */
-  border-top: 1px solid #4338ca; /* same as inline */
-  margin: 20px 0;              /* same as inline */
+  border: none;                
+  border-top: 1px solid #4338ca; 
+  margin: 20px 0;              
 }
 
 .meta {
-  font-size: 12px;             /* same as inline */
-  font-family: monospace;      /* same as inline */
-  color: #cbd5e1;              /* subtle contrast on dark bg */
+  font-size: 14px;             
+  font-family: monospace;      
+  color: #cbd5e1;              
   margin: 2px 0;
 }
 
