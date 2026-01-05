@@ -35,7 +35,7 @@ export class BookServiceComponent {
   };
  
   message: string = '';
-   
+    
 warrantyServiceOptions = [
     { key: 'engine',       label: 'Engine Check' },
     { key: 'brake',        label: 'Brake Inspection' },
@@ -52,13 +52,13 @@ warrantyServiceOptions = [
   warrantyServices: Record<string, boolean> = Object.fromEntries(
     this.warrantyServiceOptions.map(s => [s.key, false])
   );
- 
+
   // onSubmit() {
   //   // check if serviceDate already exists
   //   const exists = bookingDataList.some(
   //     b => b.serviceDate === this.booking.serviceDate
   //   );
- 
+
   //   if (exists) {
   //     this.message = 'Choose different time slot';
   //   } else {
@@ -66,23 +66,23 @@ warrantyServiceOptions = [
   //     this.message = 'Service booked successfully!';
   //   }
   // }
- 
+  
 // Utility safe parse
  safeParse<T>(s: string | null, fallback: T): T {
   try { return s ? JSON.parse(s) as T : fallback; } catch { return fallback; }
 }
- 
+
   onSubmit(serviceForm:NgForm){
-   
+    
 const selectedWarranty = this.warrantyServiceOptions
       .filter(s => this.warrantyServices[s.key])
       .map(s => s.key);
-   
+    
     const payload = {
       ...serviceForm.value,
       warrantySelections: selectedWarranty,
     };
- 
+
     console.log('Submitting payload:', payload);
     const existing = this.safeParse<any[]>(localStorage.getItem('bookings'), []);
     existing.push(payload);

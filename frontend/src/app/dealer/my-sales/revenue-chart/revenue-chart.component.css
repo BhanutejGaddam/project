@@ -1,0 +1,8 @@
+
+
+.chart-container {
+  position: relative;
+  width: 100%;
+  height: 100%; /* actual height comes from parent .chart-wrapper */
+}
+canvas { display: block; }

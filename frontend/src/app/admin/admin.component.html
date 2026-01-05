@@ -7,9 +7,10 @@
     <div class="brand">Dealer Portal</div>
 
     <nav class="nav-list">
-      <a routerLink="dealers" routerLinkActive="active">My Dealers</a>
+      <a routerLink="dealers" routerLinkActive="active">Dealers</a>
       <a routerLink="dealer-sales" routerLinkActive="active">Dealer Sales</a>
       <a routerLink="dealer-inventory" routerLinkActive="active">Dealer Inventory</a>
+      <button (click)="onLogout()" class="logout-btn" aria-label="Logout">Logout</button>
     </nav>
 
   </aside>

@@ -1,5 +1,5 @@
 import { Injectable } from '@angular/core';
-import { Observable, of } from 'rxjs';
+import { map, Observable, of } from 'rxjs';
 import { SalesReport, RevenueTrend } from '../models/sales-report.model';
 import { MOCK_SALES_REPORT, MOCK_REVENUE_TRENDS } from '../models/mock-analytics-data';
 
@@ -14,9 +14,23 @@ export class AnalyticsService {
   }
 
   // Logic for tracking revenue trends and profitability
-  getRevenueTrends(): Observable<RevenueTrend[]> {
-    return of(MOCK_REVENUE_TRENDS);
+  
+getRevenueTrends(dealerId?: number): Observable<RevenueTrend> {
+    return of(MOCK_REVENUE_TRENDS).pipe(
+      map(all => {
+        // Try specific dealer when an ID is passed
+        if (dealerId != null) {
+          const found = all.find(rt => rt.dealerId === dealerId);
+          if (found) return found;
+        }
+           return all[0];
+      })
+    );
   }
+
+
+
+
 
   private getDealerSpecificReport(dealerId: number): SalesReport {
     // Simple calculation based on dealer ID
@@ -24,8 +38,8 @@ export class AnalyticsService {
     const variation = 0.8 + Math.random() * 0.4; // Random between 0.8-1.2
 
     // Simple capacity based on dealer ID
-    const capacities = [3, 5, 7, 4, 6, 8];
-    const capacity = capacities[dealerId % capacities.length] || 5;
+    const capacities = [9, 5, 7, 4, 6, 8];
+    const capacity = capacities[dealerId % capacities.length] || 3;
 
     return {
       reportID: `DLR-AUTO-2025-REPT-${dealerId.toString().padStart(3, '0')}`,

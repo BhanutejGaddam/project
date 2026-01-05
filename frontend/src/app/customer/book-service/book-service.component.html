@@ -1,6 +1,6 @@
 <div class="book-service">
   <h2>BOOK A SERVICE</h2>
- 
+
 <form class="service-form" (ngSubmit)="onSubmit(serviceForm)" #serviceForm="ngForm">
     <!-- 🔑 Personal Information -->
     <h3>🔑 Personal Information</h3>
@@ -127,8 +127,8 @@
            
 <div id="warranty-services" class="checkbox-list">
     <p>Select services covered under warranty:</p>
- 
-    @for (svc of warrantyServiceOptions; track svc.key) {
+
+    @for (svc of warrantyServiceOptions; track svc.key) {            
       <label>
         <input
           type="checkbox"
@@ -139,9 +139,9 @@
       </label>
     }
   </div>
- 
+
       }
-                 
+                  
     </div>
  
     <button type="submit" class="btn">Book Service</button>
