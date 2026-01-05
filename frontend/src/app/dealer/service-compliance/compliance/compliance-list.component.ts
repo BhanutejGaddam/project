@@ -15,15 +15,15 @@ import { Observable } from 'rxjs';
 })
 export class ComplianceListComponent {
   records$!: Observable<ComplianceRecord[]>;
-  vehicleId: number | null = null;
+  vehicleId: string | null = null;
 
   constructor(private service: ComplianceService) {
     this.records$ = this.service.list();
   }
 
   onVehicleChange(): void {
-    if (this.vehicleId && this.vehicleId > 0) {
-      this.records$ = this.service.listByVehicle('this.vehicleId');
+    if (this.vehicleId && this.vehicleId.trim() !== '') {
+      this.records$ = this.service.listByVehicle(this.vehicleId);
     } else {
       this.records$ = this.service.list();
     }

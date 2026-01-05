@@ -1,1 +1,73 @@
-<p>revenue-chart works!</p>
+
+<div *ngIf="loading" style="color:#94a3b8">Loading trends...</div>
+
+<svg
+  *ngIf="!loading"
+  class="chart-root"
+  [attr.viewBox]="'0 0 ' + baseWidth + ' ' + baseHeight"
+  preserveAspectRatio="xMidYMid meet"
+>
+  <!-- Legend (above plot, within top margin space) -->
+  <g [attr.transform]="'translate(' + margin.left + ',' + (margin.top - 34) + ')'">
+    <!-- Vehicle Sales ($) -->
+    <rect x="0" y="0" width="28" height="14" rx="3" fill="#2563eb" stroke="#60a5fa" stroke-width="2" />
+    <text x="36" y="12" fill="#cbd5e1" font-size="13" font-weight="600">Vehicle Sales ($)</text>
+
+    <!-- Service Revenue ($) -->
+    <rect x="210" y="0" width="28" height="14" rx="3" fill="#10b981" stroke="#34d399" stroke-width="2" />
+    <text x="250" y="12" fill="#cbd5e1" font-size="13" font-weight="600">Service Revenue ($)</text>
+  </g>
+
+  <!-- Plot area -->
+  <rect
+    [attr.x]="margin.left" [attr.y]="margin.top"
+    [attr.width]="baseWidth - margin.left - margin.right"
+    [attr.height]="baseHeight - margin.top - margin.bottom"
+    fill="#0f172a" stroke="#1f2937" />
+
+  <!-- Horizontal grid lines + Y labels -->
+  <g>
+    <ng-container *ngFor="let v of yTicks">
+      <line
+        [attr.x1]="margin.left" [attr.y1]="yTickY(v)"
+        [attr.x2]="baseWidth - margin.right" [attr.y2]="yTickY(v)"
+        stroke="#1f2937" />
+      <text
+        [attr.x]="yTickX()" [attr.y]="yTickY(v) + 4"
+        fill="#94a3b8" font-size="12" text-anchor="end">
+        {{ formatIndianNumber(v) }}
+      </text>
+    </ng-container>
+  </g>
+
+  <!-- Single mid vertical grid line (Nov) -->
+  <g *ngIf="midGridX() as midX">
+    <line
+      [attr.x1]="midX" [attr.y1]="margin.top"
+      [attr.x2]="midX" [attr.y2]="baseHeight - margin.bottom"
+      stroke="#1f2937" />
+  </g>
+
+  <!-- X-axis month labels -->
+  <g>
+    <ng-container *ngFor="let m of trends; let i = index">
+      <text
+        [attr.x]="xLabelX(i)" [attr.y]="xLabelY()"
+        fill="#94a3b8" font-size="12" text-anchor="middle">
+        {{ m.month }}
+      </text>
+    </ng-container>
+  </g>
+
+  <!-- Lines + markers -->
+  <path [attr.d]="path(salesPoints)" fill="none" stroke="#2563eb" stroke-width="3" />
+  <g>
+    <circle *ngFor="let p of salesPoints" [attr.cx]="p.x" [attr.cy]="p.y" r="4" fill="#2563eb" stroke="#60a5fa" stroke-width="2" />
+  </g>
+
+  <path [attr.d]="path(servicePoints)" fill="none" stroke="#10b981" stroke-width="3" />
+  <g>
+    <circle *ngFor="let p of servicePoints" [attr.cx]="p.x" [attr.cy]="p.y" r="4" fill="#10b981" stroke="#34d399" stroke-width="2" />
+  </g>
+</svg>
+``

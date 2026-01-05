@@ -18,17 +18,17 @@ export const routes: Routes = [
     {
         path: 'admin-login',
         component: LoginComponent,
-        canDeactivate:[canLeaveLoginpage]
+        canDeactivate:[canLeaveLoginpage],
     },
     {
         path: 'dealer-login',
         component: LoginComponent,
-        canDeactivate:[canLeaveLoginpage]
+        canDeactivate:[canLeaveLoginpage],
     },
     {
         path: 'customer-login',
         component: LoginComponent,
-        canDeactivate:[canLeaveLoginpage]
+        canDeactivate:[canLeaveLoginpage],
     },
     {
         path:'dealer',

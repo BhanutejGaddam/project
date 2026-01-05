@@ -28,7 +28,9 @@ export class ComplianceFormComponent implements OnInit {
   ngOnInit(): void {
     this.form = this.fb.group({
       vehicleId: ['', [Validators.required, Validators.minLength(5)]],
-      regulationType: ['', [Validators.required, Validators.minLength(3)]],
+      Fitness: ['', [Validators.required, Validators.minLength(3)]],
+      RC: ['', [Validators.required, Validators.minLength(3)]],
+      PollutionCheck: ['', [Validators.required, Validators.minLength(3)]],
       checkDate: ['', Validators.required],
       expiryDate: ['', Validators.required],
       status: ['PENDING', Validators.required],
@@ -38,15 +40,18 @@ export class ComplianceFormComponent implements OnInit {
     if (idParam) {
       this.isEdit = true;
       this.id = Number(idParam);
-      this.service.getById(idParam).pipe(first()).subscribe(r => {
-        if (r) this.form.patchValue(r);
+
+      this.service.getById(this.id).pipe(first()).subscribe(r => {
+        if (r) {
+          this.form.patchValue(r);
+        }
       });
     }
   }
 
   save(): void {
     const payload = this.form.value as ComplianceRecord;
-    if (this.isEdit && this.id) {
+    if (this.isEdit && this.id !== null) {
       this.service.update(this.id, payload);
     } else {
       this.service.create(payload);

@@ -11,7 +11,7 @@ type Dealer = {
   managedBy: string;
 };
  
-
+ 
  
 @Component({
   selector: 'app-admin-dealer-sales',
@@ -51,7 +51,7 @@ export class AdminDealerSalesComponent {
       managedBy: 'Rahul Nerkar'
     }
   ];
-
+ 
   showContact = false;
   selectedDealer: Dealer | null = null;
  
@@ -74,7 +74,7 @@ export class AdminDealerSalesComponent {
  
   get f() { return this.contactForm.controls; }
  
-
+ 
  
   viewInventory(dealer: Dealer): void {
     console.log('View inventory for:', dealer);
@@ -115,9 +115,9 @@ export class AdminDealerSalesComponent {
     if (this.contactForm.invalid) {
       return;
     }
-
+ 
     this.submitting = true;
-
+ 
     // Simulate sending message
     setTimeout(() => {
       this.submitting = false;
