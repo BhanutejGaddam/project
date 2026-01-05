@@ -20,6 +20,7 @@ export class RevenueChartComponent implements AfterViewInit {
   constructor(private analytics: AnalyticsService) {}
 
   ngAfterViewInit() {
+    Chart.register(...registerables);
     
 this.analytics.getRevenueTrends(this.dealerId).subscribe({
       next: (trend: RevenueTrend) => {

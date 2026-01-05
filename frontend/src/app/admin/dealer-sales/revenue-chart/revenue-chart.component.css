@@ -1,13 +1,9 @@
 
-.chart-root {
-  display: block;
-  width: 100%;      /* fills the parent card width */
-  height: auto;     /* scales height based on viewBox */
-  background: transparent;
-  margin-top: 6px;  /* small gap under the heading */
-  font-family: ui-sans-serif, system-ui, -apple-system, Segoe UI, Roboto, "Helvetica Neue", Arial, "Noto Sans";
+chart-container {
+  position: relative;
+  height: 350px;
 }
 
-text {
-  user-select: none;
+canvas {
+  display: block;
 }

@@ -18,7 +18,7 @@ export class RevenueChartComponent implements AfterViewInit {
   @Input() dealerId?: number;
 
   constructor(private analytics: AnalyticsService) {}
-
+  
   ngAfterViewInit() {
     
 this.analytics.getRevenueTrends(this.dealerId).subscribe({

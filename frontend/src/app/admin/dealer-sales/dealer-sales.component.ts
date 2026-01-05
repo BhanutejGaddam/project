@@ -49,7 +49,5 @@ export class AdminDealerSalesComponent {
       managedBy: 'Rahul Nerkar'
     }
   ];
-  trackByDealerId(index: number, dealer: Dealer): number {
-    return dealer.dealerID;
-  }
+  
 }
