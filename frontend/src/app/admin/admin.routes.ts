@@ -1,4 +1,3 @@
-
 import { Routes } from '@angular/router';
 import { DealerComponent } from './dealers/dealers.component';
 import { AdminDealerSalesComponent } from './dealer-sales/dealer-sales.component';
