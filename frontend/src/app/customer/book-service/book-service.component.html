@@ -1,58 +1,58 @@
 <div class="book-service">
   <h2>BOOK A SERVICE</h2>
-
-<form class="service-form" (ngSubmit)="onSubmit()" #serviceForm="ngForm">
+ 
+<form class="service-form" (ngSubmit)="onSubmit(serviceForm)" #serviceForm="ngForm">
     <!-- 🔑 Personal Information -->
     <h3>🔑 Personal Information</h3>
     <div class="form-group">
       <label for="ownerName">Full Name</label>
-      <input id="ownerName" type="text" placeholder="Enter full name" />
+      <input id="ownerName" type="text" placeholder="Enter full name" name="ownerName" ngModel />
     </div>
     <div class="form-group">
       <label for="phone">Phone Number</label>
-      <input id="phone" type="tel" placeholder="Enter phone number" />
+      <input id="phone" type="tel" placeholder="Enter phone number" name="phone" ngModel />
     </div>
     <div class="form-group">
       <label for="email">Email Address</label>
-      <input id="email" type="email" placeholder="Enter email address" />
+      <input id="email" type="email" placeholder="Enter email address" name="email" ngModel />
     </div>
     <div class="form-group">
       <label for="address">Residential Address</label>
-      <textarea id="address" placeholder="Enter address"></textarea>
+      <textarea id="address" placeholder="Enter address" name="address" ngModel></textarea>
     </div>
-
+ 
     <!-- 🚗 Vehicle Information -->
     <h3>🚗 Vehicle Information</h3>
     <div class="form-group">
       <label for="makeModelYear">Make, Model & Year</label>
-      <input id="makeModelYear" type="text" placeholder="e.g., Toyota Corolla 2020" />
+      <input id="makeModelYear" type="text" placeholder="e.g., Toyota Corolla 2020" name="makeModelYear" ngModel />
     </div>
     <div class="form-group">
       <label for="vin">VIN / Chassis Number</label>
-      <input id="vin" type="text" placeholder="Enter VIN or chassis number" />
+      <input id="vin" type="text" placeholder="Enter VIN or chassis number" name="vin" ngModel />
     </div>
     <div class="form-group">
       <label for="registration">Registration Number</label>
-      <input id="registration" type="text" placeholder="Enter license plate number" />
+      <input id="registration" type="text" placeholder="Enter license plate number" name="registration" ngModel />
     </div>
     <div class="form-group">
       <label for="mileage">Current Mileage</label>
-      <input id="mileage" type="number" placeholder="Enter odometer reading" />
+      <input id="mileage" type="number" placeholder="Enter odometer reading" name="mileage" ngModel />
     </div>
     <div class="form-group">
       <label for="fuelType">Fuel Type</label>
-      <select id="fuelType">
+      <select id="fuelType" name="fuelType" ngModel>
         <option value="petrol">Petrol</option>
         <option value="diesel">Diesel</option>
         <option value="hybrid">Hybrid</option>
         <option value="electric">Electric</option>
       </select>
     </div>
-
+ 
     <!-- 🛠️ Service Details -->
     <h3>🛠️ Service Details</h3>
     <div class="form-group">
-      <label for="serviceType">Type of Service</label>
+      <label for="serviceType" name="serviceType" ngModel>Type of Service</label>
       <select id="serviceType">
         <option value="routine">Routine Maintenance</option>
         <option value="repair">Specific Repair</option>
@@ -61,11 +61,11 @@
     </div>
     <div class="form-group">
       <label for="issues">Description of Issues</label>
-      <textarea id="issues" placeholder="Describe problems noticed"></textarea>
+      <textarea id="issues" placeholder="Describe problems noticed" name="issues" ngModel></textarea>
     </div>
     <div class="form-group">
       <label for="package">Preferred Service Package</label>
-      <select id="package">
+      <select id="package" name="package" ngModel>
         <option value="basic">Basic</option>
         <option value="comprehensive">Comprehensive</option>
         <option value="manufacturer">Manufacturer-Recommended</option>
@@ -73,19 +73,19 @@
     </div>
     <div class="form-group">
       <label for="history">Previous Service History</label>
-      <textarea id="history" placeholder="Enter previous service details"></textarea>
+      <textarea id="history" placeholder="Enter previous service details" name="history" ngModel></textarea>
     </div>
-
-    
+ 
+   
     <!-- 📅 Logistics -->
     <h3>📅 Logistics</h3>
     <div class="form-group">
       <label for="serviceDate">Appointment Date & Time</label>
-      <input id="serviceDate" type="datetime-local" [(ngModel)]="booking.serviceDate" name="serviceDate" required />
+      <input id="serviceDate" type="datetime-local" ngModel name="serviceDate" required />
     </div>
     <div class="form-group">
       <label for="pickupDrop">Pickup/Drop-off Preference</label>
-      <select id="pickupDrop">
+      <select id="pickupDrop" name="pickupDrop" ngModel>
         <option value="none">None</option>
         <option value="pickup">Pickup</option>
         <option value="dropoff">Drop-off</option>
@@ -94,38 +94,56 @@
     </div>
     <div class="form-group">
       <label for="emergencyContact">Emergency Contact (Optional)</label>
-      <input id="emergencyContact" type="tel" placeholder="Enter emergency contact number" />
+      <input id="emergencyContact" type="tel" placeholder="Enter emergency contact number" name="emergencyContact" ngModel />
     </div>
-
+ 
     <!-- Existing Warranty Section -->
     <div class="form-group">
       <label>Want to avail Warranty?</label>
       <div class="radio-group">
         <label>
-          <input type="radio" name="warranty" value="yes" onclick="document.getElementById('warranty-services').style.display='block'">
+          <input type="radio" name="warranty" value="yes" [(ngModel)]="warranty">
           Yes
         </label>
         <label>
-          <input type="radio" name="warranty" value="no" onclick="document.getElementById('warranty-services').style.display='none'">
+          <input type="radio" name="warranty" value="no" [(ngModel)]="warranty">
           No
         </label>
       </div>
-
-      <div id="warranty-services" class="checkbox-list" style="display:none;">
-        <p>Select services covered under warranty:</p>
-        <label><input type="checkbox"> Engine Check</label>
-        <label><input type="checkbox"> Brake Inspection</label>
-        <label><input type="checkbox"> Oil Change</label>
-        <label><input type="checkbox"> Transmission Service</label>
-        <label><input type="checkbox"> Battery Replacement</label>
-        <label><input type="checkbox"> Tire Rotation</label>
-        <label><input type="checkbox"> Suspension Check</label>
-        <label><input type="checkbox"> Electrical System</label>
-        <label><input type="checkbox"> Cooling System</label>
-        <label><input type="checkbox"> Exhaust System</label>
-      </div>
+      @if (warranty === 'yes') {
+          <!-- <div id="warranty-services" class="checkbox-list">
+                <p>Select services covered under warranty:</p>
+                <label><input type="checkbox"> Engine Check</label>
+                <label><input type="checkbox"> Brake Inspection</label>
+                <label><input type="checkbox"> Oil Change</label>
+                <label><input type="checkbox"> Transmission Service</label>
+                <label><input type="checkbox"> Battery Replacement</label>
+                <label><input type="checkbox"> Tire Rotation</label>
+                <label><input type="checkbox"> Suspension Check</label>
+                <label><input type="checkbox"> Electrical System</label>
+                <label><input type="checkbox"> Cooling System</label>
+                <label><input type="checkbox"> Exhaust System</label>
+           </div> -->
+           
+<div id="warranty-services" class="checkbox-list">
+    <p>Select services covered under warranty:</p>
+ 
+    @for (svc of warrantyServiceOptions; track svc.key) {
+      <label>
+        <input
+          type="checkbox"
+          [name]="'warranty_' + svc.key"
+          [(ngModel)]="warrantyServices[svc.key]"
+        />
+        {{ svc.label }}
+      </label>
+    }
+  </div>
+ 
+      }
+                 
     </div>
-
+ 
     <button type="submit" class="btn">Book Service</button>
   </form>
    <!-- Message display -->
