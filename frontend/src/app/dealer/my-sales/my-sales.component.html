@@ -1,71 +1,92 @@
 
-<div style="background: #0f172a; min-height: 100vh; padding: 30px; color: white; font-family: sans-serif;">
-  <header style="display: flex; justify-content: space-between; align-items: center; margin-bottom: 30px;">
+<div class="dashboard-container">
+  <header class="header">
     <div>
-      <h1 style="margin: 0; font-size: 24px;">Dealer Executive Insights</h1>
-      <p style="color: #94a3b8; font-size: 14px;">Real-time inventory and revenue monitoring [cite: 5]</p>
+      <h1 class="title">Dealer Executive Insights</h1>
+      <p class="subtitle">Real-time inventory and revenue monitoring [cite: 5]</p>
     </div>
-    <button (click)="onGenerateReport()" style="background: #2563eb; color: white; border: none; padding: 12px 24px; border-radius: 6px; cursor: pointer; font-weight: bold;">
-      Generate Full Audit Report [cite: 56]
+    <button (click)="onGenerateReport()" class="audit-btn">
+      Generate Full Audit Report 
     </button>
   </header>
 
-  <!-- KPIs -->
-  <h3 style="color: #3b82f6; font-size: 14px; text-transform: uppercase;">Vehicle Inventory &amp; Sales [cite: 22]</h3>
-  <div style="display: grid; grid-template-columns: repeat(4, 1fr); gap: 20px; margin-bottom: 30px;">
-    <div style="background: #1e293b; padding: 20px; border-radius: 12px;">
-      <small style="color: #94a3b8;">VEHICLES SOLD</small>
-      <h2 style="margin: 8px 0; font-size: 28px;">{{ report?.metrics?.vehiclesSold }}</h2>
-    </div>
-    <div style="background: #1e293b; padding: 20px; border-radius: 12px;">
-      <small style="color: #94a3b8;">STOCK REMAINING</small>
-      <h2 style="margin: 8px 0; font-size: 28px; color: #f59e0b;">{{ report?.metrics?.vehiclesRemaining }}</h2>
-    </div>
-    <div style="background: #1e293b; padding: 20px; border-radius: 12px;">
-      <small style="color: #94a3b8;">SALES REVENUE</small>
-      <h2 style="margin: 8px 0; font-size: 28px; color: #10b981;">{{ report?.metrics?.salesRevenue | currency:'INR':'symbol':'1.0-0' }}</h2>
-    </div>
-    <div style="background: #1e293b; padding: 20px; border-radius: 12px;">
-      <small style="color: #94a3b8;">SALES PROFIT</small>
-      <h2 style="margin: 8px 0; font-size: 28px;">{{ report?.metrics?.salesProfit | currency:'INR':'symbol':'1.0-0' }}</h2>
-    </div>
-  </div>
+  <div class="print-area">
+    <h3 class="sales-heading">Vehicle Inventory &amp; Sales </h3>
 
-  <h3 style="color: #8b5cf6; font-size: 14px; text-transform: uppercase;">Service Workshop Analytics [cite: 45]</h3>
-  <div style="display: grid; grid-template-columns: repeat(3, 1fr); gap: 20px; margin-bottom: 30px;">
-    <div style="background: #1e293b; padding: 20px; border-radius: 12px;">
-      <small style="color: #94a3b8;">SERVICE REQUESTS PROCESSED</small>
-      <h2 style="margin: 8px 0; font-size: 28px;">{{ report?.metrics?.serviceRequestsProcessed | number }}</h2>
-      <small style="color: #94a3b8;">Capacity: 5 / day </small>
-    </div>
-    <div style="background: #1e293b; padding: 20px; border-radius: 12px;">
-      <small style="color: #94a3b8;">SERVICE REVENUE</small>
-      <h2 style="margin: 8px 0; font-size: 28px; color: #10b981;">{{ report?.metrics?.serviceRevenue | currency:'INR':'symbol':'1.0-0' }}</h2>
-    </div>
-    <div style="background: #1e293b; padding: 20px; border-radius: 12px;">
-      <small style="color: #94a3b8;">SERVICE PROFIT</small>
-      <h2 style="margin: 8px 0; font-size: 28px;">{{ report?.metrics?.serviceProfit | currency:'INR':'symbol':'1.0-0' }}</h2>
-    </div>
-  </div>
+    <div class="metrics-grid metrics-grid--4col">
+      <div class="card">
+        <small class="label">VEHICLES SOLD</small>
+        <h2 class="value"> {{ report?.metrics?.vehiclesSold }} </h2>
+      </div>
 
-  <!-- Chart + profit card -->
-  <div style="display: grid; grid-template-columns: 2fr 1fr; gap: 24px;">
-    <div style="background: #1e293b; padding: 25px; border-radius: 12px;">
-      <!-- SINGLE chart heading (remove duplicated inside SVG) -->
-      <h3 style="margin-top: 0;">
-        Monthly Performance Comparison
-        <small *ngIf="dealerId" style="color:#94a3b8"> — Dealer #{{ dealerId }}</small>
-      </h3>
-      <app-revenue-chart [dealerId]="dealerId"></app-revenue-chart>
+      <div class="card">
+        <small class="label">STOCK REMAINING</small>
+        <h2 class="value value--warning">
+          {{ report?.metrics?.vehiclesRemaining }}
+        </h2>
+      </div>
+
+      <div class="card">
+        <small class="label">SALES REVENUE</small>
+        <h2 class="value value--success">
+          {{ report?.metrics?.salesRevenue | currency:'INR':'symbol':'1.0-0' }}
+        </h2>
+      </div>
+
+      <div class="card">
+        <small class="label">SALES PROFIT</small>
+        <h2 class="value">
+          {{ report?.metrics?.salesProfit | currency:'INR':'symbol':'1.0-0' }}
+        </h2>
+      </div>
     </div>
 
-    <div style="background: #312e81; padding: 25px; border-radius: 12px; display: flex; flex-direction: column; justify-content: center;">
-      <small style="color: #c7d2fe;">NET DEALER PROFIT </small>
-      <h2 style="font-size: 42px; margin: 15px 0;">{{ report?.metrics?.netDealerProfit | currency:'INR':'symbol':'1.0-0' }}</h2>
-      <p style="font-size: 14px; color: #c7d2fe;">Consolidated total of Sales and Service margins.</p>
-      <hr style="border: none; border-top: 1px solid #4338ca; margin: 20px 0;">
-      <p style="font-size: 12px; font-family: monospace;">Audit ID: {{ report?.reportID }} [cite: 61]</p>
-      <p style="font-size: 12px; font-family: monospace;">Sync: {{ report?.generatedDate | date:'medium' }} [cite: 63]</p>
+    <h3 class="sales-heading">Service Workshop Analytics </h3>
+
+    <div class="metrics-grid metrics-grid--3col">
+      <div class="card">
+        <small class="label">SERVICE REQUESTS PROCESSED</small>
+        <h2 class="value">{{ report?.metrics?.serviceRequestsProcessed | number }}</h2>
+        
+        <small class="note">
+            Capacity: {{ report?.metrics?.serviceCapacity }} / day
+             </small>
+
+      </div>
+
+      <div class="card">
+        <small class="label">SERVICE REVENUE</small>
+        <h2 class="value value--success">
+          {{ report?.metrics?.serviceRevenue | currency:'INR':'symbol':'1.0-0' }}
+        </h2>
+      </div>
+
+      <div class="card">
+        <small class="label">SERVICE PROFIT</small>
+        <h2 class="value">
+          {{ report?.metrics?.serviceProfit | currency:'INR':'symbol':'1.0-0' }}
+        </h2>
+      </div>
+    </div>
+
+    <div class="bottom-row">
+      <div class="chart-container">
+        <h3 class="chart-title">Monthly Performance Comparison</h3>
+        <div class="chart-wrapper">
+          <app-revenue-chart [dealerId]="dealerId"></app-revenue-chart>
+        </div>
+      </div>
+
+      <div class="profit-summary-card">
+        <small class="profit-label">NET DEALER PROFIT</small>
+        <h2 class="grand-total">
+          {{ report?.metrics?.netDealerProfit | currency:'INR':'symbol':'1.0-0' }}
+        </h2>
+        <p class="profit-note">Consolidated total of Sales and Service margins.</p>
+        <hr class="divider" />
+        <p class="meta">Audit ID: {{ report?.reportID }} </p>
+        <p class="meta">Sync: {{ report?.generatedDate | date:'medium' }} </p>
+      </div>
     </div>
   </div>
 </div>

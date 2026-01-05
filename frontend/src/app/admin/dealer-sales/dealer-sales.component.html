@@ -1,94 +1,50 @@
-<!-- src/app/dealer/my-dealers/my-dealers.component.html -->
+
 <div class="my-dealers-page">
- 
-<!-- src/app/dealer/dealer.component.html -->
 <div class="dealer-page">
- 
- 
+
   <!-- Header -->
   <div class="header">
     <div class="icon">🏪</div>
     <h2>My Dealers</h2>
   </div>
  
- 
- 
- 
- 
- 
-  <!-- Dealer cards -->
+
+ <!-- Dealer cards -->
   <div class="grid">
-    <div class="dealer-card" *ngFor="let d of dealers">
+    <div class="dealer-card" *ngFor="let dealer of dealers track dealer.dealerID">
       <div class="title-row">
-        <span class="dealer-name">{{ d.dealerName }}</span>
-        <span class="badge">ID: {{ d.dealerID }}</span>
+        <span class="dealer-name">{{ dealer.dealerName }}</span>
+        <span class="badge">ID: {{ dealer.dealerID }}</span>
       </div>
  
       <div class="field">
         <div class="label">Address</div>
-        <div class="value">{{ d.address }}</div>
+        <div class="value">{{dealer.address }}</div>
       </div>
      
       <div class="field">
         <div class="label">Contact</div>
-        <div class="value">{{ d.contact }}</div>
+        <div class="value">{{ dealer.contact }}</div>
       </div>
  
       <div class="field">
         <div class="label">Managed by</div>
-        <div class="value">{{ d.managedBy }}</div>
+        <div class="value">{{ dealer.managedBy }}</div>
       </div>
  
       <div class="divider"></div>
       <div class="dealer-actions">
- 
- 
- 
-        <button class="btn btn-secondary" type="button"
+
+
+      <button class="btn btn-secondary" type="button"
                 [routerLink]="['/admin', 'dealer-sales-details']"
-                [queryParams]="{ dealerId: d.dealerID }">
+                [queryParams]="{ dealerId: dealer.dealerID }">
           View Sales Details
         </button>
- 
-        <!-- <button class="btn btn-primary" type="button" (click)="contactDealer(d)">Contact</button> -->
+
+        
       </div>
     </div>
   </div>
+
  
-  <!-- Contact Modal -->
-  <div *ngIf="showContact" class="modal" (click)="closeContact($event)">
-    <div class="modal-content" #contactModal (click)="$event.stopPropagation()">
-      <h3>Contact {{ selectedDealer?.dealerName }}</h3>
-      <form [formGroup]="contactForm" (ngSubmit)="submitContact()">
-        <div class="form-group">
-          <label for="fullName">Full Name</label>
-          <input id="fullName" formControlName="fullName" class="form-control" placeholder="Full name" required />
-        </div>
-        <div class="form-group">
-          <label for="email">Email</label>
-          <input id="email" type="email" formControlName="email" class="form-control" placeholder="Email" required />
-        </div>
-        <div class="form-group">
-          <label for="phone">Phone</label>
-          <input id="phone" formControlName="phone" class="form-control" placeholder="Phone" />
-        </div>
-        <div class="form-group">
-          <label for="message">Message</label>
-          <textarea id="message" formControlName="message" class="form-control" placeholder="Message" required></textarea>
-        </div>
- 
-        <div class="actions">
-          <button type="submit" class="btn btn-primary" [disabled]="submitting">Send</button>
-          <button type="button" class="btn btn-outline" (click)="closeContact()">Close</button>
-        </div>
-      </form>
- 
-      <div *ngIf="submitSuccess" class="success">Message sent successfully</div>
-    </div>
-  </div>
-</div>
- 
- 
-<br><br>
- 
-</div>

@@ -18,7 +18,30 @@ export const MOCK_SALES_REPORT: SalesReport = {
 };
 
 export const MOCK_REVENUE_TRENDS: RevenueTrend[] = [
-  { month: 'Oct', salesRevenue: 1100000, serviceRevenue: 250000 },
+  {
+    dealerId: 101,
+    dealerSales: [{ month: 'Oct', salesRevenue: 1100000, serviceRevenue: 250000 },
   { month: 'Nov', salesRevenue: 1550000, serviceRevenue: 450000 },
   { month: 'Dec', salesRevenue: 1850000, serviceRevenue: 550000 }
+]},
+{
+    dealerId: 102,
+    dealerSales: [{ month: 'Oct', salesRevenue: 900000, serviceRevenue: 200000 },
+  { month: 'Nov', salesRevenue: 1300000, serviceRevenue: 350000 },
+  { month: 'Dec', salesRevenue: 1600000, serviceRevenue: 500000 }
+]},
+{
+    dealerId: 103,
+    dealerSales: [{ month: 'Oct', salesRevenue: 1200000, serviceRevenue: 300000 },
+  { month: 'Nov', salesRevenue: 1700000, serviceRevenue: 400000 },
+  { month: 'Dec', salesRevenue: 2000000, serviceRevenue: 600000 }
+]},
+{
+    dealerId: 104,
+    dealerSales: [{ month: 'Oct', salesRevenue: 1000000, serviceRevenue: 220000 },
+  { month: 'Nov', salesRevenue: 1400000, serviceRevenue: 370000 },
+  { month: 'Dec', salesRevenue: 1750000, serviceRevenue: 520000 }
+]
+}
+  
 ];
