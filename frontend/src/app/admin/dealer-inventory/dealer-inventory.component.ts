@@ -85,10 +85,12 @@ export class DealerInventoryComponent {
   refresh(): void {
     this.dealers = [...this.dealers]; 
   }
+  // refresh(): Reassigns a new array copy [...] to this.dealers
 
   addDealer(): void {
     const nextId = (this.dealers.length ? Math.max(...this.dealers.map(d => d.dealerID)) : 100) + 1;
     this.dealers.push({ dealerID: nextId, dealerName: `Dealer ${nextId}`, vehicles: [] });
     this.dealers = [...this.dealers];
   }
+  
 }

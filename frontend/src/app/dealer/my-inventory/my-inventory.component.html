@@ -11,6 +11,7 @@
     <div class="card-body">
 
       <div class="table-wrap">
+      
         <table>
           <thead>
             <tr>
@@ -21,61 +22,15 @@
               <th>Status</th>
             </tr>
           </thead>
-
-          <tbody>
+          @for(vehicle of vehicles; track vehicle.vehicleID) {
             <tr>
-              <td>1001</td>
-              <td class="model">Sedan X</td>
-              <td class="price">₹ 15,00,000</td>
-              <td><span class="badge badge-success">15</span></td>
+              <td>{{ vehicle.vehicleID }}</td>
+              <td class="model">{{ vehicle.model }}</td>
+              <td class="price">₹ {{ vehicle.price }}</td>
+              <td><span class="badge badge-success">{{ vehicle.noOfVehiclesAvailable }}</span></td>
               <td><span class="badge badge-info">Available</span></td>
-             
             </tr>
-            <tr>
-              <td>1002</td>
-              <td class="model">SUV Y</td>
-              <td class="price">₹ 12,00,000</td>
-              <td><span class="badge badge-success">12</span></td>
-              <td><span class="badge badge-warning">Reserved</span></td>
-             
-            </tr>
-            <tr>
-              <td>1003</td>
-              <td class="model">Hatchback Z</td>
-              <td class="price">₹ 8,50,000</td>
-              <td><span class="badge badge-success">18</span></td>
-              <td><span class="badge badge-info">Available</span></td>
-              
-            </tr>
-            <tr>
-              <td>1004</td>
-              <td class="model">Coupe A</td>
-              <td class="price">₹ 13,00,000</td>
-              <td><span class="badge badge-success">3</span></td>
-              <td><span class="badge">Sold</span></td>
-            
-            </tr>
-            <tr>
-              <td>1005</td>
-              <td class="model">Truck B</td>
-              <td class="price">₹ 20,50,000</td>
-              <td><span class="badge badge-success">4</span></td>
-              <td><span class="badge badge-warning">Reserved</span></td>
-             
-            </tr>
-          </tbody>
-
-          <tfoot>
-            <tr>
-              <td colspan="4" class="text-end fw-semibold">Summary:</td>
-              <td colspan="2">
-                <div class="summary-row">
-                  <span class="badge badge-info">Total Units: 52</span>
-                  <span class="badge badge-primary">Total Value: ₹ 69,00,000</span>
-                </div>
-              </td>
-            </tr>
-          </tfoot>
+          }
         </table>
       </div>
 

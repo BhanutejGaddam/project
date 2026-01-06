@@ -26,28 +26,27 @@ export class VehicleService {
       price: 1800000,
       noOfVehiclesAvailable: 18,  
     },
+    {
+      vehicleID: 4,
+      model: 'Coupe A',
+      price: 2000000,
+      noOfVehiclesAvailable: 20,
+    },
+    {
+      vehicleID: 5,
+      model: 'Convertible B',
+      price: 2500000,
+      noOfVehiclesAvailable: 25,
+    },
+    {
+      vehicleID: 6,
+      model: 'Pickup C',
+      price: 3000000,
+      noOfVehiclesAvailable: 30,
+    }
   ];
 
   private vehicleSubject = new BehaviorSubject<Vehicle[]>(this.vehicles);
   vehicles$ = this.vehicleSubject.asObservable();
 
-  addVehicle(vehicle: Vehicle) {
-    this.vehicles.push(vehicle);
-    this.vehicleSubject.next(this.vehicles);
-  }
-
-  updateVehicle(updated: Vehicle) {
-    const index = this.vehicles.findIndex(
-      (v) => v.vehicleID === updated.vehicleID
-    );
-    if (index !== -1) {
-      this.vehicles[index] = updated;
-      this.vehicleSubject.next(this.vehicles);
-    }
-  }
-
-  deleteVehicle(id: number) {
-    this.vehicles = this.vehicles.filter((v) => v.vehicleID !== id);
-    this.vehicleSubject.next(this.vehicles);
-  }
 }

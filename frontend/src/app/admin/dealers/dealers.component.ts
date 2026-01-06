@@ -25,7 +25,7 @@ type DealerForm = {
   templateUrl: './dealers.component.html',
   styleUrls: ['./dealers.component.css'] 
 })
-export class DealerComponent {
+export class DealersComponent {
   dealers: Dealer[] = [
     {
       dealerID: 101,
