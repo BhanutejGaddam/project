@@ -21,7 +21,10 @@ export interface SalesReport {
 }
 
 export interface RevenueTrend {
+  dealerId: number;
+  dealerSales: {
   month: string;
   salesRevenue: number;
   serviceRevenue: number;
+  }[]
 }

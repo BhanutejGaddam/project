@@ -17,7 +17,7 @@ export const customerInfo: customerData[] = [
     vehicle_id: 'VEH-MH-4472',
     purchase_date: '2025-01-05',
     loyalty_points: 120,
-    offers_eligible: 'Service01',
+    offers_eligible: "Service02"
   },
   {
     sl_no: 3,
@@ -26,7 +26,7 @@ export const customerInfo: customerData[] = [
     vehicle_id: 'VEH-GJ-1134',
     purchase_date: '2024-09-28',
     loyalty_points: 1560,
-    offers_eligible: 'Service06',
+    offers_eligible: "Service25"
   },
   {
     sl_no: 4,
@@ -44,7 +44,7 @@ export const customerInfo: customerData[] = [
     vehicle_id: 'VEH-TN-5590',
     purchase_date: '2024-08-14',
     loyalty_points: 2040,
-    offers_eligible: 'Service08',
+    offers_eligible: "Service30"
   },
   {
     sl_no: 6,
@@ -53,7 +53,7 @@ export const customerInfo: customerData[] = [
     vehicle_id: 'VEH-KA-2203',
     purchase_date: '2025-03-03',
     loyalty_points: 430,
-    offers_eligible: 'Service02',
+    offers_eligible: "Service12"
   },
   {
     sl_no: 7,
@@ -62,7 +62,7 @@ export const customerInfo: customerData[] = [
     vehicle_id: 'VEH-MP-7341',
     purchase_date: '2024-10-21',
     loyalty_points: 780,
-    offers_eligible: 'Service03',
+    offers_eligible: "Service08"
   },
   {
     sl_no: 8,
@@ -71,7 +71,7 @@ export const customerInfo: customerData[] = [
     vehicle_id: 'VEH-RJ-6428',
     purchase_date: '2025-04-09',
     loyalty_points: 150,
-    offers_eligible: 'Service01',
+    offers_eligible: "Service05"
   },
   {
     sl_no: 9,
@@ -89,6 +89,6 @@ export const customerInfo: customerData[] = [
     vehicle_id: 'VEH-MH-9012',
     purchase_date: '2025-05-17',
     loyalty_points: 2200,
-    offers_eligible: 'Service09',
-  },
+    offers_eligible: "Service25"
+  }
 ];

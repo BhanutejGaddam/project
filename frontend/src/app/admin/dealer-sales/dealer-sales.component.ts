@@ -11,8 +11,6 @@ type Dealer = {
   managedBy: string;
 };
  
- 
- 
 @Component({
   selector: 'app-admin-dealer-sales',
   standalone: true,
@@ -51,78 +49,5 @@ export class AdminDealerSalesComponent {
       managedBy: 'Rahul Nerkar'
     }
   ];
- 
-  showContact = false;
-  selectedDealer: Dealer | null = null;
- 
-  contactForm: FormGroup;
-  submitting = false;
-  submitSuccess = false;
- 
-  @ViewChild('contactModal') contactModalRef?: ElementRef<HTMLDivElement>;
- 
-  constructor(private fb: FormBuilder) {
-    this.contactForm = this.fb.group({
-      fullName: ['', Validators.required],
-      email: ['', [Validators.required, Validators.email]],
-      phone: [''],
-      message: ['', Validators.required],
-      contactMethod: ['email'],
-      bestTime: ['afternoon'],
-    });
-  }
- 
-  get f() { return this.contactForm.controls; }
- 
- 
- 
-  viewInventory(dealer: Dealer): void {
-    console.log('View inventory for:', dealer);
-  }
- 
-  openContact(dealer: Dealer): void {
-    this.selectedDealer = dealer;
-    this.submitSuccess = false;
-    this.submitting = false;
-    this.showContact = true;
- 
-    setTimeout(() => {
-      const firstInput = document.getElementById('fullName');
-      firstInput?.focus();
-    }, 0);
-  }
- 
-  contactDealer(dealer: Dealer): void {
-    console.log('Contact dealer:', dealer);
-    this.openContact(dealer);
-  }
- 
-  closeContact(_event?: MouseEvent): void {
-    this.showContact = false;
-    this.selectedDealer = null;
- 
-    this.contactForm.reset({
-      fullName: '',
-      email: '',
-      phone: '',
-      message: '',
-      contactMethod: 'email',
-      bestTime: 'afternoon',
-    });
-  }
- 
-  submitContact(): void {
-    if (this.contactForm.invalid) {
-      return;
-    }
- 
-    this.submitting = true;
- 
-    // Simulate sending message
-    setTimeout(() => {
-      this.submitting = false;
-      this.submitSuccess = true;
-      setTimeout(() => this.closeContact(), 2000);
-    }, 1000);
-  }
+  
 }

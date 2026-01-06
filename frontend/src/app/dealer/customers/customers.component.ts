@@ -32,9 +32,8 @@ export class CustomersComponent implements OnInit {
     customerMail:new FormControl<string>(''),
     customerPhoneNumber:new FormControl<string>('')
   })
-  // constructor(private customerServices:CustomerService){}
+  
   private customerServices=inject(CustomerService);
-  // entered=signal<string>('');
   customers_sig  = this.customerServices.customers;
   entered_text   = this.customerServices.entered_text;
 

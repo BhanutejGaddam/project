@@ -1,8 +1,8 @@
 import { Component, AfterViewInit, ElementRef, ViewChild, Input } from '@angular/core';
 import { CommonModule } from '@angular/common';
-import { AnalyticsService } from '../services/analytics.service';
+import { AnalyticsService } from '../../../dealer/my-sales/services/analytics.service';
 import { Chart, ChartConfiguration, registerables } from 'chart.js';
-import { RevenueTrend } from '../models/sales-report.model';
+import { RevenueTrend } from '../../../dealer/my-sales/models/sales-report.model';
 
 type Point = { x: number; y: number };
 
@@ -18,9 +18,8 @@ export class RevenueChartComponent implements AfterViewInit {
   @Input() dealerId?: number;
 
   constructor(private analytics: AnalyticsService) {}
-
+  
   ngAfterViewInit() {
-    Chart.register(...registerables);
     
 this.analytics.getRevenueTrends(this.dealerId).subscribe({
       next: (trend: RevenueTrend) => {
