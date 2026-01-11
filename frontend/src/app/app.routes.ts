@@ -7,8 +7,6 @@ import { CustomerComponent } from './customer/customer.component';
 import { customerRoutes } from './customer/customer.routes';
 import { dealerRoutes } from './dealer/dealer.routes';
 import { adminRoutes } from './admin/admin.routes';
-import { MyInventoryComponent } from './dealer/my-inventory/my-inventory.component';
-import { DealerInventoryComponent } from './admin/dealer-inventory/dealer-inventory.component';
 
 export const routes: Routes = [
     {
