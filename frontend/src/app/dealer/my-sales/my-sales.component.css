@@ -80,13 +80,14 @@
   margin: 8px 0;              
   font-size: 28px;             
   font-weight: bold;
+  color:white;
 }
 
 .value--success { color: #10b981; }   
 .value--warning { color: #f59e0b; }   
 
 .note {
-  color: #94a3b8;              
+  color: hsl(322, 28%, 92%);              
   font-size: 12 px;
 }
 
