@@ -1,0 +1,23 @@
+<p>edit-service-status works!</p>
+@if(customerBooking!==undefined){
+    <h3>{{customerBooking.ownerName}}'s Booking</h3>
+    <h3>Contact: {{customerBooking.phone}}</h3>
+    <h3>Email: {{customerBooking.email}}</h3>
+    <h3>Service ID: {{customerBooking.serviceId}}</h3>
+    <h3>Current Service Status: {{customerBooking.serviceStatus}}</h3>
+    <label for="status">Update Service Status:</label>
+    <form (ngSubmit)="onSubmit(statusForm)" #statusForm="ngForm">
+        <select id="status" name="status" ngModel>
+            <option value="BOOKED">Booked</option>
+            <option value="VEHICLE_RECEIVED">Vehicle received</option>
+            <option value="SERVICE_IN_PROGRESS">In Progress</option>
+            <!-- <option value="delayed">Delayed</option> -->
+            <option value="COMPLETED">Completed</option>
+        </select>
+        <button type="submit">Update Status</button>
+        <button type="button" (click)="goBack()">Cancel</button>
+    </form>
+}
+@else{
+    <p>No booking found for the provided Service ID.</p>
+}
