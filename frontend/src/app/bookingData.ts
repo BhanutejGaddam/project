@@ -30,7 +30,7 @@ export interface BookingData {
   warrantyServices: string[];
 
   serviceStatus:'BOOKED'| 'VEHICLE_RECEIVED'| 'SERVICE_IN_PROGRESS'| 'COMPLETED';
-
+  serviceId: string;
 }
 
 // Hardcoded data for five customers
@@ -54,7 +54,8 @@ export const bookingDataList: BookingData[] = [
     emergencyContact: '9123456789',
     warranty: 'no',
     warrantyServices: [],
-    serviceStatus:'VEHICLE_RECEIVED'
+    serviceStatus:'VEHICLE_RECEIVED',
+    serviceId: 'SRV1001'
   },
   {
     ownerName: 'Sneha Patil',
@@ -75,7 +76,8 @@ export const bookingDataList: BookingData[] = [
     emergencyContact: '9876501234',
     warranty: 'yes',
     warrantyServices: ['Engine Check', 'Brake Inspection'],
-    serviceStatus:'BOOKED'
+    serviceStatus:'BOOKED',
+    serviceId: 'SRV1002'
   },
   {
     ownerName: 'Amit Verma',
@@ -96,7 +98,8 @@ export const bookingDataList: BookingData[] = [
     emergencyContact: '9988123456',
     warranty: 'no',
     warrantyServices: [],
-    serviceStatus:'BOOKED'
+    serviceStatus:'BOOKED',
+    serviceId: 'SRV1003'
   },
   {
     ownerName: 'Priya Nair',
@@ -117,7 +120,8 @@ export const bookingDataList: BookingData[] = [
     emergencyContact: '9112233445',
     warranty: 'yes',
     warrantyServices: ['Battery Replacement', 'Electrical System'],
-    serviceStatus:'BOOKED'
+    serviceStatus:'BOOKED',
+    serviceId: 'SRV1004'
   },
   {
     ownerName: 'Arjun Mehta',
@@ -138,6 +142,7 @@ export const bookingDataList: BookingData[] = [
     emergencyContact: '9001122334',
     warranty: 'yes',
     warrantyServices: ['Electrical System', 'Cooling System'],
-    serviceStatus:'BOOKED'
+    serviceStatus:'BOOKED',
+    serviceId: 'SRV1005'
   }
 ];

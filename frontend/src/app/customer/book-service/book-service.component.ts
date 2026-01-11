@@ -12,27 +12,28 @@ import { FormsModule, NgForm } from '@angular/forms';
 
 export class BookServiceComponent {
   warranty:'yes' | 'no' | null=null;
-  booking: BookingData = {
-    ownerName: '',
-    phone: '',
-    email: '',
-    address: '',
-    makeModelYear: '',
-    vin: '',
-    registration: '',
-    mileage: 0,
-    fuelType: 'petrol',
-    serviceType: 'routine',
-    issues: '',
-    package: 'basic',
-    history: '',
-    serviceDate: '',
-    pickupDrop: 'none',
-    emergencyContact: '',
-    warranty: 'no',
-    warrantyServices: [],
-    serviceStatus:'BOOKED'
-  };
+  //serviceId:string='';
+  // booking: BookingData = {
+  //   ownerName: '',
+  //   phone: '',
+  //   email: '',
+  //   address: '',
+  //   makeModelYear: '',
+  //   vin: '',
+  //   registration: '',
+  //   mileage: 0,
+  //   fuelType: 'petrol',
+  //   serviceType: 'routine',
+  //   issues: '',
+  //   package: 'basic',
+  //   history: '',
+  //   serviceDate: '',
+  //   pickupDrop: 'none',
+  //   emergencyContact: '',
+  //   warranty: 'no',
+  //   warrantyServices: [],
+  //   serviceStatus:'BOOKED'
+  // };
 
   message: string = '';
     
@@ -73,14 +74,16 @@ warrantyServiceOptions = [
 }
 
   onSubmit(serviceForm:NgForm){
-    
-const selectedWarranty = this.warrantyServiceOptions
+    const serviceId=Math.random().toString(36).substring(2,7);
+    const selectedWarranty = this.warrantyServiceOptions
       .filter(s => this.warrantyServices[s.key])
       .map(s => s.key);
     
-    const payload = {
+    const payload:BookingData = {
       ...serviceForm.value,
       warrantySelections: selectedWarranty,
+      serviceStatus:'BOOKED',
+      serviceId:serviceId        
     };
 
     console.log('Submitting payload:', payload);
