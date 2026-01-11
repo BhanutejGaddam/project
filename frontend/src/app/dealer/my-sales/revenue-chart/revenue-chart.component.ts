@@ -3,9 +3,6 @@ import { CommonModule } from '@angular/common';
 import { AnalyticsService } from '../services/analytics.service';
 import { Chart, ChartConfiguration, registerables } from 'chart.js';
 import { RevenueTrend } from '../models/sales-report.model';
-
-type Point = { x: number; y: number };
-
 @Component({
   selector: 'app-revenue-chart',
   standalone: true,

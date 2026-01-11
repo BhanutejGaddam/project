@@ -4,12 +4,13 @@ import { NgIf } from '@angular/common';
 import { FormsModule, NgForm } from '@angular/forms';
 @Component({
   selector: 'app-book-service',
+  standalone: true,
   imports: [NgIf, FormsModule],
   templateUrl: './book-service.component.html',
   styleUrl: './book-service.component.css'
 })
-
-
+ 
+ 
 export class BookServiceComponent {
   warranty:'yes' | 'no' | null=null;
   //serviceId:string='';

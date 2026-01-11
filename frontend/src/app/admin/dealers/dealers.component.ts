@@ -25,7 +25,7 @@ type DealerForm = {
   templateUrl: './dealers.component.html',
   styleUrls: ['./dealers.component.css'] 
 })
-export class DealerComponent {
+export class DealersComponent {
   dealers: Dealer[] = [
     {
       dealerID: 101,
@@ -164,12 +164,10 @@ export class DealerComponent {
 
     this.submitting = true;
 
-    // Simulated API call delay; replace with real service later
     setTimeout(() => {
       this.submitting = false;
       this.submitSuccess = true;
 
-      // Auto-close after success (optional)
       setTimeout(() => this.closeContact(), 1800);
     }, 1200);
   }

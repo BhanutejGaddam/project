@@ -1,5 +1,5 @@
 import { Routes } from '@angular/router';
-import { DealerComponent } from './dealers/dealers.component';
+import { DealersComponent } from './dealers/dealers.component';
 import { AdminDealerSalesComponent } from './dealer-sales/dealer-sales.component';
 import { DealerInventoryComponent } from './dealer-inventory/dealer-inventory.component';
 import { MySalesComponent } from '../dealer/my-sales/my-sales.component';
@@ -13,7 +13,7 @@ export const adminRoutes: Routes = [
   },
   {
     path: 'dealers',
-    component: DealerComponent
+    component: DealersComponent
   },
   {
     path: 'dealer-sales',

@@ -1,5 +1,3 @@
-
-// src/app/customer/track-service/service-timeline.component.ts
 import { CommonModule } from '@angular/common';
 import { Component, computed, signal } from '@angular/core';
 import { BookingData, bookingDataList } from '../../bookingData';

@@ -1,28 +1,22 @@
 
-<!-- src/app/dealer/my-dealers/my-dealers.component.html -->
 <div class="my-dealers-page">
-  
-<!-- src/app/dealer/dealer.component.html -->
+
 <div class="dealer-page">
   <style>
     
   </style>
 
-  <!-- Header -->
   <div class="header">
     <div class="icon">🏪</div>
     <h2>Dealers</h2>
   </div>
 
-  <!-- Toolbar -->
   <div class="toolbar">
     <button class="btn btn-outline" type="button" (click)="openAddDealerForm()">➕ Add Dealer</button>
   </div>
 
-  <!-- Feedback -->
   <div *ngIf="feedback" class="alert">{{ feedback }}</div>
 
-  <!-- Add Dealer Form (inline card) -->
   <div *ngIf="showAddForm" class="card">
     <h5>Add New Dealer</h5>
 
@@ -52,8 +46,6 @@
     </form>
   </div>
 
-
-  <!-- Dealer cards -->
   <div class="grid">
     <div class="dealer-card" *ngFor="let d of dealers">
       <div class="title-row">
@@ -85,7 +77,6 @@
   View Inventory
 </button>
 
-        <!-- <button class="btn btn-primary" type="button" (click)="contactDealer(d)">Contact</button> -->
       </div>
     </div>
   </div>

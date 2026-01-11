@@ -1,279 +1,111 @@
-
-:root {
-  --bg-page: #ffffff;        
-  --bg-card: #ffffff;        
-  --bg-table: #ffffff;       
-
-  --text-high: #99c4ee;      
-  --text-mid: #3085da;       
-  --text-muted: #b8dcfc;     
-
-  --primary: #0d6efd;        
-  --success: #198754;        
-  --info:    #0dcaf0;        
-  --warning: #ffc107;        
-  --danger:  #dc3545;        
-
-  --border:  #dee2e6;        
-
-  --radius-card: 14px;
-  --radius-chip: 999px;
-
-  --spacing-1: 6px;
-  --spacing-2: 10px;
-  --spacing-3: 14px;
-  --spacing-4: 18px;
-
-  --fade: .15s ease;
-}
-
-.inventory-page {
-  min-height: 100vh;
-  background: var(--bg-page);    
-  color: var(--text-high);
-  padding: var(--spacing-4);
-  box-sizing: border-box;
-}
-
-.page-header {
-  display: flex;
-  align-items: center;
-  gap: var(--spacing-2);
-  margin-bottom: var(--spacing-3);
-}
-.page-header h2 {
-  margin: 0;
-  color: white;
-  font-weight: 800;
-  letter-spacing: .2px;
-}
-.sub-header {
-  color: white;
-  font-weight: 700;
-  margin: 6px 0 18px;
-}
-
-.card {
-  background: white;      
-  border: 1px solid white;
-  border-radius: white;
-  box-shadow: green;
-  overflow: hidden;
-}
-.card-header {
-  padding: var(--spacing-3);
-  border-bottom: 1px solid var(--border);
-  background: linear-gradient(180deg, rgba(231, 234, 237, 0.06), rgba(249, 250, 252, 0.03));
-}
-.card-body {
-  padding: var(--spacing-3);
-}
-
-.toolbar {
-  display: flex;
-  gap: var(--spacing-2);
-  align-items: center;
-  margin-bottom: var(--spacing-2);
-}
-.btn {
-  display: inline-flex;
-  align-items: center;
-  gap: 8px;
-  border: 1px solid #ced4da;
-  background: #f8f9fa;
-  color: var(--text-high);
-  padding: 8px 14px;
-  border-radius: 10px;
-  cursor: pointer;
-  font-weight: 600;
-  transition: all var(--fade);
-}
-.btn:hover {
-  transform: translateY(-1px);
-  box-shadow: 0 10px 18px rgba(13,110,253,.18);
-}
-.btn-primary {
-  background: var(--primary);
-  border-color: var(--primary);
+body {
+  background-color: white; /* Dark navy background */
+  font-family: "Segoe UI", Roboto, sans-serif;
   color: #fff;
-}
-.btn-outline {
-  background: transparent;
-  border-color: #ced4da;
-  color: var(--text-high);
+  margin: 0;
+  padding: 20px;
 }
 
-/* ---- Table Container ---- */
-.table-wrap {
-  width: 100%;
+h2,
+label {
+  color: #fff; /* White text for headings and labels */
+}
+
+.table-wrapper {
   overflow-x: auto;
-  border-radius: 12px;
-  border: 1px solid var(--border);
-  box-shadow: 0 5px 16px var(--shadow);
+  margin-top: 20px;
+  text-align: center;
 }
 
-/* ---- Table ---- */
 table {
   width: 100%;
   border-collapse: collapse;
-  background: var(--bg-table);    /* WHITE */
-  min-width: 760px;               /* horizontal scroll for narrow screens */
-}
-
-/* Header cells */
-thead th {
-  background: #f1f3f5;            /* light header */
-  color: var(--text-high);
-  padding: 12px;
-  text-align: center;
-  font-weight: 800;
-  letter-spacing: .25px;
-  border-bottom: 1px solid var(--border);
-  position: sticky;               /* keep header visible on scroll */
-  top: 0;
-  z-index: 1;
-}
-
-/* Body cells */
-tbody td {
-  padding: 12px;
-  text-align: center;
-  border-top: 1px solid var(--border);
-  color: var(--text-mid);
-}
-
-/* Zebra + hover (light) */
-tbody tr:nth-child(odd) {
-  background: #fcfdff;            /* very subtle zebra */
-}
-tbody tr:hover {
-  background: #f8fbff;            /* gentle hover */
-  transition: background var(--fade);
-}
-
-/* Footer cells */
-tfoot td {
-  padding: 12px;
-  border-top: 1px solid var(--border);
-  background: #f8f9fa;
-  color: var(--text-high);
-  font-weight: 700;
-}
-
-/* ---- Utility text styles ---- */
-.model,
-.price {
-  font-weight: 700;
-  color: var(--text-high);
-}
-.text-end { text-align: end; }
-.fw-semibold { font-weight: 600; }
-
-/* ---- Badges (counts, summary, etc.) ---- */
-.badge {
-  display: inline-flex;
-  align-items: center;
-  gap: 6px;
-  padding: 0.35em 0.7em;
-  font-size: .85em;
-  font-weight: 700;
-  border-radius: var(--radius-chip);
-  line-height: 1;
-  letter-spacing: .3px;
-  box-shadow: inset 0 0 0 1px rgba(185, 39, 39, 0.06);
-}
-
-/* Semantic badges on light bg (ensure readable text) */
-.badge-success { background: #e6f4ea; color: #145c32; border: 1px solid #cce9d6; }
-.badge-info    { background: #e9f8fd; color: #0a4a5c; border: 1px solid #c9eef8; }
-.badge-primary { background: #e7efff; color: #0a2a66; border: 1px solid #cbd9ff; }
-.badge-warning { background: #fff6db; color: #b7a06b; border: 1px solid #ffe7a6; }
-.badge-muted   { background: #f1f3f5; color: var(--text-muted); border: 1px solid #e5e7ea; }
-
-/* ---- Status Chips (Available / Reserved / Sold) ---- */
-.status-chip {
-  display: inline-flex;
-  align-items: center;
-  gap: 6px;
-  padding: 6px 10px;
-  border-radius: var(--radius-chip);
-  font-weight: 700;
-  letter-spacing: .2px;
-  box-shadow: inset 0 0 0 1px rgba(0,0,0,.06);
-}
-
-/* Available: soft green chip with dark text */
-.available.status-chip,
-.available {
-  background: #e6f4ea;
-  color: #145c32;
-  border: 1px solid #cce9d6;
-}
-
-/* Reserved: soft amber chip with dark text */
-.reserved.status-chip,
-.reserved {
-  background: #fff6db;
-  color: #7a5a00;
-  border: 1px solid #ffe7a6;
-}
-
-/* Sold: BLUE chip with BLACK text (your requirement) */
-.sold.status-chip,
-.sold {
-  background: rgb(222, 33, 33);   /* solid blue */
-  color: rgb(163, 18, 18);           /* <-- black text */
-  border: 1px solid #0a58ca;
-}
-
-/* ---- Icon circle (accent) ---- */
-.icon-circle {
-  width: 28px;
-  height: 28px;
-  border-radius: 50%;
-  display: inline-flex;
-  align-items: center;
-  justify-content: center;
-  background: rgba(13,110,253,.12);
-  color: var(--primary);
-  font-size: 16px;
-}
-
-/* ---- Buttons in table rows ---- */
-button {
-  background-color: var(--danger);
-  color: #fff;
-  border: none;
-  padding: 6px 12px;
-  cursor: pointer;
+  background: #0f1b2a; /* Dark background for table */
+  color: #fff; /* White text */
+  border: 2px solid #fff; /* White outer border */
   border-radius: 8px;
-  transition: transform var(--fade), box-shadow var(--fade), opacity var(--fade);
-}
-button:hover {
-  transform: translateY(-1px);
-  box-shadow: 0 10px 18px rgba(220,53,69,.25);
-}
-button:active {
-  transform: translateY(0);
-  opacity: .95;
+  text-align: center;
 }
 
-/* ---- Summary row ---- */
-.summary-row {
+thead th {
+  border: 1px solid #fff; /* White borders for header cells */
+  padding: 12px;
+  text-align: center;
+  background: #1c2b3a; /* Slightly lighter header background */
+  font-weight: 700;
+  color: #fff;
+}
+
+tbody td {
+  border: 1px solid #fff; /* White borders for body cells */
+  padding: 12px;
+  text-align: center;
+}
+
+tbody tr:nth-child(odd) {
+  background: #132338; /* Zebra row effect */
+}
+
+tbody tr:hover {
+  background: #183049; /* Hover highlight */
+  transition: background 0.3s ease;
+}
+
+.status {
+  font-weight: 700;
+  color: #0d6efd; /* Blue for status text */
+}
+
+.toolbar {
+  margin-bottom: 16px;
   display: flex;
-  gap: 10px;
-  justify-content: center;
-  align-items: center;
-  padding: 10px 0;
+  gap: 12px;
 }
 
-/* ---- Minimal Bootstrap alignment helpers ---- */
-.table th, .table td { vertical-align: middle; }
+table {
+  width: 100%;
+  border-collapse: separate; /* allows spacing */
+  border-spacing: 0;
+  background: #0f1b2a;
+  color: #fff;
+  border: 2px solid #fff;
+}
 
-/* ---- Small screens ---- */
-@media (max-width: 768px) {
-  .page-header h2 { font-size: 1.25rem; color:#198754; }
-  .sub-header { font-size: .95rem; }
-  .badge { font-size: .8rem; }
-  .status-chip { padding: 5px 8px; font-size: .85rem; }
+th,
+td {
+  border: 2px solid #fff; /* thicker white borders */
+  padding: 12px;
+  text-align: center;
+}
+
+
+
+/* TABLE: separate borders with spacing to show gaps */
+table {
+  width: 100%;
+  border-collapse: separate; /* independent borders */
+  border-spacing: 0; /* set to 2px for visible gaps */
+  background: #0f1b2a;
+  color: #fff;
+  border: 2px solid #fff; /* outer border */
+}
+
+/* HEAD + BODY CELLS: independent white borders */
+thead th,
+tbody td {
+  border: 2px solid #fff; /* bold inner borders */
+  padding: 12px;
+  text-align: center;
+  background-clip: padding-box; /* keeps background inside borders clean */
+}
+
+/* if you want gaps between cells: */
+table {
+  border-spacing: 2px; /* try 1px, 2px, or 4px to taste */
+}
+
+/* header styling */
+thead th {
+  background: #1c2b3a;
+  font-weight: 700;
 }
