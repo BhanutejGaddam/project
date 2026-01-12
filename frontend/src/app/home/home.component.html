@@ -1,10 +1,34 @@
-<div class="landing-container">
+
+<!-- app.component.html (or the same component that renders landing-container) -->
+<div class="landing-container" [attr.data-theme]="theme">
+  <!-- Theme Toggle Button -->
   
-  <section class="hero fade-in-up">
-    <h1>AutoConnect</h1>
-    <p class="tagline">The Unified Automotive Dealer & Service Management Ecosystem.</p>
-    <div class="scroll-indicator">Scroll to explore</div>
-  </section>
+<button
+  class="theme-toggle"
+  aria-label="Toggle color theme"
+  (click)="toggleTheme()"
+  [attr.data-theme]="theme"
+>
+  <span class="icon" aria-hidden="true">
+    {{ theme === 'dark' ? '🌙' : '🌞' }}
+  </span>
+  <!-- Keep label for accessibility but hide it visually -->
+  <span class="label sr-only">
+    {{ theme === 'dark' ? 'Dark' : 'Light' }}
+  </span>
+</button>
+
+
+
+  
+<section class="hero fade-in-up">
+  <div class="hero-spheres" aria-hidden="true"></div>
+
+  <h1 class="shimmer-text">AutoConnect</h1>
+  <p class="tagline letterwave">The Unified Automotive Dealer &amp; Service Management Ecosystem.</p>
+  <div class="scroll-indicator">Scroll to explore</div>
+</section>
+
 
   <section class="features">
     <h2>Core Capabilities</h2>

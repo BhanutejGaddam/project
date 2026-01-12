@@ -1,13 +1,18 @@
+
+
 <main>
-<div>
-    <form [formGroup]="form" (ngSubmit)="onSubmit()">
-        <label for="email">Enter email:</label>
-        <input type="mail" name="email" id="email" required formControlName="email"><br><br>
-
-        <label for="password">Enter password:</label>
-        <input type="text" name="password" id="password" required formControlName="password">
-
-        <button type="submit" class="submit">Submit</button>
+  <div>
+    <h1 id="loginTitle" class="card-title">LOGIN PAGE</h1>
+    <div class="strip"></div> <!-- optional -->
+    <form aria-labelledby="loginTitle" [formGroup] = "form" (ngSubmit)="onSubmit()">
+      <label for="email">Email</label>
+      <input id="email" type="email" name ="email" required formControlName="email" placeholder="you@example.com" />
+      
+      <label for="password">Password</label>
+      <input id="password" type="password" name ="password" required formControlName="password" placeholder="••••••••" />
+      
+      <button class="submit" type="submit">Login</button>
     </form>
-</div>
+  </div>
 </main>
+

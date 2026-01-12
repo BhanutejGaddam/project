@@ -1,5 +1,5 @@
-import { Component, NgModule } from '@angular/core';
-import { bookingDataList, BookingData } from '../../bookingData';
+import { Component} from '@angular/core';
+import { BookingData } from '../../bookingData';
 import { NgIf } from '@angular/common';
 import { FormsModule, NgForm } from '@angular/forms';
 @Component({
