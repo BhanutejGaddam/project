@@ -1,31 +1,198 @@
-div{
-   background: #ffffff10;
-  backdrop-filter: blur(10px);
-  padding: 40px;
-  border-radius: 20px;
-  width: 300px;
-  transition: transform 0.3s ease;
-  border: 1px solid #ffffff20; 
+
+/* ======================================
+   Professional Login – Clean & Stable
+   ======================================
+   Plain CSS | Subtle theme | Safe animations
+*/
+
+/* ---- Reset & base ---- */
+*,
+*::before,
+*::after { box-sizing: border-box; }
+
+html, body {
+  height: 100%;
+  margin: 0;
 }
 
-.submit{
-  background: #007bff;
-  color: white;
-  border: none;
-  padding: 12px 12px;
-  border-radius: 8px;
+body {
+  font-family: system-ui, -apple-system, Segoe UI, Roboto, Arial, sans-serif;
+  color: #334155;
+  background-color: #f5f7fb;
+  -webkit-font-smoothing: antialiased;
+  -moz-osx-font-smoothing: grayscale;
+}
+
+/* Page container: center safely with grid */
+main {
+  min-height: 100vh;
+  display: grid;            /* robust centering */
+  place-items: center;
+  padding: 24px;
+  background:
+    radial-gradient(1200px 800px at 8% 12%, rgba(79, 70, 229, 0.08), transparent 60%),
+    radial-gradient(1200px 800px at 92% 88%, rgba(147, 51, 234, 0.08), transparent 60%),
+    #f5f7fb;
+}
+
+/* Login card (use your existing: main > div) */
+main > div {
+  width: 100%;
+  max-width: 420px;
+  padding: 32px;
+  background-color: #ffffff;
+  border: 1px solid #e2e8f0;
+  border-radius: 12px;
+  box-shadow: 0 10px 24px rgba(17, 24, 39, 0.08);
+  animation: fadeInUp 420ms ease-out both;
+  /* Visual-only transition (no layout jump) */
+  transition: box-shadow 200ms ease;
+}
+
+main > div:hover {
+  box-shadow: 0 14px 32px rgba(17, 24, 39, 0.10);
+}
+
+/* Optional decorative strip at top (add <div class="strip"></div> inside card) */
+.strip {
+  height: 6px;
+  border-radius: 6px;
+  margin-bottom: 16px;
+  background: linear-gradient(90deg, #4f46e5, #2563eb, #06b6d4, #9333ea, #4f46e5);
+  background-size: 300% 100%;
+  animation: stripMove 6s ease-in-out infinite;
+}
+
+/* Form layout */
+form {
+  display: grid;
+  grid-template-columns: 1fr;
+  gap: 16px;
+}
+
+/* Labels */
+label {
+  font-size: 14px;
+  font-weight: 600;
+  color: #334155;
+}
+
+/* Inputs */
+input[type="email"],
+input[type="password"],
+input[type="text"] {
+  width: 100%;
+  height: 46px;
+  padding: 0 12px;
+  font-size: 14px;
+  border-radius: 10px;
+  border: 1px solid #e2e8f0;
+  background-color: #ffffff;
+  color: #0f172a;
+  caret-color: #2563eb;
+  transition: border-color 180ms ease, box-shadow 180ms ease, background-color 180ms ease;
+}
+
+input::placeholder {
+  color: #94a3b8;
+}
+
+/* Hover & focus (stable, no position shift) */
+input:hover {
+  border-color: #cbd5e1;
+  background-color: #fbfdff;
+}
+
+input:focus {
+  outline: none;
+  border-color: #4f46e5; /* indigo */
+  box-shadow:
+    0 0 0 3px rgba(79, 70, 229, 0.16),
+    0 6px 18px rgba(79, 70, 229, 0.08);
+}
+
+/* Angular validation states (no motion; only color) */
+input.ng-invalid.ng-touched {
+  border-color: #dc2626; /* red */
+}
+
+input.ng-valid.ng-touched {
+  border-color: #16a34a; /* green */
+}
+
+/* Submit button */
+button.submit {
+  width: 100%;
+  height: 48px;
+  border-radius: 10px;
+  border: 1px solid #4f46e5;
+  background-image: linear-gradient(135deg, #4f46e5 0%, #2563eb 45%, #9333ea 100%);
+  color: #ffffff;
+  font-size: 15px;
+  font-weight: 700;
   cursor: pointer;
-  margin-top: 20px;
-  font-weight: bold;
+  box-shadow: 0 8px 20px rgba(79, 70, 229, 0.26);
+  transition: box-shadow 200ms ease, filter 180ms ease;
 }
 
-label{
-    color:whitesmoke;
+button.submit:hover {
+  box-shadow: 0 12px 28px rgba(79, 70, 229, 0.32);
+  filter: brightness(1.02) saturate(1.05);
 }
-main{
-  display: flex;
-  justify-content: center;
-  align-items: center;
-  min-height:100vh;
-  width:100%;
+
+button.submit:active {
+  box-shadow: 0 8px 18px rgba(79, 70, 229, 0.24);
+  filter: brightness(0.98);
 }
+
+button.submit:focus-visible {
+  outline: 2px solid #93c5fd;
+  outline-offset: 3px;
+}
+
+/* Helper text (optional) */
+.small-note {
+  font-size: 12px;
+  color: #64748b;
+}
+
+/* Divider (optional) */
+.divider {
+  height: 1px;
+  background-color: #e2e8f0;
+  margin: 10px 0 6px;
+}
+
+/* ---- Animations (safe) ---- */
+@keyframes fadeInUp {
+  from { opacity: 0; transform: translateY(8px); }
+  to   { opacity: 1; transform: translateY(0); }
+}
+
+@keyframes stripMove {
+  0%, 100% { background-position: 0% 50%; }
+  50%      { background-position: 100% 50%; }
+}
+
+/* ---- Reduced motion ---- */
+@media (prefers-reduced-motion: reduce) {
+  main > div,
+  .strip {
+    animation: none !important;
+    transition: none !important;
+  }
+}
+
+/* Card title (login heading) */
+.card-title {
+  margin: 0 0 12px;
+  font-size: 28px;
+  font-weight: 800;
+  color: #0f172a; /* deep slate */
+  letter-spacing: -0.01em;
+  text-align: center;
+
+}
+
+/* Optional: center the title */
+ /* .card-title { text-align: center; } */

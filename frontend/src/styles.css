@@ -9,8 +9,8 @@
 
 /* Global dark theme base */
 :root {
-  --bg-dark: #0b1b32;      /* page background */
-  --card-dark: #13233d;    /* card background */
+  --bg-dark: #eaeef3;      /* page background */
+  --card-dark: #e3e4e6;    /* card background */
   --text-primary: #0d6efd; /* bootstrap primary blue */
 }
 
