@@ -1,6 +1,6 @@
 import { CommonModule } from '@angular/common';
 import { Component, computed, signal } from '@angular/core';
-import { BookingData, bookingDataList } from '../../bookingData';
+import { BookingData,bookingDataList } from '../../bookingData';
 
 type ServiceStatus = BookingData['serviceStatus'];
 
@@ -12,10 +12,10 @@ type ServiceStatus = BookingData['serviceStatus'];
   styleUrls: ['./track-service.component.css'],
 })
 export class TrackServiceComponent {
-  /** Holds the matched booking for rahul.sharma@example.com */
+
   bookingSig = signal<BookingData | null>(null);
 
-  /** Ordered steps */
+ 
   readonly steps = [
     'BOOKED',
     'VEHICLE_RECEIVED',
@@ -23,7 +23,6 @@ export class TrackServiceComponent {
     'COMPLETED',
   ] as const;
 
-  /** 🔎 Find Rahul's booking from bookingDataList and set signal */
   fetchRahul(): void {
     const targetEmail = 'rahul.sharma@example.com';
     const match =
@@ -33,17 +32,15 @@ export class TrackServiceComponent {
     this.bookingSig.set(match);
   }
 
-  /** Lookup on init */
   ngOnInit() {
     this.fetchRahul();
   }
 
-  /** Current status; default to BOOKED if not found */
+
   statusSig = computed<ServiceStatus>(
     () => this.bookingSig()?.serviceStatus ?? 'BOOKED'
   );
 
-  /** Data for the timeline; used by @for with track s.key */
   stageData = computed(() => {
     const b = this.bookingSig();
     const format = (iso?: string | null) =>
@@ -70,7 +67,6 @@ export class TrackServiceComponent {
     ];
   });
 
-  /** completed | current | pending */
   stepState(index: number): 'completed' | 'current' | 'pending' {
     const idx = this.steps.indexOf(this.statusSig());
     if (index < idx) return 'completed';
@@ -78,7 +74,6 @@ export class TrackServiceComponent {
     return 'pending';
   }
 
-  /** 0–100% for the slim bar */
   progressPercent(): number {
     const idx = this.steps.indexOf(this.statusSig());
     const completedCount = Math.max(0, idx);

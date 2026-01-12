@@ -1,5 +1,5 @@
 import { Component, inject, OnInit } from '@angular/core';
-import { bookingDataList, BookingData } from '../../bookingData';
+import { BookingData } from '../../bookingData';
 import { ServiceStatusServices } from './service-status.services';
 import { RouterModule } from "@angular/router";
 import { Router,ActivatedRoute } from '@angular/router';
@@ -20,7 +20,8 @@ export class ServiceStatusComponent implements OnInit {
     // this.serviceData=this.statusServices.getServiceData();
     // console.log(this.serviceData);
     this.serviceData=this.statusServices.getTodayBookings();
-    console.log(this.serviceData);
+    console.log(this.serviceData.values);
+
   }
   goToEdit(serviceId:string){
     this.router.navigate(['./edit'],{

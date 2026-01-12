@@ -27,13 +27,13 @@ export interface BookingData {
 
   // Warranty Section
   warranty: 'yes' | 'no';
-  warrantyServices: string[];
+  warrantySelections: string[];
 
   serviceStatus:'BOOKED'| 'VEHICLE_RECEIVED'| 'SERVICE_IN_PROGRESS'| 'COMPLETED';
   serviceId: string;
 }
 
-// Hardcoded data for five customers
+// // Hardcoded data for five customers
 export const bookingDataList: BookingData[] = [
   {
     ownerName: 'Rahul Sharma',
@@ -53,7 +53,7 @@ export const bookingDataList: BookingData[] = [
     pickupDrop: 'pickup',
     emergencyContact: '9123456789',
     warranty: 'no',
-    warrantyServices: [],
+    warrantySelections: [],
     serviceStatus:'VEHICLE_RECEIVED',
     serviceId: 'SRV1001'
   },
@@ -75,7 +75,7 @@ export const bookingDataList: BookingData[] = [
     pickupDrop: 'dropoff',
     emergencyContact: '9876501234',
     warranty: 'yes',
-    warrantyServices: ['Engine Check', 'Brake Inspection'],
+    warrantySelections: ['Engine Check', 'Brake Inspection'],
     serviceStatus:'BOOKED',
     serviceId: 'SRV1002'
   },
@@ -97,7 +97,7 @@ export const bookingDataList: BookingData[] = [
     pickupDrop: 'none',
     emergencyContact: '9988123456',
     warranty: 'no',
-    warrantyServices: [],
+    warrantySelections: [],
     serviceStatus:'BOOKED',
     serviceId: 'SRV1003'
   },
@@ -119,7 +119,7 @@ export const bookingDataList: BookingData[] = [
     pickupDrop: 'both',
     emergencyContact: '9112233445',
     warranty: 'yes',
-    warrantyServices: ['Battery Replacement', 'Electrical System'],
+    warrantySelections: ['Battery Replacement', 'Electrical System'],
     serviceStatus:'BOOKED',
     serviceId: 'SRV1004'
   },
@@ -141,7 +141,7 @@ export const bookingDataList: BookingData[] = [
     pickupDrop: 'pickup',
     emergencyContact: '9001122334',
     warranty: 'yes',
-    warrantyServices: ['Electrical System', 'Cooling System'],
+    warrantySelections: ['Electrical System', 'Cooling System'],
     serviceStatus:'BOOKED',
     serviceId: 'SRV1005'
   }
