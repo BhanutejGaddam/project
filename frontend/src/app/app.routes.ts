@@ -1,12 +1,6 @@
 import { Routes } from '@angular/router';
-import { LoginComponent,canLeaveLoginpage } from './login/login.component';
+import { canLeaveLoginpage } from './login/login.component';
 import { HomeComponent } from './home/home.component';
-import { DealerComponent } from './dealer/dealer.component';
-import { AdminComponent } from './admin/admin.component';
-import { CustomerComponent } from './customer/customer.component';
-import { customerRoutes } from './customer/customer.routes';
-import { dealerRoutes } from './dealer/dealer.routes';
-import { adminRoutes } from './admin/admin.routes';
 
 export const routes: Routes = [
     {
@@ -15,33 +9,37 @@ export const routes: Routes = [
     },
     {
         path: 'admin-login',
-        component: LoginComponent,
+        loadComponent:()=>import('./login/login.component').then(mod=>mod.LoginComponent),
         canDeactivate:[canLeaveLoginpage],
     },
     {
         path: 'dealer-login',
-        component: LoginComponent,
+        loadComponent:()=>import('./login/login.component').then(mod=>mod.LoginComponent),
         canDeactivate:[canLeaveLoginpage],
     },
     {
         path: 'customer-login',
-        component: LoginComponent,
+        loadComponent:()=>import('./login/login.component').then(mod=>mod.LoginComponent),
         canDeactivate:[canLeaveLoginpage],
     },
     {
         path:'dealer',
-        component: DealerComponent,
-        children: dealerRoutes
+        loadComponent() {
+            return import('./dealer/dealer.component').then(mod=>mod.DealerComponent);
+        },
+        loadChildren:()=>import('./dealer/dealer.routes').then(mod=>mod.dealerRoutes)
     },
     {
         path:'admin',
-        component:AdminComponent,
-        children:adminRoutes
+        // component:AdminComponent,
+        loadComponent:()=>import('./admin/admin.component').then(mod=>mod.AdminComponent),
+        loadChildren:()=>import('./admin/admin.routes').then(mod=>mod.adminRoutes),
     },
     {
         path:'customer',
-        component:CustomerComponent,
-        children:customerRoutes
+        // component:CustomerComponent,
+        loadComponent:()=>import('./customer/customer.component').then(mod=>mod.CustomerComponent),
+        loadChildren:()=>import('./customer/customer.routes').then(mod=>mod.customerRoutes),
     },
     {
         path:'**',

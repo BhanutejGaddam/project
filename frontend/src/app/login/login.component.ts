@@ -74,19 +74,11 @@ ngOnInit(): void {
 
 export const canLeaveLoginpage:CanDeactivateFn<LoginComponent>=(component)=>{
   const isTouched=component.form.dirty;
-  console.log(isTouched);
-  // const isDirty=component.form.dirty;
-  if(isTouched ===false){
-    window.confirm("Do you really want to leave? You have unsubmitted data");
-    console.log(`Is the form touched ${isTouched}`);
-    // console.log(`Is the form dirty ${isDirty}`);
-    return true;
+  const isSubmitted=component.submitted;
+  if(isTouched && !isSubmitted){  //If the form is touched and not submitted
+    return window.confirm("Do you really want to leave? You have unsubmitted data");
   }
-
-  // if(isTouched==false){
-  //   return true;
-  // }
-  // window.alert("Do you really want to leave? You have unsubmitted data");
+  //console.log(isTouched);
   return true;
 }
 

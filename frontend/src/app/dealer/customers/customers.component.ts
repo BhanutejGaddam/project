@@ -11,7 +11,7 @@ import { CommonModule } from '@angular/common';
 @Component({
   selector: 'app-customers',
   standalone:true,
-  imports: [ReactiveFormsModule, RouterLink, RouterOutlet,CommonModule],
+  imports: [ReactiveFormsModule, RouterLink,CommonModule],
   templateUrl: './customers.component.html',
   styleUrl: './customers.component.css'
 })
