@@ -1,48 +1,50 @@
 <h2>Services booked for Today</h2>
-@if(serviceData.length === 0) {
-    <p>No services booked for today.</p>
-}
-@else{
-    <table>
+
+@if ((serviceData?.length ?? 0) === 0) {
+  <p>No services booked for today.</p>
+} @else {
+  <table>
     <thead>
-        <tr>
-            <th>Service ID</th>
-            <th>Customer Name</th>
-            <th>Vehicle Model</th>
-            <th>Service Type</th>
-            <th>Status</th>
-            <th>Scheduled Time</th>
-            <th>Warranty services chosen (Yes/No)</th>
-            <th>If yes, Warranty services chosen</th>
-            <th>Actions</th>
-        </tr>
+      <tr>
+        <th>Service ID</th>
+        <th>Customer Name</th>
+        <th>Vehicle Model</th>
+        <th>Service Type</th>
+        <th>Status</th>
+        <th>Scheduled Time</th>
+        <th>Warranty services chosen (Yes/No)</th>
+        <th>If yes, Warranty services chosen</th>
+        <th>Actions</th>
+      </tr>
     </thead>
+
     <tbody>
+      @for (booking of serviceData; track booking.serviceId) {
         <tr>
-            @for (booking of serviceData; track booking.serviceId) {
-                <td>{{ booking.serviceId }}</td>
-                <td>{{ booking.ownerName }}</td>
-                <td>{{booking.makeModelYear}}</td>
-                <td>{{booking.serviceType}}</td>
-                <td>{{booking.serviceStatus}}</td>
-                <td>{{booking.serviceDate}}</td>
-                <td>{{booking.warranty}}</td>
-                <td>
-                         @if ((booking.warrantyServices?.length ?? 0) > 0) {
-                            <ul>
-                            @for (service of (booking.warrantyServices ?? []); track service) {
-                                <li>{{ service }}</li>
-                            }
-                            </ul>
-                        } @else {
-                            <p>No warranty services selected</p>
-                        } 
-                            
-                </td>
-                <td><a (click)="goToEdit(booking.serviceId)">Edit service status</a></td>
+          <td>{{ booking?.serviceId }}</td>
+          <td>{{ booking?.ownerName }}</td>
+          <td>{{ booking?.makeModelYear }}</td>
+          <td>{{ booking?.serviceType }}</td>
+          <td>{{ booking?.serviceStatus }}</td> 
+          <td>{{ booking?.serviceDate }}</td>
+          <td>{{ booking?.warranty }}</td>
+          <td>
+            <!-- {{ (booking?.warrantySelections?.length ?? 0) > 0? booking.warrantySelections?.join(', ') : 'No warranty services selected' }} -->
+            @if (booking.warranty === 'yes' && (booking?.warrantySelections?.length ?? 0) > 0) {
+              <ul>
+                @for (service of booking!.warrantySelections; track service) {
+                  <li>{{ service }}</li>
+                }
+              </ul>
+            } @else {
+              <p>No warranty services selected</p>
             }
+          </td>
+          <td><a (click)="goToEdit(booking.serviceId)">Edit service status</a></td>
         </tr>
+      }
     </tbody>
-</table>
+  </table>
 }
+
 <router-outlet></router-outlet>

@@ -1,5 +1,5 @@
 import { Injectable } from "@angular/core";
-import { bookingDataList, BookingData } from '../../bookingData';
+import { BookingData } from '../../bookingData';
 
 @Injectable({providedIn:'root'})
 export class ServiceStatusServices{

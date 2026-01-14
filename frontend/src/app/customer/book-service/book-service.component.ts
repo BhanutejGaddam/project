@@ -88,7 +88,7 @@ warrantyServiceOptions = [
     };
 
     console.log('Submitting payload:', payload);
-    const existing = this.safeParse<any[]>(localStorage.getItem('bookings'), []);
+    const existing = this.safeParse<BookingData[]>(localStorage.getItem('bookings'), []);
     existing.push(payload);
     localStorage.setItem("bookings", JSON.stringify(existing));
 

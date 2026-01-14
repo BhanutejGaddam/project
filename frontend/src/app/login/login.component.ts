@@ -86,13 +86,13 @@ export class LoginComponent implements OnInit {
   }
 }
 
-export const canLeaveLoginpage: CanDeactivateFn<LoginComponent> = (component) => {
-  const isTouched = component.form.dirty;
-  console.log(isTouched);
-  if (isTouched === false) {
-    window.confirm("Do you really want to leave? You have unsubmitted data");
-    console.log(`Is the form touched ${isTouched}`);
-    return true;
+
+export const canLeaveLoginpage:CanDeactivateFn<LoginComponent>=(component)=>{
+  const isTouched=component.form.dirty;
+  const isSubmitted=component.submitted;
+  if(isTouched && !isSubmitted){  //If the form is touched and not submitted
+    return window.confirm("Do you really want to leave? You have unsubmitted data");
   }
+  //console.log(isTouched);
   return true;
 }
