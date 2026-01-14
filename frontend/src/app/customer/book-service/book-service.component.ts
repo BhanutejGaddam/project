@@ -91,6 +91,9 @@ warrantyServiceOptions = [
     const existing = this.safeParse<any[]>(localStorage.getItem('bookings'), []);
     existing.push(payload);
     localStorage.setItem("bookings", JSON.stringify(existing));
-    this.message = 'Service booked successfully!';
+
+
+  window.alert('Service booked successfully!');
+  serviceForm.resetForm();
   }
 }

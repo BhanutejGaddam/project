@@ -1,18 +1,61 @@
 
-
 <main>
   <div>
     <h1 id="loginTitle" class="card-title">LOGIN PAGE</h1>
     <div class="strip"></div> <!-- optional -->
-    <form aria-labelledby="loginTitle" [formGroup] = "form" (ngSubmit)="onSubmit()">
+
+    <!-- Top-level authorization/validation message -->
+    <div *ngIf="authErrorMessage" class="alert alert-error" role="alert" aria-live="polite">
+      {{ authErrorMessage }}
+    </div>
+
+    <form aria-labelledby="loginTitle" [formGroup]="form" (ngSubmit)="onSubmit()">
       <label for="email">Email</label>
-      <input id="email" type="email" name ="email" required formControlName="email" placeholder="you@example.com" />
-      
+      <input
+        id="email"
+        type="email"
+        name="email"
+        required
+        formControlName="email"
+        placeholder="you@example.com"
+        [attr.aria-invalid]="form.controls.email.invalid && (showValidationErrors || form.controls.email.touched) ? 'true' : 'false'"
+        [attr.aria-describedby]="(form.controls.email.invalid && (showValidationErrors || form.controls.email.touched)) ? 'email-error' : null"
+      />
+      <!-- Email validation messages -->
+      <div
+        *ngIf="form.controls.email.invalid && (showValidationErrors || form.controls.email.touched)"
+        id="email-error"
+        class="field-error"
+        role="alert"
+        aria-live="polite"
+      >
+        <span *ngIf="form.controls.email.errors?.['required']">Email is required.</span>
+        <span *ngIf="form.controls.email.errors?.['email']">Please enter a valid email address.</span>
+      </div>
+
       <label for="password">Password</label>
-      <input id="password" type="password" name ="password" required formControlName="password" placeholder="••••••••" />
-      
+      <input
+        id="password"
+        type="password"
+        name="password"
+        required
+        formControlName="password"
+        placeholder="••••••••"
+        [attr.aria-invalid]="form.controls.password.invalid && (showValidationErrors || form.controls.password.touched) ? 'true' : 'false'"
+        [attr.aria-describedby]="(form.controls.password.invalid && (showValidationErrors || form.controls.password.touched)) ? 'password-error' : null"
+      />
+      <!-- Password validation messages -->
+      <div
+        *ngIf="form.controls.password.invalid && (showValidationErrors || form.controls.password.touched)"
+        id="password-error"
+        class="field-error"
+        role="alert"
+        aria-live="polite"
+      >
+        <span *ngIf="form.controls.password.errors?.['required']">Password is required.</span>
+      </div>
+
       <button class="submit" type="submit">Login</button>
     </form>
   </div>
 </main>
-
