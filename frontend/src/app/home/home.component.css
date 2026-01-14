@@ -18,7 +18,7 @@
   --surface-1: #141924;       /* section background */
   --surface-2: #0b0e13;       /* card background */
   --stroke: #243045;          /* subtle borders */
-  --muted: #94a3b8;           /* secondary text */
+  --muted: #667282;           /* secondary text */
   --text: #e5e7eb;            /* body text */
   --heading: #f8fafc;         /* heading text */
 
@@ -105,7 +105,7 @@ section::after {
 }
 @keyframes floatPulse {
   0%   { transform: translateY(0); }
-  50%  { transform: translateY(-6px); }
+  50%  { transform: translateY(-20px); }
   100% { transform: translateY(0); }
 }
 @keyframes shine {
@@ -122,7 +122,7 @@ section::after {
 }
 
 /* utility delays */
-.fade-in-up { animation: fadeInUp 1500ms ease-out forwards; }
+.fade-in-up { animation: fadeInUp 3000ms ease-out forwards; }
 .delay-1    { opacity: 0; animation: fadeInUp 900ms ease-out 180ms forwards; }
 .delay-2    { opacity: 0; animation: fadeInUp 900ms ease-out 360ms forwards; }
 
@@ -156,21 +156,12 @@ section::after {
   margin-top: 0px;
 }
 
-/* Scroll indicator with gentle pulse */
-.scroll-indicator {
-  margin-top: 22px;
-  font-size: 0.95rem;
-  color: var(--muted);
-  display: inline-flex;
-  align-items: center;
-  gap: 10px;
-  animation: floatPulse 2800ms ease-in-out infinite;
-}
+
 .scroll-indicator::after {
   content: "▾";
   display: inline-block;
-  transform: translateY(-1px);
-  opacity: 0.8;
+  transform: translateY(-3px);
+  opacity: 1.0;
 }
 
 /* ---------- Features ---------- */
@@ -425,7 +416,7 @@ footer {
 /* Adapt by theme via parent or data attribute */
 .landing-container[data-theme="dark"] .theme-toggle {
   color: #ffffff;
-  background: rgba(255,255,255,0.12);
+  background: rgba(255, 255, 255, 0.12);
   border-color: rgba(255,255,255,0.25);
 }
 .landing-container[data-theme="light"] .theme-toggle {
@@ -498,6 +489,32 @@ footer {
 .landing-container[data-theme="dark"] .theme-toggle::after {
   color: #ffffff;
   background: rgba(22,27,34,0.92);
-  border-color: rgba(255,255,255,0.18);
+  border-color: rgba(246, 246, 246, 0.18);
   box-shadow: 0 8px 20px rgba(0,0,0,0.32);
 }
+
+
+/* Adapt by theme via parent or data attribute */
+.scroll-indicator[data-theme="dark"] .theme-toggle {
+  color: #ffffff;
+  margin-top: 22px;
+  font-size: 0.95rem;
+  display: inline-flex;
+  align-items: center;
+  gap: 10px;
+  animation: floatPulse 1000ms ease-in-out infinite;
+}
+.scroll-indicator[data-theme="light"] .theme-toggle {
+  color: #0f172a;
+  margin-top: 22px;
+  font-size: 0.95rem;
+  display: inline-flex;
+  align-items: center;
+  gap: 10px;
+}
+
+.scroll-indicator{
+    animation: floatPulse 1000ms ease-in-out infinite;
+
+}
+

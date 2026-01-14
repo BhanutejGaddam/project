@@ -1,140 +1,160 @@
- :root {
-      --bg-dark: #0b1b32;
-      --card-dark: whiteSmoke;
-      --primary: #0d6efd;
-      --muted: #9aa9c0;
-      --border: #1f334f;
-    }
-    .my-dealers-page {
-      min-height: 100vh;
-      background: var(--bg-dark);
-      color: #e9ecef;
-      padding: 24px;
-      box-sizing: border-box;
-    }
-    .header {
-      display: flex; align-items: center; gap: 12px; margin-bottom: 16px;
-    }
-    .header h2 { margin: 0; color: var(--primary); font-weight: 800; letter-spacing: .2px; }
-    .grid {
-      display: grid;
-      grid-template-columns: repeat(auto-fill, minmax(280px, 1fr));
-      gap: 16px;
-    }
-    .card {
-      background: var(--card-dark);
-      border: 1px solid var(--border);
-      border-radius: 12px;
-      box-shadow: 0 6px 16px rgba(0,0,0,.25);
-      padding: 16px;
-      display: flex; flex-direction: column; gap: 10px;
-    }
-    .card-title {
-      display: flex; align-items: center; gap: 8px;
-      font-weight: 800; color: #cfe2ff; font-size: 1.05rem;
-    }
-    .badge {
-      display: inline-block; padding: .25rem .6rem; border-radius: 999px;
-      font-size: .8rem; font-weight: 700; background: rgba(13,110,253,.15); color: var(--primary);
-    }
-    .field { display: flex; gap: 8px; align-items: flex-start; }
-    .label { color: var(--muted); min-width: 92px; font-weight: 600; }
-    .value { color: #e9ecef; }
-    .divider { height: 1px; background: var(--border); opacity: .5; margin: 6px 0; }
-    .actions { margin-top: 8px; display: flex; gap: 8px; }
-    .btn {
-      border: 1px solid whitesmoke; background: transparent; color: #fff;
-      padding: 8px 12px; border-radius: 8px; cursor: pointer; font-weight: 600;
-      transition: all .15s ease;
-    }
-    .btn:hover { transform: translateY(-1px); box-shadow: 0 8px 16px whitesmoke; }
-    .btn-primary { background: var(--primary); border-color: var(--primary); }
-    .abc { color: whitesmoke;}
 
-    :root {
-      --bg-dark: #0b1b32;
-      --card-dark: #13233d;
-      --primary: #0d6efd;
-      --muted: #9aa9c0;
-      --border: #1f334f;
-      --success: #198754;
-    }
+:root {
+  --bg-dark: #0b1b32;
+  /* Align card background to dark tone for consistency */
+  --card-dark: #13233d;
+  --primary: #0d6efd;
+  --muted: #9fb0c9; /* slightly brighter for better contrast on dark */
+  --border: #1f334f;
+}
 
-    .dealer-page {
-      min-height: 100vh;
-      background: var(--bg-dark);
-      color: #e9ecef;
-      padding: 24px;
-      box-sizing: border-box;
-      font-family: system-ui, -apple-system, Segoe UI, Roboto, "Helvetica Neue", Arial, "Noto Sans";
-    }
+/* ===== My Dealers Page (Section 1) ===== */
+.my-dealers-page {
+  min-height: 100vh;
+  background: rgb(228, 228, 248);
+  color: #e9ecef; /* was #000000 */
+  padding: 24px;
+  box-sizing: border-box;
+}
 
-    .header {
-      display: flex; align-items: center; gap: 12px; margin-bottom: 16px;
-    }
-    .header h2 { margin: 0; color: var(--primary); font-weight: 800; letter-spacing: .2px; }
-    .icon {
-      width:32px;height:32px;border-radius:50%;display:flex;align-items:center;justify-content:center;
-      background: rgba(13,110,253,.15); color: var(--primary); font-size: 18px;
-    }
+.header {
+  display: flex; align-items: center; gap: 12px; margin-bottom: 16px;
+}
+.header h2 { margin: 0; color: var(--primary); font-weight: 800; letter-spacing: .2px; }
 
-    .toolbar { margin-bottom: 12px; display: flex; gap: 10px; }
-    .btn {
-      border: 1px solid rgba(255,255,255,.3); background: transparent; color: #fff;
-      padding: 8px 12px; border-radius: 8px; cursor: pointer; font-weight: 600;
-      transition: all .15s ease;
-    }
-    .btn:hover { transform: translateY(-1px); box-shadow: 0 8px 16px rgba(13,110,253,.25); }
-    .btn-primary { background: var(--primary); border-color: var(--primary); }
-    .btn-outline { border-color: rgba(255,255,255,.35); }
+.grid {
+  display: grid;
+  grid-template-columns: repeat(auto-fill, minmax(280px, 1fr));
+  gap: 16px;
+}
 
-    .alert {
-      background: rgba(25,135,84,.15);
-      border: 1px solid rgba(25,135,84,.35);
-      color: #b9ead0;
-      padding: 8px 12px; border-radius: 8px; margin-bottom: 12px;
-    }
+.card {
+  background: rgb(228, 228, 248);
+  border: 1px solid var(--border);
+  border-radius: 12px;
+  box-shadow: 0 6px 16px rgba(0,0,0,.25);
+  padding: 16px;
+  display: flex; flex-direction: column; gap: 10px;
+}
 
-    .card {
-      background: var(--card-dark);
-      border: 1px solid var(--border);
-      border-radius: 12px;
-      box-shadow: 0 6px 16px rgba(0,0,0,.25);
-      padding: 16px;
-      margin-bottom: 16px;
-    }
-    .card h5 { margin: 0 0 12px; color: #a3d1ff; }
-    .form-grid {
-      display: grid; grid-template-columns: repeat(auto-fit, minmax(260px, 1fr)); gap: 12px;
-    }
-    .form-group { display: flex; flex-direction: column; gap: 6px; }
-   .form-label { font-weight: 600; color: #fff; } 
-    .form-control {
-      width: 100%; padding: 10px; border-radius: 8px; border: 1px solid #314766; background: white; color: black;
-    }
+.card-title {
+  display: flex; align-items: center; gap: 8px;
+  font-weight: 800; color: #cfe2ff; font-size: 1.05rem;
+}
 
-    .actions { display: flex; gap: 8px; justify-content: flex-end; margin-top: 12px; }
 
-    .grid {
-      display: grid; grid-template-columns: repeat(auto-fill, minmax(280px, 1fr)); gap: 16px;
-    }
-    .dealer-card {
-      background: var(--card-dark);
-      border: 1px solid var(--border);
-      border-radius: 12px;
-      box-shadow: 0 6px 16px rgba(0,0,0,.25);
-      padding: 16px;
-      display: flex; flex-direction: column; gap: 10px;
-    }
-    .title-row { display: flex; align-items: center; gap: 8px; }
-    .dealer-name { font-weight: 800; color: #cfe2ff; font-size: 1.05rem; }
-    .badge {
-      display: inline-block; padding: .25rem .6rem; border-radius: 999px;
-      font-size: .8rem; font-weight: 700; background: rgba(13,110,253,.15); color: var(--primary);
-    }
 
-    .field { display: flex; gap: 8px; align-items: flex-start; }
-    .label { color: var(--muted); min-width: 92px; font-weight: 600; }
-    .value { color: #e9ecef; }
-    .divider { height: 1px; background: var(--border); opacity: .5; margin: 6px 0; }
-    .dealer-actions { display: flex; gap: 8px; }
+.field { display: flex; gap: 8px; align-items: flex-start; }
+.label { color: black; min-width: 92px; font-weight: 600; }
+.value { color: #001123; /* was #000000 */ }
+
+.divider { height: 1px; background: var(--border); opacity: .5; margin: 6px 0; }
+
+.actions { margin-top: 8px; display: flex; gap: 8px; }
+
+.btn {
+  border: 1px solid rgb(0, 0, 0); /* was rgb(0, 0, 0) */
+  background: transparent;
+  color: #000000; /* was #000000 */
+  padding: 8px 12px; border-radius: 8px; cursor: pointer; font-weight: 600;
+  transition: all .15s ease;
+}
+.btn:hover { transform: translateY(-1px); box-shadow: 0 8px 16px rgba(0, 100, 249, 0.678); /* was rgb(0,0,0) */ }
+.btn-primary { background: var(--primary); border-color: var(--primary); color: #ffffff; /* ensure readable text */ }
+
+.abc { color: whitesmoke;}
+
+
+/* ===== Dealer Page (Section 2) ===== */
+:root {
+  --bg-dark: #0b1b32;
+  --card-dark: #13233d;
+  --primary: #0d6efd;
+  --muted: #9fb0c9; /* match above for consistency */
+  --border: #1f334f;
+  --success: #198754;
+}
+
+.dealer-page {
+  min-height: 100vh;
+  background: rgb(228, 228, 248);
+  color: #e9ecef;
+  padding: 24px;
+  box-sizing: border-box;
+  font-family: system-ui, -apple-system, Segoe UI, Roboto, "Helvetica Neue", Arial, "Noto Sans";
+}
+
+.header {
+  display: flex; align-items: center; gap: 12px; margin-bottom: 16px;
+}
+.header h2 { margin: 0; color: var(--primary); font-weight: 800; letter-spacing: .2px; }
+
+.icon {
+  width:32px;height:32px;border-radius:50%;display:flex;align-items:center;justify-content:center;
+  background: rgba(13,110,253,.15); color: var(--primary); font-size: 18px;
+}
+
+.toolbar { margin-bottom: 12px; display: flex; gap: 10px; }
+
+
+.alert {
+  background: rgba(25,135,84,.15);
+  border: 1px solid rgba(25,135,84,.35);
+  color: #b9ead0;
+  padding: 8px 12px; border-radius: 8px; margin-bottom: 12px;
+}
+
+.card {
+  background: rgb(228, 228, 248);
+  border: 1px solid var(--border);
+  border-radius: 12px;
+  box-shadow: 0 6px 16px rgba(0,0,0,.25);
+  padding: 16px;
+  margin-bottom: 16px;
+}
+.card h5 { margin: 0 0 12px; color: #000000; }
+
+.form-grid {
+  display: grid; grid-template-columns: repeat(auto-fit, minmax(260px, 1fr)); gap: 12px;
+}
+
+.form-group { display: flex; flex-direction: column; gap: 6px; }
+
+/* Labels readable on dark bg */
+.form-label { font-weight: 600; color: #000000; /* was #000000 */ }
+
+/* Inputs: dark-friendly background and light text */
+.form-control {
+  width: 100%; padding: 10px; border-radius: 8px;
+  border: 1px solid #314766;
+  background: #0f1f36; /* was rgb(0, 0, 0) */
+  color: #ffffff;      /* was black */
+}
+.form-control::placeholder { color: #ffffff; } /* added for contrast */
+
+.actions { display: flex; gap: 8px; justify-content: flex-end; margin-top: 12px; }
+
+.grid {
+  display: grid; grid-template-columns: repeat(auto-fill, minmax(280px, 1fr)); gap: 16px;
+}
+.dealer-card {
+  background: #83b9ef;;
+  border: 1px solid var(--border);
+  border-radius: 12px;
+  box-shadow: 0 6px 16px rgba(0,0,0,.25);
+  padding: 16px;
+  display: flex; flex-direction: column; gap: 10px;
+}
+.title-row { display: flex; align-items: center; gap: 8px; }
+.dealer-name { font-weight: 800; color: #000000; /* was #000000 */ font-size: 1.05rem; }
+
+.badge {
+  display: inline-block; padding: .25rem .6rem; border-radius: 999px;
+  font-size: .8rem; font-weight: 700; background: rgba(205, 186, 46, 0.842); color: black;
+}
+
+.field { display: flex; gap: 8px; align-items: flex-start; }
+.label { color: black; min-width: 92px; font-weight: 600; }
+.value { color: #011b35; }
+.divider { height: 1px; background: var(--border); opacity: .5; margin: 6px 0; }
+.dealer-actions { display: flex; gap: 8px; }

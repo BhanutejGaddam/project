@@ -8,11 +8,11 @@
 
   <div class="header">
     <div class="icon">🏪</div>
-    <h2>Dealers</h2>
+    <h2 style="color: black;">Dealers</h2>
   </div>
 
   <div class="toolbar">
-    <button class="btn btn-outline" type="button" (click)="openAddDealerForm()">➕ Add Dealer</button>
+    <button class="btn btn-outline" style="color: black;" (click)="openAddDealerForm()">➕ Add Dealer</button>
   </div>
 
   <div *ngIf="feedback" class="alert">{{ feedback }}</div>
@@ -40,8 +40,8 @@
       </div>
 
       <div class="actions">
-        <button type="button" class="btn btn-outline" (click)="cancelAddDealer()">Cancel</button>
-        <button type="submit" class="btn btn-primary">Save Dealer</button>
+        <button type="button" style="color:black; border-color: black;" class="btn btn-outline" (click)="cancelAddDealer()">Cancel</button>
+        <button type="submit" style="color:black; border-color: black;" class="btn btn-primary">Save Dealer</button>
       </div>
     </form>
   </div>

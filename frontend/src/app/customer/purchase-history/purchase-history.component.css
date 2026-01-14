@@ -1,43 +1,46 @@
 .table-wrapper {
   overflow-x: auto; /* Enables horizontal scroll if table overflows */
   margin-top: 1rem;
+    border-radius: 1%;
+
 }
 
 .history-table {
   width: 100%;
-  border: 2px solid #e6e6e6; /* outer frame */
+  border: 2px solid #520000; /* outer frame */
   border-collapse: collapse;
+  border-radius: 10%;
   font-family: Arial, sans-serif;
 }
 
 /* Header cells */
 .history-table thead th {
-  border: 1px solid #e6e6e6; /* inner grid lines in header */
+  border: 1px solid #000000; /* inner grid lines in header */
   padding: 8px 12px;
   text-align: left;
-  background: #1c2b3a; /* dark header */
-  color: #fff; /* white text for contrast */
+  background: #babee3; /* dark header */
+  color: #000000; /* white text for contrast */
   font-weight: 700;
 }
 
 /* Body cells */
 .history-table tbody td {
-  border: 1px solid #e6e6e6; /* inner grid lines for every cell */
+  border: 1px solid #000000; /* inner grid lines for every cell */
   padding: 8px 12px;
-  color: #f0f0f0; /* light text for dark background rows */
+  color: #000000; /* light text for dark background rows */
 }
 
 /* Zebra rows for readability */
 .history-table tbody tr:nth-child(odd) {
-  background: #132338;
+  background: #e2e9f3;
 }
 
 .history-table tbody tr:nth-child(even) {
-  background: #1a2f44;
+  background: #e2e9f3;
 }
 
 /* Hover highlight */
 .history-table tbody tr:hover {
-  background: #183049;
+  background: #7c96b1;
   cursor: pointer;
 }
