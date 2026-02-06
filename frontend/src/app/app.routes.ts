@@ -22,6 +22,12 @@ export const routes: Routes = [
         loadComponent:()=>import('./login/login.component').then(mod=>mod.LoginComponent),
         canDeactivate:[canLeaveLoginpage],
     },
+
+    // ... existing imports
+{
+    path: 'register',
+    loadComponent: () => import('./customer/customer-register/customer-register.component').then(m => m.CustomerRegisterComponent)
+},
     {
         path:'dealer',
         loadComponent() {

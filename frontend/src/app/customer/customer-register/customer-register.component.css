@@ -1,0 +1,80 @@
+.registration-container {
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  min-height: 100vh;
+  background-color: #f4f7f9;
+  padding: 20px;
+  font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif;
+}
+
+.registration-card {
+  background: white;
+  padding: 40px;
+  border-radius: 8px;
+  box-shadow: 0 10px 25px rgba(0,0,0,0.1);
+  width: 100%;
+  max-width: 800px;
+}
+
+h2 { color: #2c3e50; margin-bottom: 5px; }
+.subtitle { color: #7f8c8d; margin-bottom: 30px; font-size: 0.9rem; }
+
+.form-row {
+  display: flex;
+  gap: 15px;
+  margin-bottom: 20px;
+  flex-wrap: wrap;
+}
+
+.form-group {
+  flex: 1;
+  min-width: 200px;
+  display: flex;
+  flex-direction: column;
+}
+
+label { font-weight: 600; font-size: 0.85rem; margin-bottom: 5px; color: #34495e; }
+
+input, textarea {
+  padding: 10px;
+  border: 1px solid #dcdfe6;
+  border-radius: 4px;
+  font-size: 14px;
+  transition: border-color 0.2s;
+}
+
+input:focus { outline: none; border-color: #409eff; }
+
+.error { color: #f56c6c; font-size: 0.75rem; margin-top: 4px; }
+
+.success-banner {
+  background-color: #f0f9eb;
+  color: #67c23a;
+  padding: 15px;
+  border-radius: 4px;
+  margin-bottom: 20px;
+  border: 1px solid #e1f3d8;
+  text-align: center;
+}
+
+.btn-register {
+  background-color: #409eff;
+  color: white;
+  border: none;
+  padding: 12px 30px;
+  border-radius: 4px;
+  cursor: pointer;
+  font-weight: bold;
+}
+
+.btn-register:disabled { background-color: #a0cfff; cursor: not-allowed; }
+
+.btn-back {
+  margin-left: 15px;
+  text-decoration: none;
+  color: #606266;
+  font-size: 0.9rem;
+}
+
+.btn-back:hover { text-decoration: underline; }

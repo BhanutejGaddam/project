@@ -3,13 +3,13 @@ import { Component, DestroyRef, inject, OnInit } from '@angular/core';
 import { FormGroup, ReactiveFormsModule, FormControl, Validators } from '@angular/forms';
 import { ActivatedRoute, CanDeactivateFn } from '@angular/router';
 import { AuthenticationService } from './authentication.service';
-import { Router } from '@angular/router';
+import { Router, RouterLink} from '@angular/router';
 import { CommonModule } from '@angular/common';
 
 @Component({
   selector: 'app-login',
   standalone: true,
-  imports: [ReactiveFormsModule, CommonModule],
+  imports: [ReactiveFormsModule, CommonModule, RouterLink], // Add it here
   templateUrl: './login.component.html',
   styleUrls: ['./login.component.css']
 })
