@@ -24,5 +24,5 @@
     .badge-success { background: white; color:#000000; }
     .badge-primary { background: white; color:#000000; }
     .muted { color: var(--muted); }
-    .back { display:inline-flex; align-items:center; gap:8px; color:#e9ecef; text-decoration:none; }
+    .back { display:inline-flex; align-items:center; gap:8px; color:#00060c; text-decoration:none; }
     .back:hover { text-decoration: underline; }
