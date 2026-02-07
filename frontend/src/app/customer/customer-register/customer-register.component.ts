@@ -2,6 +2,7 @@ import { Component, inject } from '@angular/core';
 import { FormBuilder, FormGroup, Validators, ReactiveFormsModule, AbstractControl, ValidationErrors } from '@angular/forms';
 import { CommonModule } from '@angular/common';
 import { Router, RouterLink } from '@angular/router';
+import { AuthenticationService } from '../../login/authentication.service'; // Ensure this path is correct
 
 @Component({
   selector: 'app-customer-register',
@@ -13,6 +14,7 @@ import { Router, RouterLink } from '@angular/router';
 export class CustomerRegisterComponent {
   private fb = inject(FormBuilder);
   private router = inject(Router);
+  private authService = inject(AuthenticationService); // Injected the service here
 
   registrationForm: FormGroup;
   isSubmitting = false;
@@ -32,7 +34,6 @@ export class CustomerRegisterComponent {
     }, { validators: this.passwordMatchValidator });
   }
 
-  // Custom validator for matching passwords
   passwordMatchValidator(control: AbstractControl): ValidationErrors | null {
     const password = control.get('password');
     const confirmPassword = control.get('confirmPassword');
@@ -44,16 +45,29 @@ export class CustomerRegisterComponent {
     if (this.registrationForm.valid) {
       this.isSubmitting = true;
       
-      // Simulate API Call
-      setTimeout(() => {
-        this.registrationSuccess = true;
-        this.isSubmitting = false;
-        
-        // Redirect to login after 3 seconds
-        setTimeout(() => {
-          this.router.navigate(['/customer-login']);
-        }, 3000);
-      }, 1500);
+      // Capture the form data to send to the API
+      // .NET usually expects camelCase JSON, which match your form control names
+      const userData = this.registrationForm.value;
+
+      // Call the real API service
+      this.authService.register$(userData).subscribe({
+        next: (response) => {
+          console.log('Registration successful in Database:', response);
+          this.registrationSuccess = true;
+          this.isSubmitting = false;
+          
+          // Redirect to login after 3 seconds so the user can see the success message
+          setTimeout(() => {
+            this.router.navigate(['/customer-login']);
+          }, 3000);
+        },
+        error: (err) => {
+          console.error('Registration failed:', err);
+          this.isSubmitting = false;
+          alert('Registration failed. Please ensure the Backend API is running and try again.');
+        }
+      });
+
     } else {
       this.registrationForm.markAllAsTouched();
     }

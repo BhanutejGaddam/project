@@ -1,11 +1,22 @@
-
-import { Injectable } from '@angular/core';
+import { inject, Injectable } from '@angular/core';
 import { Observable, of, BehaviorSubject } from 'rxjs';
 import { tap } from 'rxjs/operators';
 import { loginData } from './login_data';
+import { HttpClient } from '@angular/common/http';
+
 
 @Injectable({ providedIn: 'root' })
 export class AuthenticationService {
+
+  private http = inject(HttpClient);
+  
+  // Replace with your actual .NET Port from Swagger
+private apiUrl = 'https://localhost:7169/api/Auth';
+
+  register$(userData: any): Observable<any> {
+    return this.http.post(`${this.apiUrl}/register`, userData);
+  }
+
   // Holds whether the user is logged in
   private readonly _isLoggedIn$ = new BehaviorSubject<boolean>(
     !!localStorage.getItem('auth_isLoggedIn')
