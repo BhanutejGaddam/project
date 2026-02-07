@@ -1,6 +1,6 @@
 import { inject, Injectable } from '@angular/core';
 import { Observable, of, BehaviorSubject } from 'rxjs';
-import { tap } from 'rxjs/operators';
+import { tap, map } from 'rxjs/operators';
 import { loginData } from './login_data';
 import { HttpClient } from '@angular/common/http';
 
@@ -28,36 +28,18 @@ private apiUrl = 'https://localhost:7169/api/Auth';
     return this._isLoggedIn$.value;
   }
 
-  login$(role: string, email: string, password: string): Observable<boolean> {
-    const normalizedEmail = String(email).trim().toLowerCase();
-    const normalizedRole = String(role);
-    const normalizedPassword = String(password);
+  
 
-    const matched = loginData.find(
-      (user) =>
-        user.email === normalizedEmail &&
-        user.password === normalizedPassword &&
-        user.role === normalizedRole
-    );
-
-    const ok = Boolean(matched);
-
-    return of(ok).pipe(
-      tap((success) => {
-        if (success) {
-          console.log('Credentials matched');
-          this._isLoggedIn$.next(true);
-          localStorage.setItem('auth_isLoggedIn', 'true');
-          // Optionally store minimal user info/role:
-          // localStorage.setItem('auth_role', normalizedRole);
-        } else {
-          console.log('Credentials not matched');
-          this._isLoggedIn$.next(false);
-          localStorage.removeItem('auth_isLoggedIn');
-        }
-      })
-    );
-  }
+login$(role: string, email: string, pass: string): Observable<boolean> {
+  const loginData = { email: email, password: pass, role: role };
+  
+  return this.http.post<any>(`${this.apiUrl}/login`, loginData).pipe(
+    map(response => {
+      // If the API returns success, we return true to the component
+      return response.success === true;
+    })
+  );
+}
 
   logout(): void {
     this._isLoggedIn$.next(false);
