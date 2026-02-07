@@ -41,35 +41,36 @@ export class CustomerRegisterComponent {
       ? { passwordMismatch: true } : null;
   }
 
-  onSubmit() {
-    if (this.registrationForm.valid) {
-      this.isSubmitting = true;
-      
-      // Capture the form data to send to the API
-      // .NET usually expects camelCase JSON, which match your form control names
-      const userData = this.registrationForm.value;
+ onSubmit() {
+  if (this.registrationForm.valid) {
+    this.isSubmitting = true;
 
-      // Call the real API service
-      this.authService.register$(userData).subscribe({
-        next: (response) => {
-          console.log('Registration successful in Database:', response);
-          this.registrationSuccess = true;
-          this.isSubmitting = false;
-          
-          // Redirect to login after 3 seconds so the user can see the success message
-          setTimeout(() => {
-            this.router.navigate(['/customer-login']);
-          }, 3000);
-        },
-        error: (err) => {
-          console.error('Registration failed:', err);
-          this.isSubmitting = false;
-          alert('Registration failed. Please ensure the Backend API is running and try again.');
-        }
-      });
+    // Mapping Form names to .NET Model names
+    const formValues = this.registrationForm.value;
+    const payload = {
+      customerId: "CUST" + Math.floor(Math.random() * 10000), // Generating a temp ID
+      cFirstName: formValues.firstName,
+      cMiddleName: formValues.middleName || "",
+      cLastName: formValues.lastName,
+      cMailId: formValues.email,
+      cContactInfo: Number(formValues.phone),
+      cPassword: formValues.password,
+      cAddress: formValues.address,
+      cUsername: formValues.username,
+      // The other 3 fields will use defaults from the .NET Model
+    };
 
-    } else {
-      this.registrationForm.markAllAsTouched();
-    }
+    this.authService.register$(payload).subscribe({
+      next: (res) => {
+        this.registrationSuccess = true;
+        this.isSubmitting = false;
+        setTimeout(() => this.router.navigate(['/customer-login']), 3000);
+      },
+      error: (err) => {
+        this.isSubmitting = false;
+        console.error(err);
+      }
+    });
   }
+}
 }
