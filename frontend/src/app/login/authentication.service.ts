@@ -35,9 +35,18 @@ login$(role: string, email: string, pass: string): Observable<boolean> {
 
   return this.http.post<any>(`${this.apiUrl}/login`, body).pipe(
     map(res => {
-      if (res.success && res.customerId) {
-        // Save the ID so other components can use it
-        localStorage.setItem('userId', res.customerId);
+      // We check for 'token' because that's what your C# API sends back
+      if (res.success && res.token) {
+        // 1. Save the JWT Token
+        localStorage.setItem('auth_token', res.token);
+        
+        // 2. Save the login state
+        localStorage.setItem('auth_isLoggedIn', 'true');
+        localStorage.setItem('auth_role', res.role);
+        
+        // Update the BehaviorSubject so the UI reacts immediately
+        this._isLoggedIn$.next(true);
+        
         return true;
       }
       return false;
@@ -62,8 +71,10 @@ getServiceHistory$(customerId: string): Observable<any[]> {
   return this.http.get<any[]>(`${this.apiUrl}/service-history/${customerId}`);
 }
   logout(): void {
-    this._isLoggedIn$.next(false);
-    localStorage.removeItem('auth_isLoggedIn');
-    // localStorage.removeItem('auth_role');
-  }
+  this._isLoggedIn$.next(false);
+  localStorage.removeItem('auth_isLoggedIn');
+  localStorage.removeItem('auth_token');
+  localStorage.removeItem('auth_role');
+  localStorage.removeItem('userId'); // Cleanup old keys if any
+}
 }
