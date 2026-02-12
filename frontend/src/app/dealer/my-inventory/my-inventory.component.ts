@@ -1,25 +1,66 @@
-
-import { Component } from '@angular/core';
-import { VehicleService } from './vehicle.service';
-import { Vehicle } from './vehicle.model';
+import { Component, OnInit } from '@angular/core';
+import { CommonModule } from '@angular/common';
+import { ActivatedRoute, RouterLink } from '@angular/router';
+import { VehicleStock, SparePart, InventoryResponse } from '../../admin/view-inventory/view-inventory.interface';
+import { DealerService } from '../../admin/admin.service'; 
 
 @Component({
   selector: 'app-my-inventory',
   standalone: true,
-  imports: [],
+  imports: [CommonModule, RouterLink],
   templateUrl: './my-inventory.component.html',
   styleUrls: ['./my-inventory.component.css'],
 })
-export class MyInventoryComponent {
-   
-  dealers: any;
-  addDealer() {
-    throw new Error('Method not implemented.');
-  }
-   vehicles: Vehicle[] = [];
+export class MyInventoryComponent implements OnInit {
+   dealerID: string | null = null;
+  dealerName = '';
+  
+  // These will now hold the data fetched from SQL Server
+  vehicles: VehicleStock[] = [];
+  parts: SparePart[] = [];
 
-  constructor(private vehicleService: VehicleService) {
-    this.vehicleService.vehicles$.subscribe((data) => (this.vehicles = data));
-    // DI
+  constructor(
+    private route: ActivatedRoute,
+    private dealerService: DealerService
+  ) {}
+
+  ngOnInit(): void {
+    // Subscribe to query parameters to get the Dealer ID
+    this.route.queryParamMap.subscribe(params => {
+      this.dealerID = params.get('id');
+      
+      if (this.dealerID) {
+        this.fetchInventory(this.dealerID);
+      }
+    });
+  }
+
+  /**
+   * Calls the .NET API via the DealerService to get combined inventory
+   */
+  fetchInventory(id: string): void {
+    this.dealerService.getInventory(id).subscribe({
+      next: (data: InventoryResponse) => {
+        this.vehicles = data.vehicles;
+        this.parts = data.spareParts;
+        
+        // Note: If you need to fetch the Dealer Name from the DB as well, 
+        // you could call a getDealerById method here.
+        this.dealerName = `Dealer ${id}`; 
+      },
+      error: (err) => {
+        console.error('Error fetching inventory from SQL:', err);
+      }
+    });
+  }
+
+  // --- Computed Properties for the HTML Template ---
+
+  get totalUnits(): number {
+    return this.vehicles.reduce((sum, v) => sum + (v.units || 0), 0);
+  }
+
+  get totalValueINR(): number {
+    return this.vehicles.reduce((sum, v) => sum + (v.unitPriceINR * (v.units || 0)), 0);
   }
 }

@@ -1,10 +1,13 @@
-import { Injectable, signal,computed } from '@angular/core';
+import { Injectable, signal,computed, inject } from '@angular/core';
 import {customerInfo} from './customers.data';
 import { customerData } from './customer.interface';
+import { HttpClient } from '@angular/common/http';
+import { Observable } from 'rxjs';
 
 @Injectable({providedIn:'root'})
 export class CustomerService{
-
+    private apiUrl = 'https://localhost:7169/api/AddCustomer/register'; // Replace with your actual API endpoint
+    private http = inject(HttpClient);
     customers=signal<customerData[]>(customerInfo);
     entered_text=signal<string>('');
 
@@ -26,4 +29,8 @@ export class CustomerService{
     getData(){
         return customerInfo;
     }
+
+    addCustomer(customerData: any): Observable<any> {
+    return this.http.post(this.apiUrl, customerData);
+  }
 }

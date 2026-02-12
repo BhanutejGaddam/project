@@ -1,39 +1,71 @@
+<div class="view-inventory-page">
 
-<div class="inventory-page">
-
-  <div class="page-header">
-    <div class="icon-circle">🚗</div>
-    <h2>Vehicle Inventory Management</h2>
+  <div class="header">
+    <h2>View Inventory</h2>
+    <span class="muted" *ngIf="dealerName">&mdash; {{ dealerName }} (ID: {{ dealerID }})</span>
+    <span class="ms-auto"></span>
   </div>
-  <div class="sub-header" style="color:white;">My Inventory</div>
 
   <div class="card">
-    <div class="card-body">
-
-      <div class="table-wrap">
-      
-        <table>
-          <thead>
-            <tr>
-              <th>Model ID</th>
-              <th>Model</th>
-              <th>Price (INR)</th>
-              <th>No. of Vehicles Available</th>
-              <th>Status</th>
-            </tr>
-          </thead>
-          @for(vehicle of vehicles; track vehicle.vehicleID) {
-            <tr>
-              <td>{{ vehicle.vehicleID }}</td>
-              <td class="model">{{ vehicle.model }}</td>
-              <td class="price">₹ {{ vehicle.price }}</td>
-              <td><span class="badge badge-success">{{ vehicle.noOfVehiclesAvailable }}</span></td>
-              <td><span class="badge badge-info">Available</span></td>
-            </tr>
-          }
-        </table>
-      </div>
-
+    <h5 class="subtitle">Vehicles</h5>
+    <div class="table-wrap">
+      <table>
+        <thead>
+          <tr>
+            <th>Vehicle Model No.</th>
+            <th>Vehicle Model Name</th>
+            <th>No. of Vehicles</th>
+          </tr>
+        </thead>
+        <tbody>
+          <tr *ngFor="let v of vehicles">
+            <td>{{ v.modelNo }}</td>
+            <td>{{ v.modelName }}</td>
+            <td><span class="badge badge-success">{{ v.units }}</span></td>
+          </tr>
+          <tr *ngIf="!vehicles.length">
+            <td colspan="3" class="muted" style="text-align:center;">No vehicle records found in database.</td>
+          </tr>
+        </tbody>
+        <tfoot>
+          <tr>
+            <td colspan="2" style="text-align:end; font-weight:700; color: black;">Totals:</td>
+            <td style="text-align:center;">
+              <div class="summary-row">
+                <span class="badge badge-info">Total Units: {{ totalUnits }}</span>
+                <span class="badge badge-primary">Total Value: {{ totalValueINR | currency:'INR':'symbol':'1.0-0' }}</span>
+              </div>
+            </td>
+          </tr>
+        </tfoot>
+      </table>
     </div>
   </div>
+
+  <div class="card">
+    <h5 class="subtitle">Spare Parts</h5>
+    <div class="table-wrap">
+      <table>
+        <thead>
+          <tr>
+            <th>Spare Part ID</th>
+            <th>Spare Part Name</th>
+            <th>Per-Part Cost (INR)</th>
+            <th>Available Units</th> </tr>
+        </thead>
+        <tbody>
+          <tr *ngFor="let p of parts">
+            <td>{{ p.partID }}</td>
+            <td>{{ p.partName }}</td>
+            <td>{{ p.costINR | currency:'INR':'symbol':'1.0-0' }}</td>
+            <td><span class="badge">{{ p.units }}</span></td>
+          </tr>
+          <tr *ngIf="!parts.length">
+            <td colspan="4" class="muted" style="text-align:center;">No spare parts listed for this dealer.</td>
+          </tr>
+        </tbody>
+      </table>
+    </div>
+  </div>
+
 </div>
