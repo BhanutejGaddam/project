@@ -1,4 +1,3 @@
-
 <div class="view-inventory-page">
 
   <div class="header">
@@ -25,7 +24,7 @@
             <td><span class="badge badge-success">{{ v.units }}</span></td>
           </tr>
           <tr *ngIf="!vehicles.length">
-            <td colspan="3" class="muted" style="text-align:center;">No vehicle records</td>
+            <td colspan="3" class="muted" style="text-align:center;">No vehicle records found in database.</td>
           </tr>
         </tbody>
         <tfoot>
@@ -50,18 +49,19 @@
         <thead>
           <tr>
             <th>Spare Part ID</th>
-            <th>Spare Part</th>
+            <th>Spare Part Name</th>
             <th>Per-Part Cost (INR)</th>
-          </tr>
+            <th>Available Units</th> </tr>
         </thead>
         <tbody>
           <tr *ngFor="let p of parts">
             <td>{{ p.partID }}</td>
             <td>{{ p.partName }}</td>
             <td>{{ p.costINR | currency:'INR':'symbol':'1.0-0' }}</td>
+            <td><span class="badge">{{ p.units }}</span></td>
           </tr>
           <tr *ngIf="!parts.length">
-            <td colspan="3" class="muted" style="text-align:center;">No spare parts listed</td>
+            <td colspan="4" class="muted" style="text-align:center;">No spare parts listed for this dealer.</td>
           </tr>
         </tbody>
       </table>
@@ -70,4 +70,3 @@
 
   <a class="back" routerLink="/admin/dealers">&larr; Back to My Dealers</a>
 </div>
-``

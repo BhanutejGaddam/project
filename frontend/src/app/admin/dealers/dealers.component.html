@@ -1,88 +1,119 @@
-
 <div class="my-dealers-page">
-
-<div class="dealer-page">
-  <style>
+  <div class="dealer-page">
     
-  </style>
+    <div class="header">
+      <div class="icon">🏪</div>
+      <h2 style="color: black;">Dealers</h2>
+    </div>
 
-  <div class="header">
-    <div class="icon">🏪</div>
-    <h2 style="color: black;">Dealers</h2>
-  </div>
+    <div class="toolbar">
+      <button class="btn btn-outline" style="color: black;" (click)="openAddDealerForm()">➕ Add Dealer</button>
+    </div>
 
-  <div class="toolbar">
-    <button class="btn btn-outline" style="color: black;" (click)="openAddDealerForm()">➕ Add Dealer</button>
-  </div>
+    <div *ngIf="feedback" class="alert">{{ feedback }}</div>
 
-  <div *ngIf="feedback" class="alert">{{ feedback }}</div>
+    <div *ngIf="showAddForm" class="card">
+      <h5>Add New Dealer</h5>
+      <form (ngSubmit)="saveDealer()" novalidate>
+        <div class="form-grid">
+          <div class="form-group">
+            <label class="form-label">Store / Dealer Name</label>
+            <input class="form-control" [(ngModel)]="form.d_storeName" name="d_storeName" required />
+          </div>
 
-  <div *ngIf="showAddForm" class="card">
-    <h5>Add New Dealer</h5>
+          <div class="form-group">
+            <label class="form-label">Dealer First Name</label>
+            <input class="form-control" [(ngModel)]="form.dealerFirstName" name="dealerFirstName" required />
+          </div>
 
-    <form (ngSubmit)="saveDealer()" novalidate>
-      <div class="form-grid">
-        <div class="form-group">
-          <label class="form-label">Dealer Name</label>
-          <input class="form-control" [(ngModel)]="form.dealerName" name="dealerName" placeholder="e.g., Dealer Five" required />
+          <div class="form-group">
+            <label class="form-label">Dealer Middle Name</label>
+            <input class="form-control" [(ngModel)]="form.dealerMiddleName" name="dealerMiddleName" />
+          </div>
+
+          <div class="form-group">
+            <label class="form-label">Dealer Last Name</label>
+            <input class="form-control" [(ngModel)]="form.dealerLastName" name="dealerLastName" />
+          </div>
+
+          <div class="form-group">
+            <label class="form-label">Email</label>
+            <input class="form-control" [(ngModel)]="form.d_mail" name="d_mail" />
+          </div>
+
+          <div class="form-group">
+            <label class="form-label">Phone</label>
+            <input class="form-control" [(ngModel)]="form.d_phone" name="d_phone" />
+          </div>
+
+          <div class="form-group">
+            <label class="form-label">Username</label>
+            <input class="form-control" [(ngModel)]="form.d_username" name="d_username" />
+          </div>
+
+          <div class="form-group">
+            <label class="form-label">Password</label>
+            <input type="password" class="form-control" [(ngModel)]="form.d_password" name="d_password" />
+          </div>
+
+          <div class="form-group">
+            <label class="form-label">City</label>
+            <input class="form-control" [(ngModel)]="form.d_city" name="d_city" />
+          </div>
+
+          <div class="form-group">
+            <label class="form-label">State</label>
+            <input class="form-control" [(ngModel)]="form.d_state" name="d_state" />
+          </div>
+
+          <div class="form-group">
+            <label class="form-label">Address</label>
+            <input class="form-control" [(ngModel)]="form.address" name="address" required />
+          </div>
         </div>
 
-        <div class="form-group">
-          <label class="form-label">Address</label>
-          <input class="form-control" [(ngModel)]="form.address" name="address" placeholder="e.g., Kalyani Nagar, Pune 411006" required />
+        <div class="actions">
+          <button type="button" class="btn btn-outline" style="color:black; border-color: black;" (click)="cancelAddDealer()">Cancel</button>
+          <button type="submit" class="btn btn-primary" style="color:black; border-color: black;">Save Dealer</button>
+        </div>
+      </form>
+    </div>
+
+    <div class="grid" *ngIf="dealers && dealers.length > 0; else noDealers">
+      <div class="dealer-card" *ngFor="let d of dealers">
+        <div class="title-row">
+          <span class="dealer-name">{{ d.storeName || d.dFirstName }}</span>
+          <span class="badge">ID: {{ d.dealerId }}</span>
+        </div>
+
+        <div class="field">
+          <div class="label">Address</div>
+          <div class="value">{{ d.storeAddress }}</div>
         </div>
         
+        <div class="field">
+          <div class="label">Contact</div>
+          <div class="value">{{ d.dContactInfo }}{{ d.dMailId ? ' | ' + d.dMailId : '' }}</div>
+        </div>
 
-        <div class="form-group">
-          <label class="form-label">Managed By</label>
-          <input class="form-control" [(ngModel)]="form.managedBy" name="managedBy" placeholder="e.g., Anita Deshmukh" required />
+        <div class="divider"></div>
+        <div class="dealer-actions">
+          <button class="btn" type="button"
+                  [routerLink]="['/admin', 'viewinventory']"
+                  [queryParams]="{ id: d.dealerId }">
+            View Inventory
+          </button>
         </div>
       </div>
-
-      <div class="actions">
-        <button type="button" style="color:black; border-color: black;" class="btn btn-outline" (click)="cancelAddDealer()">Cancel</button>
-        <button type="submit" style="color:black; border-color: black;" class="btn btn-primary">Save Dealer</button>
-      </div>
-    </form>
-  </div>
-
-  <div class="grid">
-    <div class="dealer-card" *ngFor="let d of dealers">
-      <div class="title-row">
-        <span class="dealer-name">{{ d.dealerName }}</span>
-        <span class="badge">ID: {{ d.dealerID }}</span>
-      </div>
-
-      <div class="field">
-        <div class="label">Address</div>
-        <div class="value">{{ d.address }}</div>
-      </div>
-      
-      <div class="field">
-        <div class="label">Contact</div>
-        <div class="value">{{ d.Contact }}</div>
-      </div>
-
-      <div class="field">
-        <div class="label">Dealer Name</div>
-        <div class="value">{{ d.managedBy }}</div>
-      </div>
-
-      <div class="divider"></div>
-      <div class="dealer-actions">
-       
-<button class="btn" type="button"
-        [routerLink]="['/admin', 'viewinventory']"
-        [queryParams]="{ id: d.dealerID }">
-  View Inventory
-</button>
-
-      </div>
     </div>
+
+    <ng-template #noDealers>
+      <div class="empty-state">
+        <div class="empty-icon">📂</div>
+        <h3>No dealers found</h3>
+        <p>There are no dealers in the database yet. Use the "Add Dealer" button to create one.</p>
+      </div>
+    </ng-template>
+
   </div>
-</div>
-
-
-<br><br>
- 
 </div>

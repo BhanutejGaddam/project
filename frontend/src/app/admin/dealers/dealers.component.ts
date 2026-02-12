@@ -1,21 +1,21 @@
-import { Component, ElementRef, ViewChild } from '@angular/core';
+import { Component, ElementRef, ViewChild, OnInit } from '@angular/core';
 import { CommonModule } from '@angular/common';
 import { FormsModule, ReactiveFormsModule, FormBuilder, FormGroup, Validators } from '@angular/forms';
 import { RouterLink } from '@angular/router';
-
-type Dealer = {
-  dealerID: number;
-  dealerName: string;
-  address: string;
-  Contact: any;
-  managedBy: string;
-};       
+import { DealerService } from '../admin.service'; 
 
 type DealerForm = {
-  dealerName: string;
+  d_storeName: string;
+  dealerFirstName: string;
+  dealerMiddleName?: string;
+  dealerLastName?: string;
+  d_mail: string;
+  d_phone: string;
+  d_username: string;
+  d_password: string;
+  d_city: string;
+  d_state: string;
   address: string;
-  // Contact: any;
-  managedBy: string;
 };
 
 @Component({
@@ -25,52 +25,22 @@ type DealerForm = {
   templateUrl: './dealers.component.html',
   styleUrls: ['./dealers.component.css'] 
 })
-export class DealersComponent {
-  dealers: Dealer[] = [
-    {
-      dealerID: 101,
-      dealerName: 'Vijayalaxmi Automotive sales & services',
-      address: 'Plot 12, Magarpatta City, Hadapsar, Pune, MH 411028',
-      Contact: 'vinayak.p@dealer.com , 9876543210',
-      managedBy: 'Vinayak Patangankar'
-    },
-    {
-      dealerID: 102,
-      dealerName: 'Rajararejshwari automotives',
-      address: 'Shop 8, FC Road, Shivajinagar, Pune, MH 411005',
-      Contact: 'pooja.k@dealer.com , 9876543211',
-      managedBy: 'Pooja Kumari'
-    },
-    {
-      dealerID: 103,
-      dealerName: 'Surya automotives',
-      address: 'Sr. No. 15, Baner, Pune, MH 411045',
-      Contact: 'anita.d@dealer.com, 9876543212',
-      managedBy: 'Anita Deshmukh'
-    },
-    {
-      dealerID: 104,
-      dealerName: 'Rahul motors',
-      address: 'Phase 1, Hinjewadi IT Park, Pune, MH 411057',
-      Contact: 'rahul.n@dealer.com, 9876543213',
-      managedBy: 'Rahul Nerkar'
-    }
-  ];
-
+export class DealersComponent implements OnInit {
+  dealers: any[] = []; 
   showAddForm = false;
   feedback = '';
-  form: DealerForm = { dealerName: '', address: '', managedBy: '' };
+  
+  form: DealerForm = this.getEmptyForm();
 
   showContact = false;
-  selectedDealer: Dealer | null = null;
-
+  selectedDealer: any = null;
   contactForm: FormGroup;
   submitting = false;
   submitSuccess = false;
 
   @ViewChild('contactModal') contactModalRef?: ElementRef<HTMLDivElement>;
 
-  constructor(private fb: FormBuilder) {
+  constructor(private fb: FormBuilder, private dealerService: DealerService) {
     this.contactForm = this.fb.group({
       fullName: ['', Validators.required],
       email: ['', [Validators.required, Validators.email]],
@@ -81,79 +51,98 @@ export class DealersComponent {
     });
   }
 
-  get f() { return this.contactForm.controls; }
+  ngOnInit(): void {
+    this.loadDealers();
+  }
+
+  loadDealers(): void {
+    this.dealerService.getDealers().subscribe({
+      next: (data) => {
+        this.dealers = data;
+      },
+      error: (err) => {
+        console.error('Error fetching dealers', err);
+        this.feedback = 'Could not load dealers from server.';
+      }
+    });
+  }
+
+  private getEmptyForm(): DealerForm {
+    return {
+      d_storeName: '',
+      dealerFirstName: '',
+      dealerMiddleName: '',
+      dealerLastName: '',
+      d_mail: '',
+      d_phone: '',
+      d_username: '',
+      d_password: '',
+      d_city: '',
+      d_state: '',
+      address: ''
+    };
+  }
 
   openAddDealerForm(): void {
     this.showAddForm = true;
     this.feedback = '';
-    this.form = { dealerName: '', address: '', managedBy: '' };
+    this.form = this.getEmptyForm();
   }
 
   cancelAddDealer(): void {
     this.showAddForm = false;
-    this.form = { dealerName: '', address: '', managedBy: '' };
+    this.form = this.getEmptyForm();
   }
 
   saveDealer(): void {
-    const { dealerName, address, managedBy } = this.form;
-
-    if (!dealerName?.trim() || !address?.trim() || !managedBy?.trim()) {
-      this.feedback = 'Please fill in Dealer Name, Address, and Managed By.';
+    const f = this.form;
+    if (!f.dealerFirstName?.trim() || !f.address?.trim()) {
+      this.feedback = 'Please fill in Dealer First Name and Address.';
       return;
     }
 
-    const nextId =
-      (this.dealers.length ? Math.max(...this.dealers.map(d => d.dealerID)) : 100) + 1;
-
-    const newDealer: Dealer = {
-      dealerID: nextId,
-      dealerName: dealerName.trim(),
-      address: address.trim(),
-      Contact: '',
-      managedBy: managedBy.trim()
+    // This object structure matches your .NET DealerPostDto
+    const dealerDto = {
+      dealerId: "D" + Math.floor(100 + Math.random() * 900), 
+      dFirstName: f.dealerFirstName.trim(),
+      dMiddleName: f.dealerMiddleName?.trim() || '',
+      dLastName: f.dealerLastName?.trim() || '',
+      dMailId: f.d_mail.trim(),
+      dPhone: f.d_phone.trim(), 
+      storeName: f.d_storeName.trim() || f.dealerFirstName.trim(),
+      dPassword: f.d_password,
+      storeAddress: f.address.trim(),
+      city: f.d_city,
+      state: f.d_state,
+      dUsername: f.d_username
     };
 
-    this.dealers.push(newDealer);
-    this.dealers = [...this.dealers];
-    this.showAddForm = false;
-
-    this.feedback = `Dealer "${newDealer.dealerName}" added successfully (ID: ${newDealer.dealerID}).`;
-    setTimeout(() => (this.feedback = ''), 2000);
+    this.dealerService.addDealer(dealerDto).subscribe({
+      next: (res) => {
+        this.feedback = res.message;
+        this.showAddForm = false;
+        this.loadDealers(); 
+        setTimeout(() => (this.feedback = ''), 3000);
+      },
+      error: (err) => {
+        this.feedback = 'Failed to save: ' + (err.error?.message || 'Server Error');
+      }
+    });
   }
 
-  viewInventory(dealer: Dealer): void {
-    console.log('View inventory for:', dealer);
-  }
-
-  openContact(dealer: Dealer): void {
+  // --- UI Methods ---
+  openContact(dealer: any): void {
     this.selectedDealer = dealer;
     this.submitSuccess = false;
     this.submitting = false;
     this.showContact = true;
-
-    setTimeout(() => {
-      const firstInput = document.getElementById('fullName');
-      firstInput?.focus();
-    }, 0);
+    setTimeout(() => document.getElementById('fullName')?.focus(), 0);
   }
 
-  contactDealer(dealer: Dealer): void {
-    console.log('Contact dealer:', dealer);
-    this.openContact(dealer);
-  }
-
-  closeContact(_event?: MouseEvent): void {
+  closeContact(): void {
     this.showContact = false;
     this.selectedDealer = null;
-
-    this.contactForm.reset({
-      fullName: '',
-      email: '',
-      phone: '',
-      message: '',
-      contactMethod: 'email',
-      bestTime: 'afternoon',
-    });
+    this.contactForm.reset({ contactMethod: 'email', bestTime: 'afternoon' });
   }
 
   submitContact(): void {
@@ -161,13 +150,10 @@ export class DealersComponent {
       this.contactForm.markAllAsTouched();
       return;
     }
-
     this.submitting = true;
-
     setTimeout(() => {
       this.submitting = false;
       this.submitSuccess = true;
-
       setTimeout(() => this.closeContact(), 1800);
     }, 1200);
   }
