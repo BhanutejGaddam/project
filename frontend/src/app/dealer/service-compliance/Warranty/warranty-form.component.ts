@@ -1,61 +1,57 @@
-import { Component, OnInit } from '@angular/core';
-import { CommonModule } from '@angular/common';
+import { Component, OnInit, inject } from '@angular/core';
+import { FormBuilder, FormGroup, Validators, ReactiveFormsModule } from '@angular/forms';
 import { ActivatedRoute, Router } from '@angular/router';
-import { ReactiveFormsModule, FormBuilder, Validators, FormGroup } from '@angular/forms';
 import { WarrantyService } from '../Services/warranty.service';
-import { Warranty } from '../Models/warranty.model';
-import { first } from 'rxjs/operators';
+import { CommonModule } from '@angular/common';
 
 @Component({
   selector: 'app-warranty-form',
   standalone: true,
   imports: [CommonModule, ReactiveFormsModule],
-  templateUrl: './warranty-form.component.html',
-  styleUrls: ['./warranty-form.component.css']
+  templateUrl: './warranty-form.component.html'
 })
 export class WarrantyFormComponent implements OnInit {
-  isEdit = false;
-  id: number | null = null;
+  private fb = inject(FormBuilder);
+  private service = inject(WarrantyService);
+  private route = inject(ActivatedRoute);
+  private router = inject(Router);
+
   form!: FormGroup;
+  isEdit = false;
+  vehicleNo: string | null = null;
 
-  constructor(
-    private fb: FormBuilder,
-    private route: ActivatedRoute,
-    private router: Router,
-    private service: WarrantyService
-  ) {}
-
-  ngOnInit(): void {
+  ngOnInit() {
     this.form = this.fb.group({
-      vehicleId: [0, [Validators.required, Validators.min(1)]],
-      dealerId: [0, [Validators.required, Validators.min(1)]],
+      vehicleId: ['', Validators.required], // String type for MH12...
       issuedDate: ['', Validators.required],
       expiryDate: ['', Validators.required],
-      status: ['ACTIVE', Validators.required],
-      coverageDetails: ['', [Validators.required, Validators.minLength(5)]],
+      status: ['ACTIVE', Validators.required]
     });
 
-    const idParam = this.route.snapshot.paramMap.get('id');
-    if (idParam) {
+    this.vehicleNo = this.route.snapshot.paramMap.get('id');
+    if (this.vehicleNo) {
       this.isEdit = true;
-      this.id = Number(idParam);
-      this.service.getById(this.id).pipe(first()).subscribe(w => {
-        if (w) this.form.patchValue(w);
+      this.service.getById(this.vehicleNo).subscribe(w => {
+        if (w) {
+          this.form.patchValue({
+            vehicleId: w.vehicleNumber,
+            status: w.status,
+            issuedDate: w.issuedDate.split('T')[0],
+            expiryDate: w.expiryDate.split('T')[0]
+          });
+          this.form.get('vehicleId')?.disable(); // PK cannot be edited
+        }
       });
     }
   }
 
-  save(): void {
-    const payload = this.form.value as Warranty;
-    if (this.isEdit && this.id) {
-      this.service.update(this.id, payload);
-    } else {
-      this.service.create(payload);
-    }
-    this.router.navigate(['../'], { relativeTo: this.route });
+  save() {
+    if (this.form.invalid) return;
+    const val = this.form.getRawValue();
+    const obs = this.isEdit ? this.service.update(this.vehicleNo!, val) : this.service.create(val);
+    
+    obs.subscribe(() => this.router.navigate(['/dealer/warranty-list']));
   }
 
-  cancel(): void {
-    this.router.navigate(['../'], { relativeTo: this.route });
-  }
+  cancel() { this.router.navigate(['/dealer/warranty-list']); }
 }

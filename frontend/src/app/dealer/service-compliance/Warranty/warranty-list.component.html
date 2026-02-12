@@ -16,15 +16,14 @@
   </thead>
   <tbody>
     <tr *ngFor="let w of warranties">
-      <td>{{ w.warrantyId }}</td>
+      <td>{{ w.warrantyId }}</td> 
       <td>{{ w.vehicleId }}</td>
       <td>{{ w.status }}</td>
       <td>{{ w.issuedDate | date }}</td>
       <td>{{ w.expiryDate | date }}</td>
       <td>
         <!-- <a routerLink="../warranties/{{ w.warrantyId }}">Edit</a> -->
-        <button class="link danger" (click)="remove(w.warrantyId!)">Delete</button>
-      </td>
+<button class="link danger" (click)="remove(w.vehicleId)">Delete</button>      </td>
     </tr>
   </tbody>
 </table>

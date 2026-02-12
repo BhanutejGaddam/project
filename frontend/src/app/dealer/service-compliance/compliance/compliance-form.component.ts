@@ -1,65 +1,60 @@
-import { Component, OnInit } from '@angular/core';
-import { CommonModule } from '@angular/common';
+import { Component, OnInit, inject } from '@angular/core';
+import { FormBuilder, FormGroup, ReactiveFormsModule, Validators } from '@angular/forms';
 import { ActivatedRoute, Router } from '@angular/router';
-import { ReactiveFormsModule, FormBuilder, Validators, FormGroup } from '@angular/forms';
 import { ComplianceService } from '../Services/compliance.service';
-import { ComplianceRecord } from '../Models/compliance.model';
-import { first } from 'rxjs/operators';
 
 @Component({
   selector: 'app-compliance-form',
   standalone: true,
-  imports: [CommonModule, ReactiveFormsModule],
-  templateUrl: './compliance-form.component.html',
-  styleUrls: ['./compliance-form.component.css']
+  imports: [ReactiveFormsModule],
+  templateUrl: './compliance-form.component.html'
 })
 export class ComplianceFormComponent implements OnInit {
-  isEdit = false;
-  id: number | null = null;
-  form!: FormGroup;
+  private fb = inject(FormBuilder);
+  private service = inject(ComplianceService);
+  private route = inject(ActivatedRoute);
+  private router = inject(Router);
 
-  constructor(
-    private fb: FormBuilder,
-    private route: ActivatedRoute,
-    private router: Router,
-    private service: ComplianceService
-  ) {}
+  form!: FormGroup;
+  isEdit = false;
+  vehicleNo: string | null = null;
 
   ngOnInit(): void {
     this.form = this.fb.group({
-      vehicleId: ['', [Validators.required, Validators.minLength(5)]],
-      Fitness: ['', [Validators.required, Validators.minLength(3)]],
-      RC: ['', [Validators.required, Validators.minLength(3)]],
-      PollutionCheck: ['', [Validators.required, Validators.minLength(3)]],
+      vehicleId: ['', Validators.required],
+      PollutionCheck: ['COMPLIANT', Validators.required],
+      fitness: ['COMPLIANT', Validators.required],
+      RC: ['COMPLIANT', Validators.required],
       checkDate: ['', Validators.required],
-      expiryDate: ['', Validators.required],
-      status: ['PENDING', Validators.required],
+      expiryDate: ['', Validators.required]
     });
 
-    const idParam = this.route.snapshot.paramMap.get('id');
-    if (idParam) {
+    this.vehicleNo = this.route.snapshot.paramMap.get('id');
+    if (this.vehicleNo) {
       this.isEdit = true;
-      this.id = Number(idParam);
-
-      this.service.getById(this.id).pipe(first()).subscribe(r => {
+      this.service.getById(this.vehicleNo).subscribe(r => {
         if (r) {
-          this.form.patchValue(r);
+          this.form.patchValue({
+            vehicleId: r.vehicleNumber,
+            PollutionCheck: r.pollutionCheck,
+            fitness: r.fitnessCheck,
+            RC: r.rcCheck,
+            checkDate: r.lastChecked.split('T')[0],
+            expiryDate: r.expiry.split('T')[0]
+          });
+          this.form.get('vehicleId')?.disable();
         }
       });
     }
   }
 
   save(): void {
-    const payload = this.form.value as ComplianceRecord;
-    if (this.isEdit && this.id !== null) {
-      this.service.update(this.id, payload);
-    } else {
-      this.service.create(payload);
-    }
-    this.router.navigate(['../'], { relativeTo: this.route });
+    if (this.form.invalid) return;
+    const payload = this.form.getRawValue();
+    const obs = this.isEdit ? this.service.update(this.vehicleNo!, payload) : this.service.create(payload);
+    
+    obs.subscribe(() => this.router.navigate(['/dealer/compliance-list']));
   }
 
-  cancel(): void {
-    this.router.navigate(['../'], { relativeTo: this.route });
-  }
+  cancel(): void { this.router.navigate(['/dealer/compliance-list']); }
 }

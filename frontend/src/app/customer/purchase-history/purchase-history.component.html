@@ -1,5 +1,5 @@
 @if (serviceHistory.length === 0) {
-  <div class="empty">No service history found for this vehicle.</div>
+  <div class="empty">No completed service records found.</div>
 } @else {
   <div class="table-wrapper">
     <table class="history-table">
@@ -18,9 +18,11 @@
         @for (item of serviceHistory; track item.slno) {
           <tr>
             <td>{{ item.slno }}</td>
-            <td>{{ item.date }}</td>
+            <td>{{ item.date | date:'mediumDate' }}</td>
             <td>{{ item.warrantyavailed }}</td>
-            <td>{{ item.warrantyServices.length > 0 ? item.warrantyServices.join(', ') : '—' }}</td>
+            <td>
+                {{ item.warrantyServices.length > 0 ? item.warrantyServices.join(', ') : 'None' }}
+            </td>
             <td>{{ item.Repairs }}</td>
             <td>{{ item.routineMaintanance }}</td>
             <td>{{ item.amountPaid | currency:'INR' }}</td>
@@ -30,4 +32,3 @@
     </table>
   </div>
 }
-

@@ -28,19 +28,39 @@ private apiUrl = 'https://localhost:7169/api/Auth';
     return this._isLoggedIn$.value;
   }
 
-  
+
 
 login$(role: string, email: string, pass: string): Observable<boolean> {
-  const loginData = { email: email, password: pass, role: role };
-  
-  return this.http.post<any>(`${this.apiUrl}/login`, loginData).pipe(
-    map(response => {
-      // If the API returns success, we return true to the component
-      return response.success === true;
+  const body = { email, password: pass, role };
+
+  return this.http.post<any>(`${this.apiUrl}/login`, body).pipe(
+    map(res => {
+      if (res.success && res.customerId) {
+        // Save the ID so other components can use it
+        localStorage.setItem('userId', res.customerId);
+        return true;
+      }
+      return false;
     })
   );
 }
 
+// Helper method to get the ID later
+getLoggedInUserId(): string | null {
+  return localStorage.getItem('userId');
+}
+
+bookService$(data: any): Observable<any> {
+  return this.http.post(`${this.apiUrl}/book-service`, data);
+}
+
+getBookingStatus$(customerId: string): Observable<any> {
+  return this.http.get(`${this.apiUrl}/track-service/${customerId}`);
+}
+
+getServiceHistory$(customerId: string): Observable<any[]> {
+  return this.http.get<any[]>(`${this.apiUrl}/service-history/${customerId}`);
+}
   logout(): void {
     this._isLoggedIn$.next(false);
     localStorage.removeItem('auth_isLoggedIn');

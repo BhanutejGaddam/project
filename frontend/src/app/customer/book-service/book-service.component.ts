@@ -1,7 +1,9 @@
-import { Component} from '@angular/core';
-import { BookingData } from '../../bookingData';
-import { NgIf } from '@angular/common';
+import { Component, inject } from '@angular/core';
+import { NgIf, NgFor } from '@angular/common';
 import { FormsModule, NgForm } from '@angular/forms';
+import { Router } from '@angular/router';
+import { AuthenticationService } from '../../login/authentication.service'; // Adjust path if needed
+
 @Component({
   selector: 'app-book-service',
   standalone: true,
@@ -9,91 +11,106 @@ import { FormsModule, NgForm } from '@angular/forms';
   templateUrl: './book-service.component.html',
   styleUrl: './book-service.component.css'
 })
- 
- 
-export class BookServiceComponent {
-  warranty:'yes' | 'no' | null=null;
-  //serviceId:string='';
-  // booking: BookingData = {
-  //   ownerName: '',
-  //   phone: '',
-  //   email: '',
-  //   address: '',
-  //   makeModelYear: '',
-  //   vin: '',
-  //   registration: '',
-  //   mileage: 0,
-  //   fuelType: 'petrol',
-  //   serviceType: 'routine',
-  //   issues: '',
-  //   package: 'basic',
-  //   history: '',
-  //   serviceDate: '',
-  //   pickupDrop: 'none',
-  //   emergencyContact: '',
-  //   warranty: 'no',
-  //   warrantyServices: [],
-  //   serviceStatus:'BOOKED'
-  // };
 
+export class BookServiceComponent {
+  // Injecting dependencies
+  private authService = inject(AuthenticationService);
+  private router = inject(Router);
+
+  warranty: 'yes' | 'no' | null = null;
   message: string = '';
-    
-warrantyServiceOptions = [
-    { key: 'engine',       label: 'Engine Check' },
-    { key: 'brake',        label: 'Brake Inspection' },
-    { key: 'oil',          label: 'Oil Change' },
+
+  // Options for the UI checkboxes
+  warrantyServiceOptions = [
+    { key: 'engine', label: 'Engine Check' },
+    { key: 'brake', label: 'Brake Inspection' },
+    { key: 'oil', label: 'Oil Change' },
     { key: 'transmission', label: 'Transmission Service' },
-    { key: 'battery',      label: 'Battery Replacement' },
-    { key: 'tire',         label: 'Tire Rotation' },
-    { key: 'suspension',   label: 'Suspension Check' },
-    { key: 'electrical',   label: 'Electrical System' },
-    { key: 'cooling',      label: 'Cooling System' },
-    { key: 'exhaust',      label: 'Exhaust System' },
+    { key: 'battery', label: 'Battery Replacement' },
+    { key: 'tire', label: 'Tire Rotation' },
+    { key: 'suspension', label: 'Suspension Check' },
+    { key: 'electrical', label: 'Electrical System' },
+    { key: 'cooling', label: 'Cooling System' },
+    { key: 'exhaust', label: 'Exhaust System' },
   ];
-   
+
+  // Object to track which checkboxes are checked
   warrantyServices: Record<string, boolean> = Object.fromEntries(
     this.warrantyServiceOptions.map(s => [s.key, false])
   );
 
-  // onSubmit() {
-  //   // check if serviceDate already exists
-  //   const exists = bookingDataList.some(
-  //     b => b.serviceDate === this.booking.serviceDate
-  //   );
+  onSubmit(serviceForm: NgForm) {
+    if (serviceForm.invalid) {
+      window.alert('Please fill all required fields');
+      return;
+    }
 
-  //   if (exists) {
-  //     this.message = 'Choose different time slot';
-  //   } else {
-  //     bookingDataList.push({ ...this.booking });
-  //     this.message = 'Service booked successfully!';
-  //   }
-  // }
-  
-// Utility safe parse
- safeParse<T>(s: string | null, fallback: T): T {
-  try { return s ? JSON.parse(s) as T : fallback; } catch { return fallback; }
-}
+    // 1. Get the real Customer ID from the logged-in session
+    const loggedInId = this.authService.getLoggedInUserId();
 
-  onSubmit(serviceForm:NgForm){
-    const serviceId=Math.random().toString(36).substring(2,7);
-    const selectedWarranty = this.warrantyServiceOptions
-      .filter(s => this.warrantyServices[s.key])
-      .map(s => s.key);
-    
-    const payload:BookingData = {
-      ...serviceForm.value,
-      warrantySelections: selectedWarranty,
-      serviceStatus:'BOOKED',
-      serviceId:serviceId        
+    if (!loggedInId) {
+      window.alert("Your session has expired. Please login again.");
+      this.router.navigate(['/customer-login']);
+      return;
+    }
+
+    const formValues = serviceForm.value;
+
+    // 2. Extract year from "Make Model 2024" to match SQL smallint requirement
+    const yearMatch = formValues.makeModelYear?.toString().match(/\d{4}/);
+    const extractedYear = yearMatch ? parseInt(yearMatch[0]) : null;
+
+    // 3. Construct the payload exactly as the .NET Model expects
+    const payload = {
+      customerId: loggedInId,
+      fullName: formValues.ownerName,
+      contactNumber: formValues.phone,
+      emergencyContact: formValues.emergencyContact || null,
+      emailAddress: formValues.email,
+      address: formValues.address,
+      vehicleModelYear: extractedYear,
+      vinChassisNumber: formValues.vin,
+      registrationNumber: formValues.registration,
+      currentMileage: formValues.mileage ? Number(formValues.mileage) : 0,
+      fuelType: formValues.fuelType,
+      typeOfService: formValues.serviceType,
+      descriptionOfIssues: formValues.issues,
+      preferredServicePackage: formValues.package,
+      previousServiceHistory: formValues.history,
+      slot: formValues.serviceDate, // Ensure this is a valid ISO string or Date
+      pickup_Dropoff: formValues.pickupDrop !== 'none',
+      availed_Warranty: this.warranty === 'yes',
+
+      // Checkbox Boolean Mapping
+      engine_Check: !!this.warrantyServices['engine'],
+      brake_Inspection: !!this.warrantyServices['brake'],
+      oil_Change: !!this.warrantyServices['oil'],
+      transmission_Service: !!this.warrantyServices['transmission'],
+      battery_Replacement: !!this.warrantyServices['battery'],
+      tire_Rotation: !!this.warrantyServices['tire'],
+      suspension_Check: !!this.warrantyServices['suspension'],
+      electrical_System: !!this.warrantyServices['electrical'],
+      cooling_System: !!this.warrantyServices['cooling'],
+      exhaust_System: !!this.warrantyServices['exhaust'],
+
+      bookingStatus: 'BOOKED',
+      createdAt: new Date().toISOString()
     };
 
-    console.log('Submitting payload:', payload);
-    const existing = this.safeParse<BookingData[]>(localStorage.getItem('bookings'), []);
-    existing.push(payload);
-    localStorage.setItem("bookings", JSON.stringify(existing));
+    console.log('Sending Booking Payload:', payload);
 
-
-  window.alert('Service booked successfully!');
-  serviceForm.resetForm();
+    // 4. Send to Database via .NET API
+    this.authService.bookService$(payload).subscribe({
+      next: (response) => {
+        window.alert('Booking successful! Your Service is scheduled.');
+        serviceForm.resetForm();
+        this.warranty = null; // Reset warranty toggle
+        this.router.navigate(['/customer']); // Redirect to dashboard
+      },
+      error: (err) => {
+        console.error('API Error:', err);
+        window.alert('Database Connection Error. Please ensure the Backend is running.');
+      }
+    });
   }
 }

@@ -22,19 +22,18 @@
     </tr>
   </thead>
   <tbody>
-    <tr *ngFor="let r of records">
-      <td>{{ r.complianceId }}</td>
-      <td>{{ r.vehicleId }}</td>
-      <td>{{ r.PollutionCheck }}</td>
-      <td>{{ r.fitness }}</td>
-       <td>{{ r.RC}}</td>
-      <td>{{ r.checkDate | date }}</td>
-      <td>{{ r.expiryDate | date }}</td>
-      <td>
-        <a routerLink="../compliance/{{ r.complianceId }}">Edit</a>
-        <button class="link danger" (click)="remove(r.complianceId!)">Delete</button>
-      </td>
-    </tr>
+    <tr *ngFor="let r of records; let i = index">
+  <td>{{ i + 1 }}</td> <td>{{ r.vehicleId }}</td>
+  <td>{{ r.PollutionCheck }}</td>
+  <td>{{ r.fitness }}</td>
+  <td>{{ r.RC }}</td>
+  <td>{{ r.checkDate | date }}</td>
+  <td>{{ r.expiryDate | date }}</td>
+  <td>
+    <a [routerLink]="['../compliance', r.vehicleId]" class="btn-edit">Edit</a>
+    <button class="link danger" (click)="remove(r.vehicleId)">Delete</button>
+  </td>
+</tr>
   </tbody>
 </table>
 

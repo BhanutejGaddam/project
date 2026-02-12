@@ -1,87 +1,52 @@
-import { Injectable } from '@angular/core';
-import { BehaviorSubject, Observable } from 'rxjs';
-import { map } from 'rxjs/operators';
+import { Injectable, inject } from '@angular/core';
+import { HttpClient } from '@angular/common/http';
+import { Observable, map } from 'rxjs';
 import { Warranty } from '../Models/warranty.model';
 
 @Injectable({ providedIn: 'root' })
 export class WarrantyService {
-  private readonly store$ = new BehaviorSubject<Warranty[]>([
-    {
-      warrantyId: 1,
-      vehicleId: 'MH12TL3400',
-      coverageDetails: 'Powertrain, 3 years / 60,000 km',
-      issuedDate: '2023-01-01',
-      expiryDate: '2026-01-01',
-      dealerId: 21,
-      status: 'ACTIVE'
-    },
-    {
-      warrantyId: 2,
-      vehicleId: 'MH12TL3423',
-      coverageDetails: 'Powertrain, 3 years / 60,000 km',
-      issuedDate: '2023-01-01',
-      expiryDate: '2026-01-01',
-      dealerId: 21,
-      status: 'EXPIRED'
-    },
-    {
-      warrantyId: 3,
-      vehicleId: 'MH12TL3450',
-      coverageDetails: 'Powertrain, 3 years / 60,000 km',
-      issuedDate: '2023-01-01',
-      expiryDate: '2026-01-01',
-      dealerId: 21,
-      status: 'ACTIVE'
-    },
-    {
-      warrantyId: 4,
-      vehicleId: 'MH12TL3456',
-      coverageDetails: 'Powertrain, 3 years / 60,000 km',
-      issuedDate: '2019-01-01',
-      expiryDate: '2023-01-01',
-      dealerId: 21,
-      status: 'EXPIRED'
-    },
-    {
-      warrantyId: 5,
-      vehicleId: 'MH12TL3467',
-      coverageDetails: 'Powertrain, 3 years / 60,000 km',
-      issuedDate: '2020-01-01',
-      expiryDate: '2023-01-01',
-      dealerId: 21,
-      status: 'ACTIVE'
-    },
-    {
-      warrantyId: 6,
-      vehicleId: 'MH12TL3478',
-      coverageDetails: 'Basic, 2 years / 40,000 km',
-      issuedDate: '2021-06-15',
-      expiryDate: '2023-06-15',
-      dealerId: 22,
-      status: 'EXPIRED'
-    }
-  ]);
+  private http = inject(HttpClient);
+  private apiUrl = 'https://localhost:7169/api/Dealer/warranties'; // Use your actual port
 
   list(): Observable<Warranty[]> {
-    return this.store$.asObservable();
-  }
-
-  getById(id: number): Observable<Warranty | undefined> {
-    return this.store$.pipe(map(list => list.find(w => w.warrantyId === id)));
-  }
-
-  create(warranty: Warranty): void {
-    const nextId = Math.max(0, ...this.store$.value.map(w => w.warrantyId ?? 0)) + 1;
-    this.store$.next([...this.store$.value, { ...warranty, warrantyId: nextId }]);
-  }
-
-  update(id: number, partial: Partial<Warranty>): void {
-    this.store$.next(
-      this.store$.value.map(w => (w.warrantyId === id ? { ...w, ...partial } : w))
+    return this.http.get<any[]>(this.apiUrl).pipe(
+      map(data => data.map((item, index) => ({
+        warrantyId: index + 1,
+        vehicleId: item.vehicleNumber,
+        status: item.status as any,
+        issuedDate: item.issuedDate,
+        expiryDate: item.expiryDate
+      })))
     );
   }
 
-  delete(id: number): void {
-    this.store$.next(this.store$.value.filter(w => w.warrantyId !== id));
+  getById(vehicleNo: string): Observable<any> {
+    return this.http.get(`${this.apiUrl}/${vehicleNo}`);
   }
+
+  create(warranty: any): Observable<any> {
+    const payload = {
+      vehicleNumber: warranty.vehicleId,
+      status: warranty.status,
+      issuedDate: warranty.issuedDate,
+      expiryDate: warranty.expiryDate
+    };
+    return this.http.post(this.apiUrl, payload);
+  }
+
+  update(vehicleNo: string, warranty: any): Observable<any> {
+    const payload = {
+      vehicleNumber: vehicleNo,
+      status: warranty.status,
+      issuedDate: warranty.issuedDate,
+      expiryDate: warranty.expiryDate
+    };
+    return this.http.put(`${this.apiUrl}/${vehicleNo}`, payload);
+  }
+
+ delete(vehicleId: string): Observable<any> {
+  // Use encodeURIComponent to handle vehicle numbers with spaces or dashes
+  const encodedId = encodeURIComponent(vehicleId);
+  return this.http.delete(`${this.apiUrl}/${encodedId}`);
+}
 }
