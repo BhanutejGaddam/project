@@ -1,58 +1,43 @@
 <section class="service-tracking" aria-labelledby="service-tracking-title">
-  <h2 id="service-tracking-title">Service Progress</h2><br> 
+  <h2 id="service-tracking-title">Active Service Progress</h2>
+  <br>
 
-  @if (bookingSig()) {
-    <!-- Connector rail is a dotted line behind these items -->
-    <ol class="timeline" role="list" aria-label="Service status timeline">
-      @for (s of stageData(); track s.key; let i = $index) {
-        <li
-          class="timeline-item"
-          [attr.data-status]="stepState(i)"
-          [attr.aria-current]="stepState(i) === 'current' ? 'step' : null"
-        >
-          <!-- Dot -->
-          <span class="dot" aria-hidden="true">
-            @if (stepState(i) === 'completed') {
-              <span class="dot-check">✓</span>
-            } @else if (stepState(i) === 'current') {
-              <span class="dot-current"></span>
-            } @else {
-              <span class="dot-pending"></span>
-            }
-          </span>
+  @if (bookingsSig().length > 0) {
+    @for (booking of bookingsSig(); track booking.bookingId) {
+      <div class="booking-card" style="border: 1px solid #ddd; padding: 20px; border-radius: 12px; margin-bottom: 30px; background: #fff;">
+        
+        <ol class="timeline" role="list">
+          @for (s of getStageData(booking); track s.key; let i = $index) {
+            <li class="timeline-item" [attr.data-status]="getStepState(booking, i)">
+              <span class="dot">
+                @if (getStepState(booking, i) === 'completed') { <span class="dot-check">✓</span> }
+                @else if (getStepState(booking, i) === 'current') { <span class="dot-current"></span> }
+                @else { <span class="dot-pending"></span> }
+              </span>
 
-          <!-- Text -->
-          <div class="content">
-            <div class="title">{{ s.title }}</div>
+              <div class="content">
+                <div class="title">{{ s.title }}</div>
+                @if (s.meta) { <div class="meta">{{ s.meta }}</div> }
+              </div>
+            </li>
+          }
+        </ol>
 
-            @if (s.meta) {
-              <div class="meta">{{ s.meta }}</div>
-            }
-
-            @if (s.key === 'SERVICE_IN_PROGRESS' && stepState(i) !== 'pending') {
-              <div class="desc">General servicing, fluid checks, brake inspection.</div>
-            }
+        <div class="context">
+          <div class="context-row">
+            <span class="label">Vehicle:</span>
+            <span class="value"><strong>{{ booking.vehicleModelYear }} {{ booking.registrationNumber }}</strong></span>
           </div>
-        </li>
-      }
-    </ol>
-
-    <!-- Optional details -->
-    <div class="context">
-      <div class="context-row">
-        <span class="label">Customer:</span>
-        <span class="value">{{ bookingSig()!.ownerName }}</span>
+          <div class="context-row">
+            <span class="label">Status:</span>
+            <span class="value status-pill">{{ booking.bookingStatus }}</span>
+          </div>
+        </div>
       </div>
-      <div class="context-row">
-        <span class="label">Vehicle:</span>
-        <span class="value">{{ bookingSig()!.makeModelYear }} • {{ bookingSig()!.registration }}</span>
-      </div>
-      <div class="context-row">
-        <span class="label">Current Status:</span>
-        <span class="value status-pill">{{ statusSig() }}</span>
-      </div>
-    </div>
+    }
   } @else {
-    <p>No active service booking found. Please check your bookings or contact support.</p>
+    <div class="empty-state">
+      <p>No active service bookings found. Completed services can be viewed in History.</p>
+    </div>
   }
 </section>

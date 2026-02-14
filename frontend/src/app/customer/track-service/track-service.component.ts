@@ -1,5 +1,5 @@
 import { CommonModule } from '@angular/common';
-import { Component, computed, inject, OnInit, signal } from '@angular/core';
+import { Component, inject, OnInit, signal } from '@angular/core';
 import { AuthenticationService } from '../../login/authentication.service';
 
 @Component({
@@ -12,64 +12,41 @@ import { AuthenticationService } from '../../login/authentication.service';
 export class TrackServiceComponent implements OnInit {
   private authService = inject(AuthenticationService);
   
-  // Signal to hold the data from the database
-  bookingSig = signal<any | null>(null);
+  // Now holding an array of bookings
+  bookingsSig = signal<any[]>([]);
 
-  readonly steps = [
-    'BOOKED',
-    'VEHICLE_RECEIVED',
-    'SERVICE_IN_PROGRESS',
-    'COMPLETED',
-  ] as const;
+  readonly steps = ['BOOKED', 'VEHICLE_RECEIVED', 'SERVICE_IN_PROGRESS', 'COMPLETED'] as const;
 
   ngOnInit() {
     const customerId = this.authService.getLoggedInUserId();
     if (customerId) {
       this.authService.getBookingStatus$(customerId).subscribe({
-        next: (data) => {
-          // Mapping SQL structure to HTML template structure
-          this.bookingSig.set({
-            ownerName: data.fullName,
-            makeModelYear: data.vehicleModelYear,
-            registration: data.registrationNumber,
-            serviceStatus: data.bookingStatus, // Matches [booking_status] in SQL
-            serviceDate: data.slot // Matches [Slot] in SQL
-          });
+        next: (data: any[]) => {
+          this.bookingsSig.set(data);
         },
         error: (err) => {
-          console.error('Could not fetch booking:', err);
-          this.bookingSig.set(null);
+          console.error('Could not fetch bookings:', err);
+          this.bookingsSig.set([]);
         }
       });
     }
   }
 
-  statusSig = computed(() => this.bookingSig()?.serviceStatus ?? 'BOOKED');
-
-  stageData = computed(() => {
-    const b = this.bookingSig();
+  // Helper to format the timeline for each individual booking
+  getStageData(booking: any) {
     const format = (iso?: string | null) =>
-      iso ? new Date(iso).toLocaleString(undefined, {
-            dateStyle: 'medium',
-            timeStyle: 'short',
-          }) : null;
-
-    const bookedMeta = b ? format(b.serviceDate) : null;
-    const completedMeta =
-      b && b.serviceStatus !== 'COMPLETED' && b.serviceDate
-        ? `ETA: ${format(b.serviceDate)}`
-        : b && b.serviceStatus === 'COMPLETED' ? 'Done' : null;
+      iso ? new Date(iso).toLocaleString(undefined, { dateStyle: 'medium', timeStyle: 'short' }) : null;
 
     return [
-      { key: 'BOOKED', title: 'Booked', meta: bookedMeta },
+      { key: 'BOOKED', title: 'Booked', meta: format(booking.slot) },
       { key: 'VEHICLE_RECEIVED', title: 'Vehicle Received', meta: null },
       { key: 'SERVICE_IN_PROGRESS', title: 'Service In‑Progress', meta: null },
-      { key: 'COMPLETED', title: 'Completed', meta: completedMeta },
+      { key: 'COMPLETED', title: 'Completed', meta: booking.bookingStatus === 'COMPLETED' ? 'Done' : 'ETA: Processing' },
     ];
-  });
+  }
 
-  stepState(index: number): 'completed' | 'current' | 'pending' {
-    const idx = this.steps.indexOf(this.statusSig());
+  getStepState(booking: any, index: number): 'completed' | 'current' | 'pending' {
+    const idx = this.steps.indexOf(booking.bookingStatus);
     if (index < idx) return 'completed';
     if (index === idx) return 'current';
     return 'pending';
