@@ -33,6 +33,33 @@ export interface BookingData {
   serviceId: string;
 }
 
+export interface BackendBooking {
+  bookingId: number;
+  customerId: string;
+  fullName: string;
+  contactNumber: string;
+  emergencyContact?: string;
+  emailAddress?: string;
+  address?: string;
+  vehicleModelYear?: string;
+  vinChassisNumber?: string;
+  registrationNumber?: string;
+  currentMileage?: number;
+  fuelType?: string;
+  typeOfService?: string;
+  descriptionOfIssues?: string;
+  preferredServicePackage?: string;
+  previousServiceHistory?: string;
+  slot: string;
+  pickup_Dropoff: boolean;
+  availed_Warranty: boolean;
+  engine_Check: boolean;
+  oil_Change: boolean;
+  brake_Inspection: boolean;
+  tire_Rotation: boolean;
+  bookingStatus: string;
+}
+
 // // Hardcoded data for five customers
 export const bookingDataList: BookingData[] = [
   {

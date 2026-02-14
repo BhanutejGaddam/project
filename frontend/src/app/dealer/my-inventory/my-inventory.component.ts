@@ -1,66 +1,80 @@
-import { Component, OnInit } from '@angular/core';
+import { Component, OnInit, inject } from '@angular/core';
 import { CommonModule } from '@angular/common';
-import { ActivatedRoute, RouterLink } from '@angular/router';
-import { VehicleStock, SparePart, InventoryResponse } from '../../admin/view-inventory/view-inventory.interface';
-import { DealerService } from '../../admin/admin.service'; 
+import { FormsModule } from '@angular/forms'; // Required for forms
+import { VehicleService } from './vehicle.service'; // Use the new service
+import { VehicleInventory, SparePartInventory } from './vehicle.model';
 
 @Component({
   selector: 'app-my-inventory',
   standalone: true,
-  imports: [CommonModule, RouterLink],
+  imports: [CommonModule, FormsModule],
   templateUrl: './my-inventory.component.html',
   styleUrls: ['./my-inventory.component.css'],
 })
 export class MyInventoryComponent implements OnInit {
-   dealerID: string | null = null;
-  dealerName = '';
-  
-  // These will now hold the data fetched from SQL Server
-  vehicles: VehicleStock[] = [];
-  parts: SparePart[] = [];
+  private vehicleService = inject(VehicleService);
 
-  constructor(
-    private route: ActivatedRoute,
-    private dealerService: DealerService
-  ) {}
+  vehicles: VehicleInventory[] = [];
+  parts: SparePartInventory[] = [];
+  
+  // Form Visibility Toggles
+  showVehicleForm = false;
+  showPartForm = false;
+
+  // Form Models
+  newVehicle: VehicleInventory = { vehicleId: '', modelInfo: '', price: 0, isAvailable: true, availableUnits: 0 };
+  newPart: SparePartInventory = { sparePartId: '', sparePartName: '', sparePartPrice: 0, isAvailable: true, availableUnits: 0 };
 
   ngOnInit(): void {
-    // Subscribe to query parameters to get the Dealer ID
-    this.route.queryParamMap.subscribe(params => {
-      this.dealerID = params.get('id');
-      
-      if (this.dealerID) {
-        this.fetchInventory(this.dealerID);
-      }
-    });
+    this.loadInventory();
   }
 
-  /**
-   * Calls the .NET API via the DealerService to get combined inventory
-   */
-  fetchInventory(id: string): void {
-    this.dealerService.getInventory(id).subscribe({
-      next: (data: InventoryResponse) => {
+  loadInventory(): void {
+    this.vehicleService.getMyInventory().subscribe({
+      next: (data) => {
         this.vehicles = data.vehicles;
         this.parts = data.spareParts;
-        
-        // Note: If you need to fetch the Dealer Name from the DB as well, 
-        // you could call a getDealerById method here.
-        this.dealerName = `Dealer ${id}`; 
       },
-      error: (err) => {
-        console.error('Error fetching inventory from SQL:', err);
-      }
+      error: (err) => console.error('Failed to load inventory', err)
     });
   }
 
-  // --- Computed Properties for the HTML Template ---
+  onAddVehicle(): void {
+    this.vehicleService.addVehicle(this.newVehicle).subscribe({
+      next: () => {
+        this.loadInventory(); // Refresh list
+        this.showVehicleForm = false; // Hide form
+        this.resetVehicleForm();
+      },
+      error: (err) => alert('Error adding vehicle: ' + err.message)
+    });
+  }
 
+  onAddSparePart(): void {
+    this.vehicleService.addSparePart(this.newPart).subscribe({
+      next: () => {
+        this.loadInventory();
+        this.showPartForm = false;
+        this.resetPartForm();
+      },
+      error: (err) => alert('Error adding spare part: ' + err.message)
+    });
+  }
+
+  resetVehicleForm() {
+    this.newVehicle = { vehicleId: '', modelInfo: '', price: 0, isAvailable: true, availableUnits: 0 };
+  }
+
+  resetPartForm() {
+    this.newPart = { sparePartId: '', sparePartName: '', sparePartPrice: 0, isAvailable: true, availableUnits: 0 };
+  }
+
+  // Totals calculations
   get totalUnits(): number {
-    return this.vehicles.reduce((sum, v) => sum + (v.units || 0), 0);
+    return this.vehicles.reduce((sum, v) => sum + (v.availableUnits || 0), 0);
   }
 
   get totalValueINR(): number {
-    return this.vehicles.reduce((sum, v) => sum + (v.unitPriceINR * (v.units || 0)), 0);
+    return this.vehicles.reduce((sum, v) => sum + (v.price * (v.availableUnits || 0)), 0);
   }
 }

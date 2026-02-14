@@ -1,34 +1,43 @@
-<h2>Service History for Vehicle: {{ vehicleId }}</h2>
+<h2>Service History for Vehicle: {{ record()?.vehicleId }}</h2>
 
-@if (history.length === 0) {
+@if (!record() || record()?.history?.length === 0) {
   <div class="empty">No service history found for this vehicle.</div>
 } @else {
-  <div class="table-wrapper">
-    <table class="history-table">
-      <thead>
-        <tr>
-          <th>Sl. No</th>
-          <th>Date</th>
-          <th>Warranty Availed</th>
-          <th>Warranty Services</th>
-          <th>Repairs</th>
-          <th>Routine Maintenance</th>
-          <th>Amount Paid</th>
-        </tr>
-      </thead>
-      <tbody>
-        @for (item of history; track item.slno) {
+  @if (record(); as data) {
+    <div class="table-wrapper">
+      <table class="history-table">
+        <thead>
           <tr>
-            <td>{{ item.slno }}</td>
-            <td>{{ item.date }}</td>
-            <td>{{ item.warrantyavailed }}</td>
-            <td>{{ item.warrantyServices.length > 0 ? item.warrantyServices.join(', ') : '—' }}</td>
-            <td>{{ item.Repairs }}</td>
-            <td>{{ item.routineMaintanance }}</td>
-            <td>{{ item.amountPaid | currency:'INR' }}</td>
+            <th>Booking ID</th>
+            <th>Date</th>
+            <th>Warranty Availed</th>
+            <th>Warranty Services</th>
+            <th>Repairs</th>
+            <th>Routine Maintenance</th>
+            <th>Amount Paid</th>
           </tr>
-        }
-      </tbody>
-    </table>
-  </div>
+        </thead>
+        <tbody>
+          @for (item of data.history; track item.bookingId; let i = $index) {
+            <tr>
+              <td>{{ i + 1 }}</td>
+              <td>{{ item.bookingId }}</td>
+              <td>{{ item.date }}</td>
+              <td>{{ item.warrantyAvailed }}</td>
+              <td>
+                {{ item.warrantyServices.length > 0 ? item.warrantyServices.join(', ') : '—' }}
+              </td>
+              <td>{{ item.repairs }}</td>
+              <td>{{ item.routineMaintenance }}</td>
+              <td>{{ item.totalBill | currency:'INR' }}</td>
+            </tr>
+          }
+        </tbody>
+      </table>
+    </div>
+  }
 }
+
+<div style="margin-top: 20px;">
+  <button class="btn" routerLink="/dealer/customers">Back to Customers</button>
+</div>

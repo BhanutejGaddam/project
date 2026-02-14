@@ -1,4 +1,4 @@
-import { Component, inject, OnInit } from '@angular/core';
+import { Component, inject, OnInit, signal } from '@angular/core';
 import { BookingData } from '../../bookingData';
 import { ServiceStatusServices } from './service-status.services';
 import { RouterModule } from "@angular/router";
@@ -16,17 +16,25 @@ export class ServiceStatusComponent implements OnInit {
   private statusServices=inject(ServiceStatusServices);
   private router=inject(Router);
   private route=inject(ActivatedRoute);
+  todayBookings = signal<BookingData[]>([]);
   ngOnInit(): void {
-    // this.serviceData=this.statusServices.getServiceData();
-    // console.log(this.serviceData);
-    this.serviceData=this.statusServices.getTodayBookings();
-    console.log(this.serviceData.values);
-
+    this.loadTodaySchedule();
   }
   goToEdit(serviceId:string){
     this.router.navigate(['./edit'],{
       queryParams:{serviceId:serviceId},
       relativeTo:this.route
     })
+  }
+
+  loadTodaySchedule(): void {
+    this.statusServices.getTodayBookings().subscribe({
+      next: (data: BookingData[]) => {
+        this.todayBookings.set(data);
+      },
+      error: (err: Error) => {
+        console.error('Data retrieval failed:', err.message);
+      }
+    });
   }
 }

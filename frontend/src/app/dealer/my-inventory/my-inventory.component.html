@@ -1,71 +1,110 @@
 <div class="view-inventory-page">
-
   <div class="header">
-    <h2>View Inventory</h2>
-    <span class="muted" *ngIf="dealerName">&mdash; {{ dealerName }} (ID: {{ dealerID }})</span>
-    <span class="ms-auto"></span>
+    <h2>My Inventory</h2>
   </div>
 
   <div class="card">
-    <h5 class="subtitle">Vehicles</h5>
+    <div class="d-flex justify-content-between align-items-center">
+      <h5 class="subtitle">Vehicles</h5>
+      <button class="btn-add" (click)="showVehicleForm = !showVehicleForm">
+        {{ showVehicleForm ? 'Close Form' : '+ Add Vehicle' }}
+      </button>
+    </div>
+
+    @if (showVehicleForm) {
+      <div class="form-container">
+        <div class="form-grid">
+          <input [(ngModel)]="newVehicle.vehicleId" placeholder="Vehicle ID">
+          <input [(ngModel)]="newVehicle.modelInfo" placeholder="Model Name/Info">
+          <input type="number" [(ngModel)]="newVehicle.price" placeholder="Price (INR)">
+          <input type="number" [(ngModel)]="newVehicle.availableUnits" placeholder="Units">
+          <button class="btn-submit" (click)="onAddVehicle()">Save Vehicle</button>
+        </div>
+      </div>
+    }
+
     <div class="table-wrap">
       <table>
         <thead>
           <tr>
-            <th>Vehicle Model No.</th>
-            <th>Vehicle Model Name</th>
-            <th>No. of Vehicles</th>
+            <th>ID</th>
+            <th>Model Info</th>
+            <th>Units</th>
+            <th>Price</th>
           </tr>
         </thead>
         <tbody>
-          <tr *ngFor="let v of vehicles">
-            <td>{{ v.modelNo }}</td>
-            <td>{{ v.modelName }}</td>
-            <td><span class="badge badge-success">{{ v.units }}</span></td>
-          </tr>
-          <tr *ngIf="!vehicles.length">
-            <td colspan="3" class="muted" style="text-align:center;">No vehicle records found in database.</td>
-          </tr>
+          @for (v of vehicles; track v.vehicleId) {
+            <tr>
+              <td>{{ v.vehicleId }}</td>
+              <td>{{ v.modelInfo }}</td>
+              <td><span class="badge badge-success">{{ v.availableUnits }}</span></td>
+              <td>{{ v.price | currency:'INR' }}</td>
+            </tr>
+          } @empty {
+            <tr>
+              <td colspan="4" class="muted" style="text-align:center;">No vehicle records found.</td>
+            </tr>
+          }
         </tbody>
         <tfoot>
-          <tr>
-            <td colspan="2" style="text-align:end; font-weight:700; color: black;">Totals:</td>
-            <td style="text-align:center;">
-              <div class="summary-row">
-                <span class="badge badge-info">Total Units: {{ totalUnits }}</span>
-                <span class="badge badge-primary">Total Value: {{ totalValueINR | currency:'INR':'symbol':'1.0-0' }}</span>
-              </div>
-            </td>
-          </tr>
+            <tr>
+              <td colspan="2" style="text-align:end; font-weight:700;">Totals:</td>
+              <td colspan="2">
+                <span class="badge badge-info">Units: {{ totalUnits }}</span>
+                <span class="badge badge-primary">Value: {{ totalValueINR | currency:'INR' }}</span>
+              </td>
+            </tr>
         </tfoot>
       </table>
     </div>
   </div>
 
   <div class="card">
-    <h5 class="subtitle">Spare Parts</h5>
+    <div class="d-flex justify-content-between align-items-center">
+      <h5 class="subtitle">Spare Parts</h5>
+      <button class="btn-add" (click)="showPartForm = !showPartForm">
+        {{ showPartForm ? 'Close Form' : '+ Add Spare Part' }}
+      </button>
+    </div>
+
+    @if (showPartForm) {
+      <div class="form-container">
+        <div class="form-grid">
+          <input [(ngModel)]="newPart.sparePartId" placeholder="Part ID">
+          <input [(ngModel)]="newPart.sparePartName" placeholder="Part Name">
+          <input type="number" [(ngModel)]="newPart.sparePartPrice" placeholder="Price (INR)">
+          <input type="number" [(ngModel)]="newPart.availableUnits" placeholder="Units">
+          <button class="btn-submit" (click)="onAddSparePart()">Save Part</button>
+        </div>
+      </div>
+    }
+
     <div class="table-wrap">
       <table>
         <thead>
           <tr>
-            <th>Spare Part ID</th>
-            <th>Spare Part Name</th>
-            <th>Per-Part Cost (INR)</th>
-            <th>Available Units</th> </tr>
+            <th>ID</th>
+            <th>Name</th>
+            <th>Price</th>
+            <th>Units</th>
+          </tr>
         </thead>
         <tbody>
-          <tr *ngFor="let p of parts">
-            <td>{{ p.partID }}</td>
-            <td>{{ p.partName }}</td>
-            <td>{{ p.costINR | currency:'INR':'symbol':'1.0-0' }}</td>
-            <td><span class="badge">{{ p.units }}</span></td>
-          </tr>
-          <tr *ngIf="!parts.length">
-            <td colspan="4" class="muted" style="text-align:center;">No spare parts listed for this dealer.</td>
-          </tr>
+          @for (p of parts; track p.sparePartId) {
+            <tr>
+              <td>{{ p.sparePartId }}</td>
+              <td>{{ p.sparePartName }}</td>
+              <td>{{ p.sparePartPrice | currency:'INR' }}</td>
+              <td><span class="badge">{{ p.availableUnits }}</span></td>
+            </tr>
+          } @empty {
+            <tr>
+              <td colspan="4" class="muted" style="text-align:center;">No spare parts listed.</td>
+            </tr>
+          }
         </tbody>
       </table>
     </div>
   </div>
-
 </div>

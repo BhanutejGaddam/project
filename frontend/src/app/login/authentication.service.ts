@@ -35,18 +35,12 @@ login$(role: string, email: string, pass: string): Observable<boolean> {
 
   return this.http.post<any>(`${this.apiUrl}/login`, body).pipe(
     map(res => {
-      // We check for 'token' because that's what your C# API sends back
       if (res.success && res.token) {
-        // 1. Save the JWT Token
         localStorage.setItem('auth_token', res.token);
-        
-        // 2. Save the login state
-        localStorage.setItem('auth_isLoggedIn', 'true');
         localStorage.setItem('auth_role', res.role);
+        localStorage.setItem('userId', res.id); // Store the ID we just added
         
-        // Update the BehaviorSubject so the UI reacts immediately
         this._isLoggedIn$.next(true);
-        
         return true;
       }
       return false;

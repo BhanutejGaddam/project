@@ -1,72 +1,46 @@
-import { Component, DestroyRef, inject, OnInit,signal } from '@angular/core';
-import { customerData } from './customer.interface';
+import { Component, computed, DestroyRef, inject, OnInit, signal } from '@angular/core';
 import { CustomerService } from './customers.services';
-import { ReactiveFormsModule, FormGroup,FormControl,Validators, FormBuilder } from '@angular/forms';
-import { debounceTime, distinctUntilChanged, map } from 'rxjs';
-import { takeUntilDestroyed } from '@angular/core/rxjs-interop';
-import { RouterLink, RouterOutlet } from "@angular/router";
-import { customerInfo } from './customers.data';
+import { ReactiveFormsModule, FormGroup, Validators, FormBuilder, FormControl } from '@angular/forms';
+import { RouterLink } from "@angular/router";
 import { CommonModule } from '@angular/common';
+import { customerData } from './customer.interface';
+import { debounceTime, distinctUntilChanged } from 'rxjs/operators';
+import { takeUntilDestroyed } from '@angular/core/rxjs-interop';
 
 @Component({
   selector: 'app-customers',
-  standalone:true,
-  imports: [ReactiveFormsModule, RouterLink,CommonModule],
+  standalone: true,
+  imports: [ReactiveFormsModule, RouterLink, CommonModule],
   templateUrl: './customers.component.html',
-  styleUrl: './customers.component.css'
+  styleUrls: ['./customers.component.css']
 })
 export class CustomersComponent implements OnInit {
   showForm = false;
-  id:number=0;
-  slNo:number=0;
-  customers:customerData[]=[];
   addForm!: FormGroup;
-  form=new FormGroup({
-    search:new FormControl<string>('')
-  })
-
-  // addForm=new FormGroup({
-  //   customerName:new FormControl<string>(''),
-  //   customerAddress:new FormControl<string>(''),
-  //   vehicleNumber:new FormControl<string>(''),
-  //   vehiclePurchaseDate:new FormControl<string>(''),
-  //   customerMail:new FormControl<string>(''),
-  //   customerPhoneNumber:new FormControl<string>('')
-  // })
+  form!: FormGroup;
   
-  private customerServices=inject(CustomerService);
-  private fb=inject(FormBuilder);
-  customers_sig  = this.customerServices.customers;
-  entered_text   = this.customerServices.entered_text;
+  private destroyRef = inject(DestroyRef);
+  customers = signal<customerData[]>([]);
+  entered_text = signal<string>('');
+  private customerServices = inject(CustomerService);
+  private fb = inject(FormBuilder);
 
-  private destroyRef=inject(DestroyRef);
-  search_result = this.customerServices.search_result;
+  public readonly search_result = computed(() => {
+    const term = this.entered_text().trim().toLowerCase();
+    const list = this.customers();
+    if (!term) return list;
 
-  openAddForm(){
-    this.showForm=true;
-  }
-
-  // saveCustomer(){
-  //   this.id=Math.floor(1000 + Math.random() * 9000);
-  //   this.slNo=customerInfo.length+1;
-  //   const raw=this.addForm.value;
-  //   const newCustomer:customerData={
-  //     sl_no:this.slNo,
-  //     customer_name:raw.customerName ?? '',
-  //     customer_id:String(this.id),
-  //     vehicle_id:raw.vehicleNumber ?? '',
-  //     purchase_date: raw.vehiclePurchaseDate ?? '',
-  //     loyalty_points:100,
-  //     offers_eligible:"Serice5"
-  //   }
-  //   customerInfo.push(newCustomer);
-  //   this.addForm.reset();
-  //   this.showForm = false;
-  // }
-
-  
+    return list.filter(c =>
+      c.customer_name.toLowerCase().includes(term)
+    );
+  });
 
   ngOnInit(): void {
+
+    this.form = new FormGroup({
+    search: new FormControl<string>('')
+  });
+
     this.addForm = this.fb.group({
       c_first_name: ['', Validators.required],
       c_middle_name: ['', Validators.required],
@@ -77,25 +51,71 @@ export class CustomersComponent implements OnInit {
       c_contact_info: [null, Validators.required],
       c_address: ['', Validators.required],
       vehicle_model_year: ['', Validators.required],
+      vehicle_price:['',Validators.required],
       purchase_date: ['', Validators.required],
-      dealer_id: ['', Validators.required] // Maps to added_by_dealer in DB
+      // Removed: dealer_id, warranty_issued_date, and warranty_expiry_date
+      // The Backend now handles these automatically.
     });
+
+    this.form.get('search')?.valueChanges
+    .pipe(
+      debounceTime(300), // Wait for user to stop typing
+      distinctUntilChanged(), // Only trigger if the value actually changed
+      takeUntilDestroyed(this.destroyRef) // Clean up on component destroy
+    )
+    .subscribe(value => {
+      this.entered_text.set(value || '');
+    });
+
+    this.fetchCustomers();
   }
 
-  cancelAddCustomer(){
+  openAddForm() {
+    this.showForm = true;
+  }
+
+  cancelAddCustomer() {
     this.showForm = false;
+    this.addForm.reset();
   }
 
   saveCustomer() {
+    console.log("hii");
     if (this.addForm.valid) {
+      // We send the form value directly. 
+      // The backend will extract the Dealer ID from the JWT 'db_id' claim.
       this.customerServices.addCustomer(this.addForm.value).subscribe({
         next: (res) => {
-          alert('Customer added successfully!');
+          alert('Customer added successfully! Compliance records generated.');
           this.addForm.reset();
+          this.showForm = false;
         },
-        error: (err) => console.error('Error adding customer', err)
+        error: (err) => {
+          console.error('Error adding customer', err);
+          alert('Failed to add customer. Ensure you are authorized.');
+        }
       });
     }
   }
 
+  fetchCustomers() {
+  this.customerServices.getMyCustomers().subscribe({
+    next: (data: any[]) => {
+      // Map backend model to your frontend customerData interface
+      const mappedData = data.map((c, index) => ({
+        sl_no: index + 1,
+        customer_id: c.customerId,
+        // Combine names for your template
+        customer_name: `${c.cFirstName} ${c.cLastName}`, 
+        // We use the default vehicle number we set in the controller
+        purchase_date: c.purchaseDate,
+        loyalty_points: c.loyaltyPoints || 100,
+        offers_eligible: c.loyaltyPoints > 500 ? "Service10" : "Service5"
+      }));
+      // Update your signal so the table and search feature react
+      this.customers.set(mappedData);
+    },
+    error: (err) => console.error('Error loading customers:', err)
+  });
+}
 }

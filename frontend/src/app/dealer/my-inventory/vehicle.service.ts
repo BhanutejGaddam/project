@@ -1,52 +1,47 @@
-
-import { Injectable } from '@angular/core';
-import { Vehicle } from './vehicle.model';
-import { BehaviorSubject } from 'rxjs';
+import { inject, Injectable } from '@angular/core';
+import { HttpClient, HttpHeaders } from '@angular/common/http';
+import { Observable } from 'rxjs';
+import { VehicleInventory, SparePartInventory, InventoryResponse } from './vehicle.model';
 
 @Injectable({
-  providedIn: 'root',
+  providedIn: 'root'
 })
 export class VehicleService {
-  private vehicles: Vehicle[] = [
-    {
-      vehicleID: 1,
-      model: 'Sedan X',
-      price: 1500000,
-      noOfVehiclesAvailable: 15,   
-    },
-    {
-      vehicleID: 2,
-      model: 'SUV Y',
-      price: 1200000,
-      noOfVehiclesAvailable: 12,  
-    },
-    {
-      vehicleID: 3,
-      model: 'Hatchback Z',
-      price: 1800000,
-      noOfVehiclesAvailable: 18,  
-    },
-    {
-      vehicleID: 4,
-      model: 'Coupe A',
-      price: 2000000,
-      noOfVehiclesAvailable: 20,
-    },
-    {
-      vehicleID: 5,
-      model: 'Convertible B',
-      price: 2500000,
-      noOfVehiclesAvailable: 25,
-    },
-    {
-      vehicleID: 6,
-      model: 'Pickup C',
-      price: 3000000,
-      noOfVehiclesAvailable: 30,
-    }
-  ];
+  private http = inject(HttpClient);
+  private apiUrl = 'https://localhost:7169/api/DealerInventory';
 
-  private vehicleSubject = new BehaviorSubject<Vehicle[]>(this.vehicles);
-  vehicles$ = this.vehicleSubject.asObservable();
+  // Helper to get the token from storage
+  private getAuthHeaders(): HttpHeaders {
+    const token = localStorage.getItem('auth_token');
+    return new HttpHeaders({
+      'Authorization': `Bearer ${token}`
+    });
+  }
 
+  /**
+   * Fetch all inventory for the logged-in dealer
+   */
+  getMyInventory(): Observable<InventoryResponse> {
+    return this.http.get<InventoryResponse>(`${this.apiUrl}/my-inventory`, {
+      headers: this.getAuthHeaders()
+    });
+  }
+
+  /**
+   * Add a new vehicle to the inventory
+   */
+  addVehicle(vehicle: VehicleInventory): Observable<any> {
+    return this.http.post(`${this.apiUrl}/add-vehicle`, vehicle, {
+      headers: this.getAuthHeaders()
+    });
+  }
+
+  /**
+   * Add a new spare part to the inventory
+   */
+  addSparePart(part: SparePartInventory): Observable<any> {
+    return this.http.post(`${this.apiUrl}/add-spare-part`, part, {
+      headers: this.getAuthHeaders()
+    });
+  }
 }
