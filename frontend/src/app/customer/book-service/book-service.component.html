@@ -126,19 +126,24 @@
            </div> -->
            
 <div id="warranty-services" class="checkbox-list">
-    <p>Select services covered under warranty:</p>
+  <p>Select services covered under warranty:</p>
 
-    @for (svc of warrantyServiceOptions; track svc.key) {            
-      <label>
-        <input
-          type="checkbox"
-          [name]="'warranty_' + svc.key"
-          [(ngModel)]="warrantyServices[svc.key]"
-        />
-        {{ svc.label }}
-      </label>
-    }
-  </div>
+  @for (svc of warrantyServiceOptions; track svc.key) {            
+    <label style="display: block; margin-bottom: 5px;">
+      <input
+        type="checkbox"
+        [name]="'warranty_' + svc.key"
+        [(ngModel)]="warrantyServices[svc.key]"
+      />
+      {{ svc.label }} - <strong>₹{{ svc.price }}</strong>
+    </label>
+  }
+</div>
+<div class="price-summary" style="margin: 20px 0; padding: 15px; background: #f9f9f9; border-radius: 8px;">
+  <h4>Price Summary</h4>
+  <p>Base Service Fee: ₹{{ basePrice }}</p>
+  <h3 style="color: #2ecc71;">Total Amount: ₹{{ totalAmount }}</h3>
+</div>
 
       }
                   

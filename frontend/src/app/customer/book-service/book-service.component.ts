@@ -21,18 +21,37 @@ export class BookServiceComponent {
   message: string = '';
 
   // Options for the UI checkboxes
+  basePrice = 500; // The starting price
+  
+
+  // 1. Added price to each option
   warrantyServiceOptions = [
-    { key: 'engine', label: 'Engine Check' },
-    { key: 'brake', label: 'Brake Inspection' },
-    { key: 'oil', label: 'Oil Change' },
-    { key: 'transmission', label: 'Transmission Service' },
-    { key: 'battery', label: 'Battery Replacement' },
-    { key: 'tire', label: 'Tire Rotation' },
-    { key: 'suspension', label: 'Suspension Check' },
-    { key: 'electrical', label: 'Electrical System' },
-    { key: 'cooling', label: 'Cooling System' },
-    { key: 'exhaust', label: 'Exhaust System' },
+    { key: 'engine', label: 'Engine Check', price: 1000 },
+    { key: 'brake', label: 'Brake Inspection', price: 400 },
+    { key: 'oil', label: 'Oil Change', price: 600 },
+    { key: 'transmission', label: 'Transmission Service', price: 1200 },
+    { key: 'battery', label: 'Battery Replacement', price: 2000 },
+    { key: 'tire', label: 'Tire Rotation', price: 300 },
+    { key: 'suspension', label: 'Suspension Check', price: 800 },
+    { key: 'electrical', label: 'Electrical System', price: 700 },
+    { key: 'cooling', label: 'Cooling System', price: 550 },
+    { key: 'exhaust', label: 'Exhaust System', price: 900 },
   ];
+
+  // 2. Logic to calculate total
+  get totalAmount(): number {
+    let total = this.basePrice;
+    
+    // Only add warranty prices if "Yes" is selected
+    if (this.warranty === 'yes') {
+      this.warrantyServiceOptions.forEach(svc => {
+        if (this.warrantyServices[svc.key]) {
+          total += svc.price;
+        }
+      });
+    }
+    return total;
+  }
 
   // Object to track which checkboxes are checked
   warrantyServices: Record<string, boolean> = Object.fromEntries(
@@ -62,40 +81,42 @@ export class BookServiceComponent {
 
     // 3. Construct the payload exactly as the .NET Model expects
     const payload = {
-      customerId: loggedInId,
-      fullName: formValues.ownerName,
-      contactNumber: formValues.phone,
-      emergencyContact: formValues.emergencyContact || null,
-      emailAddress: formValues.email,
-      address: formValues.address,
-      vehicleModelYear: extractedYear,
-      vinChassisNumber: formValues.vin,
-      registrationNumber: formValues.registration,
-      currentMileage: formValues.mileage ? Number(formValues.mileage) : 0,
-      fuelType: formValues.fuelType,
-      typeOfService: formValues.serviceType,
-      descriptionOfIssues: formValues.issues,
-      preferredServicePackage: formValues.package,
-      previousServiceHistory: formValues.history,
-      slot: formValues.serviceDate, // Ensure this is a valid ISO string or Date
-      pickup_Dropoff: formValues.pickupDrop !== 'none',
-      availed_Warranty: this.warranty === 'yes',
+  customerId: loggedInId,
+  fullName: formValues.ownerName,
+  contactNumber: formValues.phone,
+  emergencyContact: formValues.emergencyContact || null,
+  emailAddress: formValues.email,
+  address: formValues.address,
+  vehicleModelYear: formValues.makeModelYear.toString(), // Ensure this is a string!
+  vinChassisNumber: formValues.vin,
+  registrationNumber: formValues.registration,
+  currentMileage: Number(formValues.mileage),
+  fuelType: formValues.fuelType,
+  typeOfService: formValues.serviceType,
+  descriptionOfIssues: formValues.issues,
+  preferredServicePackage: formValues.package,
+  previousServiceHistory: formValues.history,
+  slot: formValues.serviceDate,
+  pickup_Dropoff: formValues.pickupDrop !== 'none',
+  availed_Warranty: this.warranty === 'yes',
+  
+  // These must match the C# property names exactly
+  engine_Check: !!this.warrantyServices['engine'],
+  brake_Inspection: !!this.warrantyServices['brake'],
+  oil_Change: !!this.warrantyServices['oil'],
+  transmission_Service: !!this.warrantyServices['transmission'],
+  battery_Replacement: !!this.warrantyServices['battery'],
+  tire_Rotation: !!this.warrantyServices['tire'],
+  suspension_Check: !!this.warrantyServices['suspension'],
+  electrical_System: !!this.warrantyServices['electrical'],
+  cooling_System: !!this.warrantyServices['cooling'],
+  exhaust_System: !!this.warrantyServices['exhaust'],
 
-      // Checkbox Boolean Mapping
-      engine_Check: !!this.warrantyServices['engine'],
-      brake_Inspection: !!this.warrantyServices['brake'],
-      oil_Change: !!this.warrantyServices['oil'],
-      transmission_Service: !!this.warrantyServices['transmission'],
-      battery_Replacement: !!this.warrantyServices['battery'],
-      tire_Rotation: !!this.warrantyServices['tire'],
-      suspension_Check: !!this.warrantyServices['suspension'],
-      electrical_System: !!this.warrantyServices['electrical'],
-      cooling_System: !!this.warrantyServices['cooling'],
-      exhaust_System: !!this.warrantyServices['exhaust'],
+  totalBill: this.totalAmount, 
 
-      bookingStatus: 'BOOKED',
-      createdAt: new Date().toISOString()
-    };
+  bookingStatus: 'BOOKED',
+  createdAt: new Date().toISOString()
+};
 
     console.log('Sending Booking Payload:', payload);
 
