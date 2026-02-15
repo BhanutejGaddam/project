@@ -1,30 +1,23 @@
 export interface SalesReport {
-  reportID: string; // [cite: 61]
+  reportID: string;
+  generatedDate: string;
   metrics: {
-    // Vehicle Inventory Metrics
     vehiclesSold: number;
     vehiclesRemaining: number;
     salesRevenue: number;
     salesProfit: number;
-
-    // Service Workshop Metrics
-    serviceRequestsProcessed: number; // [cite: 45]
-    serviceCapacity: number; // Daily service capacity
+    serviceRequestsProcessed: number;
+    serviceCapacity: number;
     serviceRevenue: number;
     serviceProfit: number;
-
-    // Consolidated Metrics
-    totalConsolidatedRevenue: number; // [cite: 62]
-    netDealerProfit: number; // 
+    netDealerProfit: number;
   };
-  generatedDate: string; // [cite: 63]
 }
 
 export interface RevenueTrend {
-  dealerId: number;
-  dealerSales: {
-  month: string;
-  salesRevenue: number;
-  serviceRevenue: number;
-  }[]
+  dealerSales: Array<{
+    month: string;
+    salesRevenue: number;
+    serviceRevenue: number;
+  }>;
 }
