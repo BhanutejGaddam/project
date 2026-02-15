@@ -60,6 +60,10 @@ export interface BackendBooking {
   bookingStatus: string;
 }
 
+export interface UpdateResponse {
+  message: string;
+}
+
 // // Hardcoded data for five customers
 export const bookingDataList: BookingData[] = [
   {

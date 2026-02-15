@@ -10,27 +10,22 @@
  
 
  <!-- Dealer cards -->
-  <div class="grid">
-    <div class="dealer-card" *ngFor="let dealer of dealers">
-      <div class="title-row">
-        <span class="dealer-name">{{ dealer.dealerName }}</span>
-        <span class="badge">ID: {{ dealer.dealerID }}</span>
-      </div>
- 
-      <div class="field">
-        <div class="label">Address</div>
-        <div class="value">{{dealer.address }}</div>
-      </div>
-     
-      <div class="field">
-        <div class="label">Contact</div>
-        <div class="value">{{ dealer.contact }}</div>
-      </div>
- 
-      <div class="field">
-        <div class="label">Managed by</div>
-        <div class="value">{{ dealer.managedBy }}</div>
-      </div>
+  <div class="grid" *ngIf="dealers && dealers.length > 0; else noDealers">
+    <div class="dealer-card" *ngFor="let d of dealers">
+        <div class="title-row">
+          <span class="dealer-name">{{ d.storeName || d.dFirstName }}</span>
+          <span class="badge">ID: {{ d.dealerId }}</span>
+        </div>
+
+        <div class="field">
+          <div class="label">Address</div>
+          <div class="value">{{ d.storeAddress }}</div>
+        </div>
+        
+        <div class="field">
+          <div class="label">Contact</div>
+          <div class="value">{{ d.dContactInfo }}{{ d.dMailId ? ' | ' + d.dMailId : '' }}</div>
+        </div>
  
       <div class="divider"></div>
       <div class="dealer-actions">
@@ -38,13 +33,22 @@
 
       <button class="btn btn-secondary" type="button"
                 [routerLink]="['/admin', 'dealer-sales-details']"
-                [queryParams]="{ dealerId: dealer.dealerID }">
+                [queryParams]="{ dealerId: d.dealerId }">
           View Sales Details
         </button>
 
         
       </div>
+
     </div>
   </div>
+
+  <ng-template #noDealers>
+    <div class="empty-state">
+      <div class="empty-icon">📂</div>
+      <h3>No dealers found</h3>
+      <p>There are no dealers in the database yet. Use the "Add Dealer" button to create one.</p>
+    </div>
+  </ng-template>
 
  

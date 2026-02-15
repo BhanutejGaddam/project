@@ -1,23 +1,37 @@
-<p>edit-service-status works!</p>
-@if(customerBooking!==undefined){
-    <h3>{{customerBooking.ownerName}}'s Booking</h3>
-    <h3>Contact: {{customerBooking.phone}}</h3>
-    <h3>Email: {{customerBooking.email}}</h3>
-    <h3>Service ID: {{customerBooking.serviceId}}</h3>
-    <h3>Current Service Status: {{customerBooking.serviceStatus}}</h3>
-    <label for="status">Update Service Status:</label>
-    <form (ngSubmit)="onSubmit(statusForm)" #statusForm="ngForm">
-        <select id="status" name="status" ngModel>
-            <option value="BOOKED">Booked</option>
-            <option value="VEHICLE_RECEIVED">Vehicle received</option>
-            <option value="SERVICE_IN_PROGRESS">In Progress</option>
-            <!-- <option value="delayed">Delayed</option> -->
-            <option value="COMPLETED">Completed</option>
-        </select>
-        <button type="submit">Update Status</button>
-        <button type="button" (click)="goBack()">Cancel</button>
-    </form>
+<p><strong>Edit Service Status</strong></p>
+
+@if(customerBooking !== undefined) {
+    <div class="booking-details-card">
+        <h3>{{ customerBooking.ownerName }}'s Booking</h3>
+        <p><strong>Contact:</strong> {{ customerBooking.phone }}</p>
+        <p><strong>Email:</strong> {{ customerBooking.email }}</p>
+        <p><strong>Service ID:</strong> {{ customerBooking.serviceId }}</p>
+        <p><strong>Current Status:</strong> 
+            <span class="status-label">{{ customerBooking.serviceStatus }}</span>
+        </p>
+
+        <hr>
+
+        <form (ngSubmit)="onSubmit(statusForm)" #statusForm="ngForm">
+            <label for="status">Update Service Status:</label>
+            <br>
+            <select id="status" name="status" [ngModel]="customerBooking.serviceStatus" required>
+                <option value="BOOKED">Booked</option>
+                <option value="VEHICLE_RECEIVED">Vehicle Received</option>
+                <option value="SERVICE_IN_PROGRESS">In Progress</option>
+                <option value="COMPLETED">Completed</option>
+            </select>
+            
+            <div class="form-actions" style="margin-top: 15px;">
+                <button type="submit" [disabled]="statusForm.invalid">Update Status</button>
+                <button type="button" (click)="goBack()">Cancel</button>
+            </div>
+        </form>
+    </div>
 }
-@else{
-    <p>No booking found for the provided Service ID.</p>
+@else {
+    <div class="error-msg">
+        <p>No booking found for the provided Service ID. Please return to the dashboard.</p>
+        <button (click)="goBack()">Go Back</button>
+    </div>
 }
