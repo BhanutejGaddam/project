@@ -1,8 +1,10 @@
 <h2>Services booked for Today</h2>
 
-@if ((serviceData.length) === 0) {
+<ng-container *ngIf="(todayBookings()?.length || 0) === 0; else bookingsTable">
   <p>No services booked for today.</p>
-} @else {
+</ng-container>
+
+<ng-template #bookingsTable>
   <table>
     <thead>
       <tr>
@@ -19,32 +21,28 @@
     </thead>
 
     <tbody>
-      @for (booking of serviceData; track booking.serviceId) {
-        <tr>
-          <td>{{ booking?.serviceId }}</td>
-          <td>{{ booking?.ownerName }}</td>
-          <td>{{ booking?.makeModelYear }}</td>
-          <td>{{ booking?.serviceType }}</td>
-          <td>{{ booking?.serviceStatus }}</td> 
-          <td>{{ booking?.serviceDate }}</td>
-          <td>{{ booking?.warranty }}</td>
-          <td>
-            <!-- {{ (booking?.warrantySelections?.length ?? 0) > 0? booking.warrantySelections?.join(', ') : 'No warranty services selected' }} -->
-            @if (booking.warranty === 'yes' && (booking?.warrantySelections?.length ?? 0) > 0) {
-              <ul>
-                @for (service of booking!.warrantySelections; track service) {
-                  <li>{{ service }}</li>
-                }
-              </ul>
-            } @else {
-              <p>No warranty services selected</p>
-            }
-          </td>
-          <td><a (click)="goToEdit(booking.serviceId)">Edit service status</a></td>
-        </tr>
-      }
+      <tr *ngFor="let booking of todayBookings()">
+        <td>{{ booking?.serviceId }}</td>
+        <td>{{ booking?.ownerName }}</td>
+        <td>{{ booking?.makeModelYear }}</td>
+        <td>{{ booking?.serviceType }}</td>
+        <td>{{ booking?.serviceStatus }}</td>
+        <td>{{ booking?.serviceDate }}</td>
+        <td>{{ booking?.warranty }}</td>
+        <td>
+          <ng-container *ngIf="booking?.warranty === 'yes' && (booking?.warrantySelections?.length || 0) > 0; else noWarranty">
+            <ul>
+              <li *ngFor="let service of booking.warrantySelections">{{ service }}</li>
+            </ul>
+          </ng-container>
+          <ng-template #noWarranty>
+            <p>No warranty services selected</p>
+          </ng-template>
+        </td>
+        <td><a (click)="goToEdit(booking.serviceId)">Edit service status</a></td>
+      </tr>
     </tbody>
   </table>
-}
+</ng-template>
 
 <router-outlet></router-outlet>
