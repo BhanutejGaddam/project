@@ -1,60 +1,91 @@
+/* Container & Typography */
+:host {
+  display: block;
+  background-color: #ffffff; /* Ensures the component background is white */
+  padding: 30px 40px;
+  font-family: 'Segoe UI', Roboto, Helvetica, Arial, sans-serif;
+  color: #333;
+}
+
 .page-header {
   display: flex;
   justify-content: space-between;
   align-items: center;
-  margin-bottom: .5rem;
-  color: white;
+  margin-bottom: 25px;
+  border-bottom: 2px solid #f0f0f0;
+  padding-bottom: 10px;
 }
 
-.filters {
-  margin: .5rem 0;
+.page-header h2 {
+  color: #2c3e50;
+  font-size: 1.6rem;
+  margin: 0;
 }
 
-.btn {
-  padding: .4rem .8rem;
-  border: 1px solid #555;
-  border-radius: 6px;
-  text-decoration: none;
-  background-color: #007acc;
-  color: #fff;
-}
-
-.btn:hover {
-  background-color: #005fa3;
-}
-
+/* Table Styling */
 .table {
   width: 100%;
   border-collapse: collapse;
-  margin-top: .5rem;
-  background-color: #1e1e2f;
-  color: #fff;
+  margin-top: 10px;
+  background-color: #ffffff;
 }
 
-th, td {
-  border-bottom: 1px solid #444;
-  padding: .5rem;
+.table th {
+  background-color: #f8f9fa;
+  color: #495057;
+  font-weight: 600;
   text-align: left;
+  padding: 15px;
+  border-bottom: 2px solid #dee2e6;
+  font-size: 13px;
+  text-transform: uppercase;
+  letter-spacing: 0.5px;
 }
 
-th {
-  background-color: #2a2a3d;
-  font-weight: bold;
-  color: white;
+.table td {
+  padding: 14px 15px;
+  border-bottom: 1px solid #eee;
+  font-size: 14px;
+  color: #444;
+  vertical-align: middle;
 }
 
-tr:hover {
-  background-color: #333a50;
+/* Row Hover Effect */
+.table tr:hover {
+  background-color: #f9fbff;
 }
 
-.link {
+/* Status Column Styling */
+/* If you want to color-code based on status, you can add specific classes here */
+.table td:nth-child(3) {
+  font-weight: 600;
+  color: #2c3e50;
+}
+
+/* Action Buttons */
+.link.danger {
   background: none;
   border: none;
-  color: #06c;
+  color: #dc3545;
   cursor: pointer;
-  padding: 0 .25rem;
+  font-weight: 600;
+  font-size: 13px;
+  padding: 0;
+  transition: color 0.2s;
 }
 
-.link.danger {
-  color: blue;
+.link.danger:hover {
+  color: #a71d2a;
+  text-decoration: underline;
+}
+
+/* Empty State Styling */
+p {
+  color: #888;
+  font-style: italic;
+  text-align: center;
+  margin-top: 40px;
+  padding: 20px;
+  border: 1px dashed #ced4da;
+  border-radius: 4px;
 }

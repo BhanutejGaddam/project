@@ -1,43 +1,97 @@
-.table-wrapper {
-  overflow-x: auto; /* Enables horizontal scroll if table overflows */
-  margin-top: 1rem;
+/* Global Container */
+:host {
+  display: block;
+  background-color: #ffffff;
+  padding: 30px 40px;
+  font-family: 'Segoe UI', Roboto, sans-serif;
+  color: #333;
 }
 
+h2 {
+  color: #2c3e50;
+  font-size: 1.6rem;
+  margin-bottom: 25px;
+  border-left: 4px solid #007bff; /* Adds a nice accent to the title */
+  padding-left: 15px;
+}
+
+/* Table Wrapper for Horizontal Scrolling if needed */
+.table-wrapper {
+  width: 100%;
+  overflow-x: auto;
+  border-radius: 8px;
+  border: 1px solid #e0e0e0;
+}
+
+/* History Table Styles */
 .history-table {
   width: 100%;
-  border: 2px solid #e6e6e6; /* outer frame */
   border-collapse: collapse;
-  font-family: Arial, sans-serif;
+  background-color: #ffffff;
 }
 
-/* Header cells */
-.history-table thead th {
-  border: 1px solid #e6e6e6; /* inner grid lines in header */
-  padding: 8px 12px;
+.history-table th {
+  background-color: #f8f9fa;
+  color: #555;
+  font-weight: 600;
   text-align: left;
-  background: #1c2b3a; /* dark header */
-  color: #fff; /* white text for contrast */
-  font-weight: 700;
+  padding: 15px;
+  font-size: 0.9rem;
+  border-bottom: 2px solid #dee2e6;
+  white-space: nowrap; /* Keeps headers on one line */
 }
 
-/* Body cells */
-.history-table tbody td {
-  border: 1px solid #e6e6e6; /* inner grid lines for every cell */
-  padding: 8px 12px;
-  color: #f0f0f0; /* light text for dark background rows */
+.history-table td {
+  padding: 14px 15px;
+  border-bottom: 1px solid #eee;
+  font-size: 0.95rem;
+  color: #444;
+  vertical-align: top;
 }
 
-/* Zebra rows for readability */
-.history-table tbody tr:nth-child(odd) {
-  background: #132338;
+/* Currency/Amount Column Styling */
+.history-table td:last-child {
+  font-weight: 600;
+  color: #2c3e50;
 }
 
-.history-table tbody tr:nth-child(even) {
-  background: #1a2f44;
-}
-
-/* Hover highlight */
+/* Row Hover Effect */
 .history-table tbody tr:hover {
-  background: #183049;
+  background-color: #f9fbff;
+}
+
+/* Empty State Styling */
+.empty {
+  padding: 40px;
+  text-align: center;
+  background-color: #fcfcfc;
+  border: 2px dashed #dee2e6;
+  border-radius: 8px;
+  color: #777;
+  font-style: italic;
+}
+
+/* Navigation Button */
+.btn {
+  padding: 10px 20px;
+  background-color: #f8f9fa;
+  color: #333;
+  border: 1px solid #ced4da;
+  border-radius: 4px;
+  font-weight: 500;
   cursor: pointer;
+  transition: all 0.2s ease;
+  text-decoration: none;
+  display: inline-block;
+}
+
+.btn:hover {
+  background-color: #e2e6ea;
+  border-color: #adb5bd;
+  box-shadow: 0 2px 4px rgba(0,0,0,0.05);
+}
+
+/* Spacing for list items within cells (Warranty Services) */
+td {
+  line-height: 1.4;
 }

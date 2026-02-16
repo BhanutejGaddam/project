@@ -1,0 +1,119 @@
+/* Container and Global Settings */
+:host {
+  display: block;
+  background-color: #ffffff;
+  padding: 30px;
+  font-family: 'Segoe UI', Roboto, sans-serif;
+  min-height: 100vh;
+}
+
+/* The Main Booking Card */
+.booking-details-card {
+  max-width: 500px;
+  margin: 0 auto;
+  padding: 25px;
+  background: #ffffff;
+  border-radius: 8px;
+  border: 1px solid #e0e0e0;
+  box-shadow: 0 4px 12px rgba(0, 0, 0, 0.05);
+}
+
+h3 {
+  margin-top: 0;
+  color: #2c3e50;
+  font-size: 1.4rem;
+}
+
+/* Text and Status Labels */
+p {
+  margin: 10px 0;
+  color: #444;
+  line-height: 1.5;
+}
+
+.status-label {
+  background-color: #f1f3f5;
+  padding: 4px 10px;
+  border-radius: 4px;
+  font-weight: 600;
+  color: #495057;
+  text-transform: uppercase;
+  font-size: 0.85rem;
+}
+
+hr {
+  border: 0;
+  border-top: 1px solid #eee;
+  margin: 20px 0;
+}
+
+/* Form Elements */
+label {
+  display: block;
+  font-weight: 600;
+  margin-bottom: 8px;
+  color: #555;
+}
+
+select {
+  width: 100%;
+  padding: 10px;
+  border: 1px solid #ced4da;
+  border-radius: 4px;
+  font-size: 1rem;
+  background-color: #fff;
+  cursor: pointer;
+}
+
+select:focus {
+  outline: none;
+  border-color: #007bff;
+  box-shadow: 0 0 0 2px rgba(0, 123, 255, 0.1);
+}
+
+/* Buttons */
+button {
+  padding: 10px 20px;
+  border-radius: 4px;
+  font-weight: 500;
+  cursor: pointer;
+  transition: all 0.2s;
+  border: none;
+  margin-right: 10px;
+}
+
+/* Submit/Update Button */
+button[type="submit"] {
+  background-color: #007bff;
+  color: white;
+}
+
+button[type="submit"]:hover:not(:disabled) {
+  background-color: #0056b3;
+}
+
+button[type="submit"]:disabled {
+  background-color: #ccc;
+  cursor: not-allowed;
+}
+
+/* Cancel / Go Back Button */
+button[type="button"], .error-msg button {
+  background-color: #f8f9fa;
+  color: #333;
+  border: 1px solid #dee2e6;
+}
+
+button[type="button"]:hover {
+  background-color: #e2e6ea;
+}
+
+/* Error Message Styling */
+.error-msg {
+  text-align: center;
+  padding: 40px;
+  color: #d9534f;
+  background: #fff5f5;
+  border-radius: 8px;
+  border: 1px solid #f5c6cb;
+}

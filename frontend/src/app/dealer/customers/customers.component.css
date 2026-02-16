@@ -1,91 +1,144 @@
-h2{
-    color: whitesmoke;
+/* Global Host and Typography */
+:host {
+  display: block;
+  background-color: #ffffff;
+  padding: 20px 40px;
+  font-family: 'Segoe UI', Roboto, Arial, sans-serif;
+  color: #333;
 }
 
-label{
-    color: whitesmoke;
+h2 {
+  color: #2c3e50;
+  font-weight: 600;
+  margin-bottom: 5px;
 }
 
-
-/* Make borders render cleanly as single lines */
-table {
-  width: 100%;
-  border-collapse: collapse; /* crucial for inner lines */
-  background: #0f1b2a;       /* your dark background (adjust as needed) */
-  color: #fff;
+/* Toolbar and Buttons */
+.toolbar {
+  margin-bottom: 20px;
 }
-
-/* Outer table border */
-table {
-  border: 2px solid #e6e6e6; /* outer frame */
-}
-
-/* Header cells */
-thead th {
-  border: 1px solid #e6e6e6; /* inner grid lines in header */
-  padding: 8px 12px;
-  text-align: left;
-  background: #1c2b3a;       /* a slightly lighter shade for header */
-  font-weight: 700;
-}
-
-/* Body cells */
-tbody td {
-  border: 1px solid #e6e6e6; /* inner grid lines for every cell */
-  padding: 8px 12px;
-}
-
-/* Optional: zebra rows for readability */
-tbody tr:nth-child(odd) {
-  background: #132338;
-}
-
-/* Optional: hover highlight */
-tbody tr:hover {
-  background: #183049;
-}
-
-/* Make the table horizontally scrollable if it ever overflows */
-.table-wrapper {
-  overflow-x: auto;
-}
-
-button{
-  background-color: rgb(50, 50, 243);
-  color: white;
-  border: none;
-}
-
-button:hover{
-  background-color: black;
-  color: white;
-  border: none;
-}
-
-.toolbar { margin-bottom: 12px; display: flex; gap: 10px; }
 
 .btn {
-    border: 1px solid rgba(255,255,255,.3); background: transparent; color: #fff;
-    padding: 8px 12px; border-radius: 8px; cursor: pointer; font-weight: 600;
-    transition: all .15s ease;
+  padding: 8px 16px;
+  border-radius: 4px;
+  font-weight: 500;
+  cursor: pointer;
+  transition: all 0.2s;
+  font-size: 14px;
+  border: 1px solid transparent;
 }
 
-.btn-outline { border-color: rgba(255,255,255,.35); }
+.btn-outline {
+  background-color: transparent;
+  border-color: #007bff;
+  color: #007bff;
+}
 
+.btn-outline:hover {
+  background-color: #f0f7ff;
+}
+
+.btn-primary {
+  background-color: #007bff;
+  color: white;
+}
+
+.btn-primary:hover {
+  background-color: #0056b3;
+}
+
+/* Add Customer Form Card */
 .card {
-      background: var(--card-dark);
-      border: 1px solid var(--border);
-      border-radius: 12px;
-      box-shadow: 0 6px 16px rgba(0,0,0,.25);
-      padding: 16px;
-      margin-bottom: 16px;
-    }
-    .card h5 { margin: 0 0 12px; color: #a3d1ff; }
-    .form-grid {
-      display: grid; grid-template-columns: repeat(auto-fit, minmax(260px, 1fr)); gap: 12px;
-    }
-    .form-group { display: flex; flex-direction: column; gap: 6px; }
-   .form-label { font-weight: 600; color: #fff; } 
-    .form-control {
-      width: 100%; padding: 10px; border-radius: 8px; border: 1px solid #314766; background: white; color: black;
-    }
+  background: #ffffff;
+  border: 1px solid #e0e0e0;
+  border-radius: 8px;
+  padding: 25px;
+  margin-bottom: 30px;
+  box-shadow: 0 4px 12px rgba(0, 0, 0, 0.05);
+}
+
+.card h5 {
+  margin-top: 0;
+  margin-bottom: 20px;
+  font-size: 1.2rem;
+  color: #34495e;
+}
+
+/* Form Grid Layout (2 columns for better use of space) */
+.form-grid {
+  display: grid;
+  grid-template-columns: repeat(auto-fill, minmax(280px, 1fr));
+  gap: 15px 25px;
+}
+
+.form-group {
+  display: flex;
+  flex-direction: column;
+}
+
+.form-label {
+  font-weight: 600;
+  font-size: 13px;
+  margin-bottom: 5px;
+  color: #555;
+}
+
+.form-control {
+  padding: 10px;
+  border: 1px solid #ced4da;
+  border-radius: 4px;
+  font-size: 14px;
+}
+
+.form-control:focus {
+  outline: none;
+  border-color: #007bff;
+  box-shadow: 0 0 0 2px rgba(0, 123, 255, 0.1);
+}
+
+.actions {
+  margin-top: 25px;
+  display: flex;
+  justify-content: flex-end;
+  gap: 10px;
+}
+
+/* Table Styling */
+table {
+  width: 100%;
+  border-collapse: collapse;
+  margin-top: 10px;
+  background-color: #fff;
+}
+
+th {
+  background-color: #f8f9fa;
+  color: #555;
+  font-weight: 600;
+  text-align: left;
+  padding: 15px;
+  border-bottom: 2px solid #dee2e6;
+}
+
+td {
+  padding: 12px 15px;
+  border-bottom: 1px solid #eee;
+  font-size: 14px;
+}
+
+tr:hover {
+  background-color: #fcfcfc;
+}
+
+/* Special styling for the 'View History' button inside table */
+td .btn {
+  font-size: 12px;
+  padding: 5px 10px;
+  background-color: #f1f3f5;
+  color: #495057;
+  border: 1px solid #ced4da;
+}
+
+td .btn:hover {
+  background-color: #e2e6ea;
+}

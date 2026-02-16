@@ -1,61 +1,116 @@
-.page-header {
-  display: flex;
-  justify-content: space-between;
-  align-items: center;
-  margin-bottom: .5rem;
-  color: white;
+/* Container & Typography */
+:host {
+  display: block;
+  background-color: #ffffff;
+  padding: 30px 40px;
+  font-family: 'Segoe UI', Roboto, Helvetica, Arial, sans-serif;
+  color: #333;
 }
 
+.page-header h2 {
+  color: #2c3e50;
+  font-size: 1.6rem;
+  margin-bottom: 25px;
+  border-bottom: 2px solid #f0f0f0;
+  padding-bottom: 10px;
+}
+
+/* Filters Section */
 .filters {
-  margin: .5rem 0;
-  color: white;
-}
-
-.btn {
-  padding: .4rem .8rem;
-  border: 1px solid #555;
+  margin-bottom: 25px;
+  background-color: #fcfcfc;
+  padding: 15px;
   border-radius: 6px;
-  text-decoration: none;
-  background-color: #007acc;
-  color: #fff;
+  border: 1px solid #eee;
 }
 
-.btn:hover {
-  background-color: #005fa3;
+.filters label {
+  font-weight: 600;
+  color: #555;
+  display: flex;
+  align-items: center;
+  gap: 12px;
 }
 
+.filters input {
+  padding: 8px 12px;
+  border: 1px solid #ced4da;
+  border-radius: 4px;
+  width: 250px;
+  font-size: 14px;
+}
+
+.filters input:focus {
+  outline: none;
+  border-color: #007bff;
+  box-shadow: 0 0 0 2px rgba(0, 123, 255, 0.1);
+}
+
+/* Table Styling */
 .table {
   width: 100%;
   border-collapse: collapse;
-  margin-top: .5rem;
-  background-color: #1e1e2f;
-  color: #fff;
+  margin-top: 10px;
 }
 
-th, td {
-  border-bottom: 1px solid #444;
-  padding: .5rem;
+.table th {
+  background-color: #f8f9fa;
+  color: #495057;
+  font-weight: 600;
   text-align: left;
+  padding: 15px;
+  border-bottom: 2px solid #dee2e6;
+  font-size: 13px;
+  text-transform: uppercase;
+  letter-spacing: 0.5px;
 }
 
-th {
-  background-color: #2a2a3d;
-  font-weight: bold;
-  color: white;
+.table td {
+  padding: 14px 15px;
+  border-bottom: 1px solid #eee;
+  font-size: 14px;
+  color: #444;
+  vertical-align: middle;
 }
 
-tr:hover {
-  background-color: #333a50;
+.table tr:hover {
+  background-color: #f9fbff;
 }
 
-.link {
-  background: none;
-  border: none;
-  color: #06c;
-  cursor: pointer;
-  padding: 0 .25rem;
+/* Actions & Buttons */
+.btn-edit {
+  color: #007bff;
+  text-decoration: none;
+  font-weight: 600;
+  margin-right: 15px;
+  font-size: 13px;
+}
+
+.btn-edit:hover {
+  text-decoration: underline;
+  color: #0056b3;
 }
 
 .link.danger {
-  color: blue;
+  background: none;
+  border: none;
+  color: #dc3545;
+  cursor: pointer;
+  font-weight: 600;
+  font-size: 13px;
+  padding: 0;
+  transition: color 0.2s;
+}
+
+.link.danger:hover {
+  color: #a71d2a;
+  text-decoration: underline;
+}
+
+/* Empty State */
+p {
+  color: #888;
+  font-style: italic;
+  text-align: center;
+  margin-top: 40px;
 }

@@ -1,38 +1,65 @@
-<h2>{{ isEdit ? 'Edit Compliance' : 'New Compliance' }}</h2>
+<div style="background-color: #ffffff; padding: 30px; font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif; color: #333; min-height: 100vh;">
+  
+  <h2 style="color: #2c3e50; border-bottom: 2px solid #f0f0f0; padding-bottom: 10px; margin-top: 0;">
+    {{ isEdit ? 'Edit Compliance' : 'New Compliance' }}
+  </h2>
 
-<form [formGroup]="form" (ngSubmit)="save()" class="form">
-  <div class="grid">
-    <label>Vehicle ID
-      <input type="string" formControlName="vehicleId">
-    </label>
-    <label>Check Date
-      <input type="date" formControlName="checkDate">
-    </label>
-    <label>Expiry Date
-      <input type="date" formControlName="expiryDate">
-    </label>
-    <label>PollutionCheck
-      <select formControlName="PollutionCheck">
-        <option value="COMPLIANT">COMPLIANT</option>
-        <option value="NON_COMPLIANT">NON_COMPLIANT</option>
-      </select>
-    </label>
-    <label>Fitness
-      <select formControlName="Fitness">
-        <option value="COMPLIANT">COMPLIANT</option>
-        <option value="NON_COMPLIANT">NON_COMPLIANT</option>
-      </select>
-    </label>
-    <label>RC
-      <select formControlName="RC">
-        <option value="COMPLIANT">COMPLIANT</option>
-        <option value="NON_COMPLIANT">NON_COMPLIANT</option>
-      </select>
-    </label>
-  </div>
+  <form [formGroup]="form" (ngSubmit)="save()" style="max-width: 800px;">
+    
+    <div style="display: grid; grid-template-columns: repeat(auto-fit, minmax(240px, 1fr)); gap: 20px; margin-bottom: 30px;">
+      
+      <label style="display: flex; flex-direction: column; font-weight: 600; font-size: 13px; color: #555; gap: 8px;">
+        Vehicle ID
+        <input type="string" formControlName="vehicleId" style="padding: 10px; border: 1px solid #ced4da; border-radius: 4px; font-size: 14px;">
+      </label>
 
-  <div class="actions">
-    <button class="btn" type="submit" [disabled]="form.invalid">Save</button>
-    <button class="btn outline" type="button" (click)="cancel()">Cancel</button>
-  </div>
-</form>
+      <label style="display: flex; flex-direction: column; font-weight: 600; font-size: 13px; color: #555; gap: 8px;">
+        Check Date
+        <input type="date" formControlName="checkDate" style="padding: 10px; border: 1px solid #ced4da; border-radius: 4px; font-size: 14px;">
+      </label>
+
+      <label style="display: flex; flex-direction: column; font-weight: 600; font-size: 13px; color: #555; gap: 8px;">
+        Expiry Date
+        <input type="date" formControlName="expiryDate" style="padding: 10px; border: 1px solid #ced4da; border-radius: 4px; font-size: 14px;">
+      </label>
+
+      <label style="display: flex; flex-direction: column; font-weight: 600; font-size: 13px; color: #555; gap: 8px;">
+        Pollution Check
+        <select formControlName="PollutionCheck" style="padding: 10px; border: 1px solid #ced4da; border-radius: 4px; font-size: 14px; background-color: #fff; cursor: pointer;">
+          <option value="COMPLIANT">COMPLIANT</option>
+          <option value="NON_COMPLIANT">NON_COMPLIANT</option>
+        </select>
+      </label>
+
+      <label style="display: flex; flex-direction: column; font-weight: 600; font-size: 13px; color: #555; gap: 8px;">
+        Fitness
+        <select formControlName="Fitness" style="padding: 10px; border: 1px solid #ced4da; border-radius: 4px; font-size: 14px; background-color: #fff; cursor: pointer;">
+          <option value="COMPLIANT">COMPLIANT</option>
+          <option value="NON_COMPLIANT">NON_COMPLIANT</option>
+        </select>
+      </label>
+
+      <label style="display: flex; flex-direction: column; font-weight: 600; font-size: 13px; color: #555; gap: 8px;">
+        RC
+        <select formControlName="RC" style="padding: 10px; border: 1px solid #ced4da; border-radius: 4px; font-size: 14px; background-color: #fff; cursor: pointer;">
+          <option value="COMPLIANT">COMPLIANT</option>
+          <option value="NON_COMPLIANT">NON_COMPLIANT</option>
+        </select>
+      </label>
+      
+    </div>
+
+    <div style="display: flex; gap: 15px; border-top: 1px solid #eee; padding-top: 20px;">
+      <button type="submit" [disabled]="form.invalid" 
+        style="padding: 10px 25px; background-color: #007bff; color: white; border: none; border-radius: 4px; font-weight: 600; cursor: pointer;">
+        Save
+      </button>
+      
+      <button type="button" (click)="cancel()" 
+        style="padding: 10px 25px; background-color: transparent; color: #495057; border: 1px solid #ced4da; border-radius: 4px; font-weight: 600; cursor: pointer;">
+        Cancel
+      </button>
+    </div>
+
+  </form>
+</div>
