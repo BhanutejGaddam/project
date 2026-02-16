@@ -1,5 +1,5 @@
 import { Component, inject, OnInit, signal } from '@angular/core';
-import { ActivatedRoute } from '@angular/router';
+import { ActivatedRoute,Router } from '@angular/router';
 import { SericeHistoryService } from './servive-history.service';
 import {ServiceHistory,CustomerServiceRecord} from './service.interface';
 import {CurrencyPipe} from '@angular/common'
@@ -13,9 +13,16 @@ import {CurrencyPipe} from '@angular/common'
 })
 export class ServiveHistoryComponent implements OnInit {
   private route=inject(ActivatedRoute);
+  private router=inject(Router);
   private customerService=inject(SericeHistoryService);
   record = signal<CustomerServiceRecord | null>(null);
   history: ServiceHistory[]=[];
+
+  goToCustomers(){
+    this.router.navigate(['../../'],{relativeTo:this.route});
+  }
+ 
+
   ngOnInit(): void {
     const id = this.route.snapshot.paramMap.get('id');
     if (id) {

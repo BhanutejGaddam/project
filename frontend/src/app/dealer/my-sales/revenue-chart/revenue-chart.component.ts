@@ -12,7 +12,7 @@ import { RevenueTrend } from '../models/sales-report.model';
 })
 export class RevenueChartComponent implements AfterViewInit {
   @ViewChild('lineChart') lineChartCanvas!: ElementRef;
-  @Input() dealerId?: number;
+  @Input() dealerId: string='';
 
   constructor(private analytics: AnalyticsService) {}
 

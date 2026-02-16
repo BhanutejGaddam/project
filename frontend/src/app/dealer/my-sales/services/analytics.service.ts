@@ -15,15 +15,15 @@ export class AnalyticsService {
   private http = inject(HttpClient);
 
   
-  getSalesReport(dealerId?: string | number): Observable<SalesReport> {
+  getSalesReport(dealerId: string): Observable<SalesReport> {
     
-    const id = dealerId ?? 'current'; 
+    const id = dealerId; 
     return this.http.get<SalesReport>(`${this.SalesapiUrl}/${id}`);
   }
 
  
-  getRevenueTrends(dealerId?: string | number): Observable<RevenueTrend> {
-    const id = dealerId ?? 'current';
+  getRevenueTrends(dealerId: string): Observable<RevenueTrend> {
+    const id = dealerId;
     return this.http.get<RevenueTrend>(`${this.RevenueapiUrl}/${id}`);
   }
 }
