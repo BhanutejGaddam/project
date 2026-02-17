@@ -53,11 +53,17 @@ export interface BackendBooking {
   slot: string;
   pickup_Dropoff: boolean;
   availed_Warranty: boolean;
-  engine_Check: boolean;
-  oil_Change: boolean;
-  brake_Inspection: boolean;
-  tire_Rotation: boolean;
   bookingStatus: string;
+  engine_Check: boolean;
+  brake_Inspection: boolean;
+  oil_Change: boolean;
+  transmission_Service: boolean; 
+  battery_Replacement: boolean;  
+  tire_Rotation: boolean;
+  suspension_Check: boolean;     
+  electrical_System: boolean;    
+  cooling_System: boolean;       
+  exhaust_System: boolean;       
 }
 
 export interface UpdateResponse {

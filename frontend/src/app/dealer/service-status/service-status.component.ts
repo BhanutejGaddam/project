@@ -1,5 +1,5 @@
 import { Component, inject, OnInit, signal } from '@angular/core';
-import { BookingData } from '../../bookingData';
+import { BookingData,BackendBooking } from '../../bookingData';
 import { ServiceStatusServices } from './service-status.services';
 import { RouterModule } from "@angular/router";
 import { Router,ActivatedRoute } from '@angular/router';
@@ -28,16 +28,17 @@ export class ServiceStatusComponent implements OnInit {
   }
 
   loadTodaySchedule(): void {
-    this.statusServices.getTodayBookings().subscribe({
-      next: (data: BookingData[]) => {
-        // 3. This correctly updates the Signal
-        this.todayBookings.set(data);
-      },
-      error: (err: Error) => {
-        console.error('Data retrieval failed:', err.message);
-      }
-    });
-  }
+  // The service returns Observable<BookingData[]>, so we subscribe to that directly.
+  this.statusServices.getTodayBookings().subscribe({
+    next: (data: BookingData[]) => {
+      // The data is already mapped! Just set the signal.
+      this.todayBookings.set(data);
+    },
+    error: (err: Error) => {
+      console.error('Data retrieval failed:', err.message);
+    }
+  });
+}
 
   goToEdit(serviceId: string) {
     this.router.navigate(['./edit'], {

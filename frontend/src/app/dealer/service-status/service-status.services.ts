@@ -48,35 +48,51 @@ export class ServiceStatusServices{
     return this.http.put<UpdateResponse>(`${this.EditServiceStatusApiUrl}/${id}`, body);
   }
 
-  private mapToBookingData(b: BackendBooking): BookingData {
-    const selections: string[] = [];
-    if (b.engine_Check) selections.push('Engine Check');
-    if (b.oil_Change) selections.push('Oil Change');
-    if (b.brake_Inspection) selections.push('Brake Inspection');
-    if (b.tire_Rotation) selections.push('Tire Rotation');
+  // Add this helper function inside your Service class
+private mapToBookingData(b: BackendBooking): BookingData {
+  // 1. Build the Warranty Array here
+  const selections: string[] = [];
+  
+  if (b.engine_Check) selections.push('Engine Check');
+  if (b.brake_Inspection) selections.push('Brake Inspection');
+  if (b.oil_Change) selections.push('Oil Change');
+  if (b.transmission_Service) selections.push('Transmission Service');
+  if (b.battery_Replacement) selections.push('Battery Replacement');
+  if (b.tire_Rotation) selections.push('Tire Rotation');
+  if (b.suspension_Check) selections.push('Suspension Check');
+  if (b.electrical_System) selections.push('Electrical System');
+  if (b.cooling_System) selections.push('Cooling System');
+  if (b.exhaust_System) selections.push('Exhaust System');
 
-    return {
-      ownerName: b.fullName,
-      phone: b.contactNumber,
-      email: b.emailAddress ?? '',
-      address: b.address ?? '',
-      makeModelYear: b.vehicleModelYear ?? '',
-      vin: b.vinChassisNumber ?? '',
-      registration: b.registrationNumber ?? '',
-      mileage: b.currentMileage ?? 0,
-      fuelType: (b.fuelType?.toLowerCase() as BookingData['fuelType']) || 'petrol',
-      serviceType: (b.typeOfService?.toLowerCase() as BookingData['serviceType']) || 'routine',
-      issues: b.descriptionOfIssues ?? '',
-      package: (b.preferredServicePackage?.toLowerCase() as BookingData['package']) || 'basic',
-      history: b.previousServiceHistory ?? '',
-      serviceDate: b.slot,
-      pickupDrop: b.pickup_Dropoff ? 'both' : 'none',
-      emergencyContact: b.emergencyContact,
-      warranty: b.availed_Warranty ? 'yes' : 'no',
-      warrantySelections: selections,
-      serviceStatus: b.bookingStatus as BookingData['serviceStatus'],
-      serviceId: b.bookingId.toString()
-    };
-  }
+  // 2. Return the formatted object
+  return {
+    serviceId: b.bookingId.toString(),
+    ownerName: b.fullName,
+    phone: b.contactNumber,
+    email: b.emailAddress || '',
+    address: b.address || '',
+    emergencyContact: b.emergencyContact || '',
+    
+    makeModelYear: b.vehicleModelYear || '',
+    vin: b.vinChassisNumber || '',
+    registration: b.registrationNumber || '',
+    mileage: b.currentMileage || 0,
+    
+    fuelType: (b.fuelType as any) || 'petrol', 
+    serviceType: (b.typeOfService as any) || 'routine',
+    issues: b.descriptionOfIssues || 'None',
+    package: (b.preferredServicePackage as any) || 'basic',
+    history: b.previousServiceHistory || 'No history provided',
+    
+    serviceDate: b.slot,
+    pickupDrop: b.pickup_Dropoff ? 'pickup' : 'none', 
+    
+    // IMPORTANT: Use the array we built above
+    warranty: b.availed_Warranty ? 'yes' : 'no',
+    warrantySelections: selections, 
+    
+    serviceStatus: (b.bookingStatus as any) || 'BOOKED'
+  };
+}
 
 }
