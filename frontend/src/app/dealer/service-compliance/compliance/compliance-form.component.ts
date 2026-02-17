@@ -53,8 +53,8 @@ export class ComplianceFormComponent implements OnInit {
     const payload = this.form.getRawValue();
     const obs = this.isEdit ? this.service.update(this.vehicleNo!, payload) : this.service.create(payload);
     
-    obs.subscribe(() => this.router.navigate(['/dealer/compliance-list']));
+    obs.subscribe(() => this.router.navigate(['../'],{relativeTo:this.route}));
   }
 
-  cancel(): void { this.router.navigate(['/dealer/compliance-list']); }
+  cancel(): void { this.router.navigate(['../'],{relativeTo:this.route}); }
 }

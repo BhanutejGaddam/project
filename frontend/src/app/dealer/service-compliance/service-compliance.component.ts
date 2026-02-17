@@ -9,4 +9,6 @@ import { RouterLink, RouterOutlet } from '@angular/router';
   templateUrl: './service-compliance.component.html',
   styleUrls: ['./service-compliance.component.css']
 })
-export class ServiceComplianceComponent {}
+export class ServiceComplianceComponent {
+  
+}
