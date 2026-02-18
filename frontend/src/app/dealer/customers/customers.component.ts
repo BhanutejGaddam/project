@@ -51,7 +51,7 @@ export class CustomersComponent implements OnInit {
       c_contact_info: [null, Validators.required],
       c_address: ['', Validators.required],
       vehicle_model_year: ['', Validators.required],
-      vehicle_price:['',Validators.required],
+      price:['',Validators.required],
       purchase_date: ['', Validators.required],
       // Removed: dealer_id, warranty_issued_date, and warranty_expiry_date
       // The Backend now handles these automatically.
