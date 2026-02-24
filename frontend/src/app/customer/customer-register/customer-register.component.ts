@@ -1,4 +1,4 @@
-import { Component, inject } from '@angular/core';
+import { Component } from '@angular/core';
 import { FormBuilder, FormGroup, Validators, ReactiveFormsModule, AbstractControl, ValidationErrors } from '@angular/forms';
 import { CommonModule } from '@angular/common';
 import { Router, RouterLink } from '@angular/router';
@@ -12,15 +12,12 @@ import { AuthenticationService } from '../../login/authentication.service'; // E
   styleUrls: ['./customer-register.component.css']
 })
 export class CustomerRegisterComponent {
-  private fb = inject(FormBuilder);
-  private router = inject(Router);
-  private authService = inject(AuthenticationService); // Injected the service here
 
   registrationForm: FormGroup;
   isSubmitting = false;
   registrationSuccess = false;
 
-  constructor() {
+  constructor(private authService: AuthenticationService, private router: Router, private fb: FormBuilder) {
     this.registrationForm = this.fb.group({
       firstName: ['', [Validators.required, Validators.minLength(2), Validators.pattern('^[a-zA-Z ]*$')]],
       middleName: ['', [Validators.pattern('^[a-zA-Z ]*$')]],

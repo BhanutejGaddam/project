@@ -9,9 +9,7 @@ import { AuthenticationService } from '../login/authentication.service';
 })
 export class DealerComponent {
   
-// constructor(private router: Router, private auth: AuthenticationService) {}
-  private router=inject(Router);
-  private auth=inject(AuthenticationService);
+constructor(private router: Router, private auth: AuthenticationService) {}
   onLogout(): void {
     this.auth.logout();
     this.router.navigate(['']);

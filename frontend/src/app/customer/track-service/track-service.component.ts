@@ -1,5 +1,5 @@
 import { CommonModule } from '@angular/common';
-import { Component, inject, OnInit, signal } from '@angular/core';
+import { Component, OnInit, signal } from '@angular/core';
 import { AuthenticationService } from '../../login/authentication.service';
 
 @Component({
@@ -10,7 +10,7 @@ import { AuthenticationService } from '../../login/authentication.service';
   styleUrls: ['./track-service.component.css'],
 })
 export class TrackServiceComponent implements OnInit {
-  private authService = inject(AuthenticationService);
+  constructor(private authService: AuthenticationService) {}
   
   // Now holding an array of bookings
   bookingsSig = signal<any[]>([]);

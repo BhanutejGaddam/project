@@ -10,10 +10,13 @@ import { ComplianceService } from '../Services/compliance.service';
   templateUrl: './compliance-form.component.html'
 })
 export class ComplianceFormComponent implements OnInit {
-  private fb = inject(FormBuilder);
-  private service = inject(ComplianceService);
-  private route = inject(ActivatedRoute);
-  private router = inject(Router);
+
+  constructor(
+    private fb: FormBuilder,
+    private service: ComplianceService,
+    private route: ActivatedRoute,
+    private router: Router
+  ) { }
 
   form!: FormGroup;
   isEdit = false;

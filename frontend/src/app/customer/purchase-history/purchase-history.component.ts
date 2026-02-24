@@ -1,4 +1,4 @@
-import { Component, OnInit, inject } from '@angular/core';
+import { Component, OnInit } from '@angular/core';
 import { CurrencyPipe, DatePipe } from '@angular/common';
 import { AuthenticationService } from '../../login/authentication.service';
 
@@ -10,7 +10,7 @@ import { AuthenticationService } from '../../login/authentication.service';
   styleUrl: './purchase-history.component.css'
 })
 export class PurchaseHistoryComponent implements OnInit {
-  private authService = inject(AuthenticationService);
+  constructor(private authService: AuthenticationService) {}
   serviceHistory: any[] = [];
 
   ngOnInit() {

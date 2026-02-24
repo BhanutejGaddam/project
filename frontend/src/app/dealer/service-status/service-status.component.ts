@@ -13,14 +13,13 @@ import { CommonModule } from '@angular/common';
   imports: [RouterModule,CommonModule]
 })
 export class ServiceStatusComponent implements OnInit {
-  // 1. Remove this line as it's not being used and causes confusion:
-  // serviceData: BookingData[] = []; 
 
-  private statusServices = inject(ServiceStatusServices);
-  private router = inject(Router);
-  private route = inject(ActivatedRoute);
-
-  // 2. This is your "Source of Truth" for the template
+  constructor(
+    private statusServices: ServiceStatusServices,
+    private router: Router,
+    private route: ActivatedRoute
+  ){}
+  
   todayBookings = signal<BookingData[]>([]);
 
   ngOnInit(): void {

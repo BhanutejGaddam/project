@@ -21,7 +21,6 @@ export class LoginComponent implements OnInit {
   authErrorMessage: string = '';
   showValidationErrors = false;
 
-  private destroyRef = inject(DestroyRef);
 
   form = new FormGroup({
     email: new FormControl('', {
@@ -32,7 +31,7 @@ export class LoginComponent implements OnInit {
     })
   });
 
-  constructor(private route: ActivatedRoute, private authService: AuthenticationService, private router: Router) { }
+  constructor(private route: ActivatedRoute, private authService: AuthenticationService, private router: Router, private destroyRef: DestroyRef) { }
 
   ngOnInit(): void {
     this.path = this.route.snapshot.routeConfig?.path ?? '';

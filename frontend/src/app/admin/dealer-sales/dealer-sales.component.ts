@@ -1,4 +1,4 @@
-import { Component, ElementRef, inject, OnInit, ViewChild } from '@angular/core';
+import { Component, ElementRef, OnInit, ViewChild } from '@angular/core';
 import { CommonModule } from '@angular/common';
 import { FormsModule, ReactiveFormsModule, FormBuilder, FormGroup, Validators } from '@angular/forms';
 import { RouterLink } from '@angular/router';
@@ -23,7 +23,7 @@ export class AdminDealerSalesComponent implements OnInit {
   feedback = '';
  dealers: any[] = [];
   
-  dealerService=inject(DealerService);
+  constructor(private dealerService: DealerService){}
 
   ngOnInit(): void {
     this.loadDealers();

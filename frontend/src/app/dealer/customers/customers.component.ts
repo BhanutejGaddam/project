@@ -1,4 +1,4 @@
-import { Component, computed, DestroyRef, inject, OnInit, signal } from '@angular/core';
+import { Component, computed, DestroyRef, OnInit, signal } from '@angular/core';
 import { CustomerService } from './customers.services';
 import { ReactiveFormsModule, FormGroup, Validators, FormBuilder, FormControl } from '@angular/forms';
 import { RouterLink } from "@angular/router";
@@ -18,12 +18,9 @@ export class CustomersComponent implements OnInit {
   showForm = false;
   addForm!: FormGroup;
   form!: FormGroup;
-  
-  private destroyRef = inject(DestroyRef);
+  constructor(private customerServices: CustomerService, private destroyRef: DestroyRef, private fb: FormBuilder){}
   customers = signal<customerData[]>([]);
   entered_text = signal<string>('');
-  private customerServices = inject(CustomerService);
-  private fb = inject(FormBuilder);
 
   public readonly search_result = computed(() => {
     const term = this.entered_text().trim().toLowerCase();

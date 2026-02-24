@@ -14,12 +14,10 @@ import { Observable } from 'rxjs';
   styleUrls: ['./compliance-list.component.css']
 })
 export class ComplianceListComponent {
-  private service = inject(ComplianceService);
-  
   records$!: Observable<ComplianceRecord[]>;
   vehicleId: string = ''; // <--- 3. Ensure this is a string, not null
 
-  constructor() {
+  constructor(private service: ComplianceService) {
     this.load();
   }
 

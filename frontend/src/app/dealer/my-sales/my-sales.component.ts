@@ -1,4 +1,4 @@
-import { Component, OnInit, inject } from '@angular/core';
+import { Component, OnInit } from '@angular/core';
 import { CommonModule } from '@angular/common';
 import { AnalyticsService } from './services/analytics.service';
 import { SalesReport } from './models/sales-report.model';
@@ -17,8 +17,7 @@ export class MySalesComponent implements OnInit {
   report?: SalesReport;
   dealerId: string | null = null;
 
-  private analyticsService = inject(AnalyticsService);
-  private route = inject(ActivatedRoute);
+  constructor(private analyticsService: AnalyticsService, private route: ActivatedRoute) {}
 
   ngOnInit(): void {
     // 1. Subscribe to queryParams to support Admin view (e.g., ?dealerId=D363)

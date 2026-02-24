@@ -1,4 +1,4 @@
-import { Component, inject,OnInit } from '@angular/core';
+import { Component,OnInit } from '@angular/core';
 import {ServiceStatusServices} from '../service-status/service-status.services';
 import { ActivatedRoute,Router } from '@angular/router';
 import { BookingData } from '../../bookingData';
@@ -11,9 +11,8 @@ import { CommonModule } from '@angular/common';
   styleUrl: './edit-service-status.component.css'
 })
 export class EditServiceStatusComponent implements OnInit {
-  private statusServices=inject(ServiceStatusServices);
-  private route=inject(ActivatedRoute);
-  private router=inject(Router);
+
+  constructor(private statusServices: ServiceStatusServices, private route: ActivatedRoute, private router: Router){}
   serviceId:string|null='';
   customerBooking:BookingData | undefined;
 

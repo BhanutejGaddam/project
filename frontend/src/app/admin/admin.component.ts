@@ -1,4 +1,4 @@
-import { Component,inject } from '@angular/core';
+import { Component } from '@angular/core';
 import { RouterModule, RouterOutlet,Router } from '@angular/router';
 import { AuthenticationService } from '../login/authentication.service';
 
@@ -9,9 +9,7 @@ import { AuthenticationService } from '../login/authentication.service';
   styleUrl: './admin.component.css'
 })
 export class AdminComponent {
-  // constructor(private router: Router, private auth: AuthenticationService) {}
-  private router=inject(Router);
-  private auth=inject(AuthenticationService);
+   constructor(private router: Router, private auth: AuthenticationService) {}
   onLogout(): void {
     this.auth.logout();
     this.router.navigate(['']);

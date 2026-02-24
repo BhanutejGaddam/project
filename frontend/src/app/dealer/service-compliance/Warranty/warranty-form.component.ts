@@ -11,10 +11,13 @@ import { CommonModule } from '@angular/common';
   templateUrl: './warranty-form.component.html'
 })
 export class WarrantyFormComponent implements OnInit {
-  private fb = inject(FormBuilder);
-  private service = inject(WarrantyService);
-  private route = inject(ActivatedRoute);
-  private router = inject(Router);
+
+  constructor(
+    private fb: FormBuilder,
+    private service: WarrantyService,
+    private route: ActivatedRoute,
+    private router: Router
+  ){}
 
   form!: FormGroup;
   isEdit = false;

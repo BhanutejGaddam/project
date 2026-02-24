@@ -1,4 +1,4 @@
-import { Component, OnInit, inject } from '@angular/core';
+import { Component, OnInit } from '@angular/core';
 import { CommonModule } from '@angular/common';
 import { FormsModule } from '@angular/forms'; // Required for forms
 import { VehicleService } from './vehicle.service'; // Use the new service
@@ -12,8 +12,7 @@ import { VehicleInventory, SparePartInventory } from './vehicle.model';
   styleUrls: ['./my-inventory.component.css'],
 })
 export class MyInventoryComponent implements OnInit {
-  private vehicleService = inject(VehicleService);
-
+  constructor(private vehicleService: VehicleService) {}
   vehicles: VehicleInventory[] = [];
   parts: SparePartInventory[] = [];
   

@@ -1,4 +1,4 @@
-import { Component, inject, OnInit } from '@angular/core';
+import { Component, OnInit } from '@angular/core';
 import { CommonModule, NgFor } from '@angular/common';
 // import { RouterLink } from '@angular/router';
 import { WarrantyService } from '../Services/warranty.service';
@@ -16,7 +16,7 @@ import { Observable } from 'rxjs';
 
 export class WarrantyListComponent implements OnInit {
   warranties$!: Observable<Warranty[]>;
-  private service = inject(WarrantyService);
+  constructor(private service:WarrantyService){}
 
   ngOnInit() { this.load(); }
 

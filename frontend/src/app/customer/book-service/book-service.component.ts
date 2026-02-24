@@ -14,8 +14,7 @@ import { AuthenticationService } from '../../login/authentication.service'; // A
 
 export class BookServiceComponent {
   // Injecting dependencies
-  private authService = inject(AuthenticationService);
-  private router = inject(Router);
+  constructor(private authService: AuthenticationService, private router: Router) {}
 
   warranty: 'yes' | 'no' | null = null;
   message: string = '';
