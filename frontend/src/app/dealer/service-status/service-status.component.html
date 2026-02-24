@@ -30,16 +30,26 @@
         <td>{{ booking?.serviceDate }}</td>
         <td>{{ booking?.warranty }}</td>
         <td>
-          <ng-container *ngIf="booking?.warranty === 'yes' && (booking?.warrantySelections?.length || 0) > 0; else noWarranty">
+          <ng-container
+            *ngIf="
+              booking?.warranty === 'yes' &&
+                (booking?.warrantySelections?.length || 0) > 0;
+              else noWarranty
+            "
+          >
             <ul>
-              <li *ngFor="let service of booking.warrantySelections">{{ service }}</li>
+              <li *ngFor="let service of booking.warrantySelections">
+                {{ service }}
+              </li>
             </ul>
           </ng-container>
           <ng-template #noWarranty>
             <p>No warranty services selected</p>
           </ng-template>
         </td>
-        <td><a (click)="goToEdit(booking.serviceId)">Edit service status</a></td>
+        <td>
+          <a (click)="goToEdit(booking.serviceId)">Edit service status</a>
+        </td>
       </tr>
     </tbody>
   </table>

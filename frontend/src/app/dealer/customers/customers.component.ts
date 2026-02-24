@@ -98,20 +98,30 @@ export class CustomersComponent implements OnInit {
     }
   }
 
-  fetchCustomers() {
+ fetchCustomers() {
   this.customerServices.getMyCustomers().subscribe({
     next: (data: any[]) => {
       // Map backend model to your frontend customerData interface
-      const mappedData = data.map((c, index) => ({
-        sl_no: index + 1,
-        customer_id: c.customerId,
-        // Combine names for your template
-        customer_name: `${c.cFirstName} ${c.cLastName}`, 
-        // We use the default vehicle number we set in the controller
-        purchase_date: c.purchaseDate,
-        loyalty_points: c.loyaltyPoints || 100,
-        offers_eligible: c.loyaltyPoints > 500 ? "Service10" : "Service5"
-      }));
+      const mappedData = data.map((c, index) => {
+        
+        // Safely parse the date and extract only the date portion
+        // If purchaseDate is null/undefined, it returns a fallback (like an empty string)
+        const formattedDate = c.purchaseDate 
+          ? new Date(c.purchaseDate).toLocaleDateString() 
+          : 'N/A';
+
+        return {
+          sl_no: index + 1,
+          customer_id: c.customerId,
+          // Combine names for your template
+          customer_name: `${c.cFirstName} ${c.cLastName}`, 
+          // Use the formatted date here
+          purchase_date: formattedDate,
+          loyalty_points: c.loyaltyPoints || 100,
+          offers_eligible: c.loyaltyPoints > 500 ? "Service10" : "Service5"
+        };
+      });
+      
       // Update your signal so the table and search feature react
       this.customers.set(mappedData);
     },

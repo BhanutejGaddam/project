@@ -3,7 +3,7 @@
   <header class="header">
     <div>
       <h1 class="title">Dealer Executive Insights</h1>
-      <p class="subtitle">Real-time inventory and revenue monitoring [cite: 5]</p>
+      <p class="subtitle">Real-time inventory and revenue monitoring </p>
     </div>
     <button (click)="onGenerateReport()" class="audit-btn">
       Generate Full Audit Report 
@@ -48,9 +48,9 @@
         <small class="label">SERVICE REQUESTS PROCESSED</small>
         <h2 class="value">{{ report?.metrics?.serviceRequestsProcessed | number }}</h2>
         
-        <small class="note">
+        <!-- <small class="note">
             Capacity: {{ report?.metrics?.serviceCapacity }} / day
-             </small>
+             </small> -->
 
       </div>
 
