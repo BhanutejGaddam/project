@@ -1,12 +1,16 @@
-import { inject, Injectable } from '@angular/core';
+import { Injectable } from '@angular/core';
 import { Observable, BehaviorSubject } from 'rxjs';
 import { map } from 'rxjs/operators';
 import { HttpClient, HttpHeaders } from '@angular/common/http';
-
+import { ServiceBooking,BookingResponse } from '../customer/book-service/book-service.interface';
+import { CustomerRegistrationPayload,RegisterResponse } from '../customer/customer-register/customer.interface';
+import { ServiceHistoryResponse } from '../customer/purchase-history/purchase-data.interface';
+import {TrackedBooking} from '../customer/track-service/track-service.interface';
+import { AuthResponse } from './login_data';
 @Injectable({ providedIn: 'root' })
 export class AuthenticationService {
-  private http = inject(HttpClient);
-  
+
+  constructor(private http: HttpClient) {}
   // Base URLs for different controllers
   private authUrl = 'https://localhost:7169/api/Auth';
   private bookingUrl = 'https://localhost:7169/api/Bookings'; // Points to your new BookingsController
@@ -26,8 +30,8 @@ private historyUrl = 'https://localhost:7169/api/History';
     });
   }
 
-  register$(userData: any): Observable<any> {
-    return this.http.post(`${this.authUrl}/register`, userData);
+  register$(userData: CustomerRegistrationPayload): Observable<RegisterResponse> {
+    return this.http.post<RegisterResponse>(`${this.authUrl}/register`, userData);
   }
 
   private readonly _isLoggedIn$ = new BehaviorSubject<boolean>(
@@ -42,8 +46,8 @@ private historyUrl = 'https://localhost:7169/api/History';
   login$(role: string, email: string, pass: string): Observable<boolean> {
     const body = { email, password: pass, role };
 
-    return this.http.post<any>(`${this.authUrl}/login`, body).pipe(
-      map(res => {
+    return this.http.post<AuthResponse>(`${this.authUrl}/login`, body).pipe(
+      map((res: AuthResponse) => {
         if (res.success && res.token) {
           localStorage.setItem('auth_token', res.token);
           localStorage.setItem('auth_role', res.role);
@@ -63,24 +67,24 @@ private historyUrl = 'https://localhost:7169/api/History';
   // Inside AuthenticationService
 
 
-getBookingStatus$(customerId: string): Observable<any> {
-  // Matches the route: api/Tracking/status/{customerId}
-  return this.http.get(`${this.trackingUrl}/status/${customerId}`, { 
-    headers: this.getAuthHeaders() 
-  });
-}
-
-  // FIXED: Points to the correct Controller and adds Authorization Headers
-  bookService$(data: any): Observable<any> {
-    return this.http.post(this.bookingUrl, data, { headers: this.getAuthHeaders() });
+  getBookingStatus$(customerId: string): Observable<TrackedBooking[]> {
+    // Matches the route: api/Tracking/status/{customerId}
+    return this.http.get<TrackedBooking[]>(`${this.trackingUrl}/status/${customerId}`, { 
+      headers: this.getAuthHeaders() 
+    });
   }
 
-  getServiceHistory$(customerId: string): Observable<any[]> {
+  // FIXED: Points to the correct Controller and adds Authorization Headers
+  bookService$(data: ServiceBooking): Observable<BookingResponse> {
+    return this.http.post<BookingResponse>(this.bookingUrl, data, { headers: this.getAuthHeaders() });
+  }
+
+  getServiceHistory$(customerId: string): Observable<ServiceHistoryResponse[]> {
   // Matches the route: api/History/customer/{customerId}
-  return this.http.get<any[]>(`${this.historyUrl}/customer/${customerId}`, { 
-    headers: this.getAuthHeaders() 
-  });
-}
+    return this.http.get<ServiceHistoryResponse[]>(`${this.historyUrl}/customer/${customerId}`, { 
+      headers: this.getAuthHeaders() 
+    });
+  }
 
   logout(): void {
     this._isLoggedIn$.next(false);

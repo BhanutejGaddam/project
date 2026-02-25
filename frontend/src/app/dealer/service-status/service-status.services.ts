@@ -91,7 +91,7 @@ private mapToBookingData(b: BackendBooking): BookingData {
     warranty: b.availed_Warranty ? 'yes' : 'no',
     warrantySelections: selections, 
     
-    serviceStatus: (b.bookingStatus as any) || 'BOOKED'
+    serviceStatus: (b.bookingStatus as 'BOOKED') || 'BOOKED'
   };
 }
 

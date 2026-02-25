@@ -21,3 +21,15 @@ export interface InventoryResponse {
   vehicles: VehicleInventory[];
   spareParts: SparePartInventory[];
 }
+
+// Represents the response from POST /add-vehicle
+export interface AddVehicleResponse {
+  message: string;
+  vehicleId: string;
+}
+
+// Represents the response from POST /add-spare-part
+export interface AddSparePartResponse {
+  message: string;
+  sparePartId: string;
+}

@@ -1,5 +1,5 @@
-import { Component, inject } from '@angular/core';
-import { NgIf, NgFor } from '@angular/common';
+import { Component } from '@angular/core';
+import { NgIf } from '@angular/common';
 import { FormsModule, NgForm } from '@angular/forms';
 import { Router } from '@angular/router';
 import { AuthenticationService } from '../../login/authentication.service'; // Adjust path if needed

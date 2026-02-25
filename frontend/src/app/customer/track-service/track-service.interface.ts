@@ -1,25 +1,7 @@
-export interface ServiceHistory {
-    bookingId: number;
-    date: string; // From 'Slot' in DB
-    status: string; // From 'BookingStatus'
-    typeOfService: string;
-    warrantyAvailed: 'Yes' | 'No'; // Mapped from bool Availed_Warranty
-    warrantyServices: string[]; // Aggregated from the various boolean flags
-    repairs: 'Yes' | 'No'; 
-    routineMaintenance: 'Yes' | 'No';
-    totalBill: number; // You might need to add this column to your DB later
-}
+// tracking.interface.ts
 
-export interface CustomerServiceRecord {
-    customerName: string;
-    customerId: string;
-    vehicleId: string; // Mapping to RegistrationNumber or VIN
-    history: ServiceHistory[];
-}
-
-// service.interface.ts
-
-export interface RawServiceBooking {
+// 1. Matches the API response exactly
+export interface TrackedBooking {
   bookingId: number;
   customerId: string;
   fullName: string;
@@ -52,6 +34,13 @@ export interface RawServiceBooking {
   selected_Dealer_Id: string | null;
   selected_Dealer: string | null;
   totalBill: number;
-  bookingStatus: string;
+  bookingStatus: "BOOKED" | "VEHICLE_RECEIVED" | "SERVICE_IN_PROGRESS" | "COMPLETED"; 
   createdAt: string;
+}
+
+// 2. Strongly types the timeline objects your component creates
+export interface TimelineStage {
+  key: string;
+  title: string;
+  meta: string | null;
 }

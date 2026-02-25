@@ -1,7 +1,7 @@
 import { Injectable, inject } from '@angular/core';
 import { HttpClient } from '@angular/common/http';
 import { Observable, map } from 'rxjs';
-import { ComplianceRecord } from '../Models/compliance.model';
+import { ComplianceRecord, ComplianceApiResponse, DeleteComplianceResponse } from '../Models/compliance.model';
 
 @Injectable({ providedIn: 'root' })
 export class ComplianceService {
@@ -9,7 +9,7 @@ export class ComplianceService {
   private apiUrl = 'https://localhost:7169/api/Dealer/compliance'; // Adjust your port
 
   list(): Observable<ComplianceRecord[]> {
-    return this.http.get<any[]>(this.apiUrl).pipe(
+    return this.http.get<ComplianceApiResponse[]>(this.apiUrl).pipe(
       map(data => data.map((item, index) => this.mapToModel(item, index)))
     );
   }
@@ -26,12 +26,12 @@ export class ComplianceService {
     return this.http.put(`${this.apiUrl}/${vehicleNo}`, this.mapToSql(record));
   }
 
-  delete(vehicleNo: string): Observable<any> {
-    return this.http.delete(`${this.apiUrl}/${vehicleNo}`);
+  delete(vehicleNo: string): Observable<DeleteComplianceResponse> {
+    return this.http.delete<DeleteComplianceResponse>(`${this.apiUrl}/${vehicleNo}`);
   }
 
   // Helper to match Frontend Model
-  private mapToModel(item: any, index: number): ComplianceRecord {
+  private mapToModel(item: ComplianceApiResponse, index: number): ComplianceRecord {
     return {
       complianceId: index + 1,
       vehicleId: item.vehicleNumber,

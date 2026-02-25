@@ -6,6 +6,7 @@ import { CommonModule } from '@angular/common';
 import { customerData } from './customer.interface';
 import { debounceTime, distinctUntilChanged } from 'rxjs/operators';
 import { takeUntilDestroyed } from '@angular/core/rxjs-interop';
+import { CustomerApiResponse, AddCustomerPayload, AddCustomerResponse } from './customer.interface';
 
 @Component({
   selector: 'app-customers',
@@ -97,7 +98,7 @@ export class CustomersComponent implements OnInit {
 
  fetchCustomers() {
   this.customerServices.getMyCustomers().subscribe({
-    next: (data: any[]) => {
+    next: (data: CustomerApiResponse[]) => {
       // Map backend model to your frontend customerData interface
       const mappedData = data.map((c, index) => {
         

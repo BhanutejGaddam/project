@@ -1,6 +1,7 @@
 import { inject, Injectable } from "@angular/core";
 import { Observable } from "rxjs";
 import { HttpClient } from '@angular/common/http';
+import { RawServiceBooking } from "./service.interface";
 
 @Injectable({providedIn:'root'})
 export class SericeHistoryService{
@@ -8,8 +9,8 @@ export class SericeHistoryService{
     private serviceHistoryapi='https://localhost:7169/api/ServiceHistory/customer';
 
     // Inside CustomerService
-    getServiceHistory(customerId: string): Observable<any[]> {
-        return this.http.get<any[]>(`${this.serviceHistoryapi}/${customerId}`);
+    getServiceHistory(customerId: string): Observable<RawServiceBooking[]> {
+        return this.http.get<RawServiceBooking[]>(`${this.serviceHistoryapi}/${customerId}`);
     }
 
 }

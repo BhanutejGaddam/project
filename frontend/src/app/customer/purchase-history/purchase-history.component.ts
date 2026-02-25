@@ -1,7 +1,7 @@
 import { Component, OnInit } from '@angular/core';
 import { CurrencyPipe, DatePipe } from '@angular/common';
 import { AuthenticationService } from '../../login/authentication.service';
-
+import { ServiceHistoryResponse,DisplayHistoryItem } from './purchase-data.interface';
 @Component({
   selector: 'app-purchase-history',
   standalone: true,
@@ -11,7 +11,7 @@ import { AuthenticationService } from '../../login/authentication.service';
 })
 export class PurchaseHistoryComponent implements OnInit {
   constructor(private authService: AuthenticationService) {}
-  serviceHistory: any[] = [];
+  serviceHistory: DisplayHistoryItem[] = [];
 
   ngOnInit() {
     const customerId = this.authService.getLoggedInUserId();
@@ -42,7 +42,7 @@ export class PurchaseHistoryComponent implements OnInit {
   /**
    * Helper to convert boolean database columns into a readable list of strings
    */
-  private getWarrantyList(item: any): string[] {
+  private getWarrantyList(item: ServiceHistoryResponse): string[] {
     const services: string[] = [];
     
     // Note: Use exact property names from your .NET Model/SQL columns

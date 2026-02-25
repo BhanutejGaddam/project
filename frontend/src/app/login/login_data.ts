@@ -25,3 +25,10 @@ export const loginData: LoginDataformat[] = [
     role: 'dealer',
   },
 ];
+
+export interface AuthResponse {
+  success: boolean;
+  token: string;
+  role: string;
+  id: string;
+}

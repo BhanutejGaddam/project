@@ -2,6 +2,7 @@ import { Injectable, signal,computed, inject } from '@angular/core';
 import { customerData } from './customer.interface';
 import { HttpClient } from '@angular/common/http';
 import { Observable } from 'rxjs';
+import { CustomerApiResponse, AddCustomerPayload, AddCustomerResponse } from './customer.interface';
 
 @Injectable({providedIn:'root'})
 export class CustomerService{
@@ -26,11 +27,11 @@ export class CustomerService{
         return this.entered_text.set(entered_value); 
     }
 
-    getMyCustomers(): Observable<customerData[]> {
-    return this.http.get<customerData[]>(`${this.FetchCustomersapiUrl}/my-customers`);
+    getMyCustomers(): Observable<CustomerApiResponse[]> {
+    return this.http.get<CustomerApiResponse[]>(`${this.FetchCustomersapiUrl}/my-customers`);
   }
 
-    addCustomer(customerData: any): Observable<any> {
-    return this.http.post(this.apiUrl, customerData);
+    addCustomer(customerData: AddCustomerPayload): Observable<AddCustomerResponse> {
+    return this.http.post<AddCustomerResponse>(this.apiUrl, customerData);
   }
 }

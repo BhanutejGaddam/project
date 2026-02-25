@@ -26,14 +26,14 @@ export interface RawInventoryResponse {
 
 // 2. FRONTEND Shapes (As used in your HTML/Components)
 export interface VehicleStock {
-  modelNo: number;
+  modelNo: string;
   modelName: string;
   unitPriceINR: number;
   units: number;
 }
 
 export interface SparePart {
-  partID: number;
+  partID: string;
   partName: string;
   costINR: number;
   units: number; // Added units to match the new schema

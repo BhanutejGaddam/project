@@ -1,7 +1,7 @@
 import { inject, Injectable } from '@angular/core';
 import { HttpClient, HttpHeaders } from '@angular/common/http';
 import { Observable } from 'rxjs';
-import { VehicleInventory, SparePartInventory, InventoryResponse } from './vehicle.model';
+import { VehicleInventory, SparePartInventory, InventoryResponse,AddSparePartResponse,AddVehicleResponse } from './vehicle.model';
 
 @Injectable({
   providedIn: 'root'
@@ -30,8 +30,8 @@ export class VehicleService {
   /**
    * Add a new vehicle to the inventory
    */
-  addVehicle(vehicle: VehicleInventory): Observable<any> {
-    return this.http.post(`${this.apiUrl}/add-vehicle`, vehicle, {
+  addVehicle(vehicle: VehicleInventory): Observable<AddVehicleResponse> {
+    return this.http.post<AddVehicleResponse>(`${this.apiUrl}/add-vehicle`, vehicle, {
       headers: this.getAuthHeaders()
     });
   }
@@ -39,8 +39,8 @@ export class VehicleService {
   /**
    * Add a new spare part to the inventory
    */
-  addSparePart(part: SparePartInventory): Observable<any> {
-    return this.http.post(`${this.apiUrl}/add-spare-part`, part, {
+  addSparePart(part: SparePartInventory): Observable<AddSparePartResponse> {
+    return this.http.post<AddSparePartResponse>(`${this.apiUrl}/add-spare-part`, part, {
       headers: this.getAuthHeaders()
     });
   }
